@@ -109,9 +109,9 @@
         if (child0.style.display === 'inline') {
             if (isHasSpecParents.length === 0 && data.playOnPageTurn === "true") {
                 console.log(1)
-                    // observeAudioAutoPlay.observe(demo)
-                var playRes = window.playAgentAudio(demo);
-                if (!playRes) return;
+                observeAudioAutoPlay.observe(demo)
+                    // var playRes = window.playAgentAudio(demo);
+                    // if (!playRes) return;
             } else {
                 demo.play();
                 console.log('demo', demo, demo.paused)
@@ -138,7 +138,7 @@
     var observeAudioAutoPlay = new IntersectionObserver((entries) => {
         entries.forEach((item, index) => {
             if (item.isIntersecting) {
-                var playRes = window.playAgentAudio(demo);
+                window.playAgentAudio(demo);
             }
         })
     });
