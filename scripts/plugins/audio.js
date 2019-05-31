@@ -1,20 +1,21 @@
-﻿(function() {
-    FX.plugins["audio"] = (function(id, option) {
-        var Audio = function(id) {
+﻿
+(function () {
+    FX.plugins["audio"] = (function (id, option) {
+        var Audio = function (id) {
             this.$target = $("#" + id);
             this.init(id, option);
         };
 
         FX.utils.inherit(FXInterface, Audio);
 
-        Audio.prototype.init = function() {
+        Audio.prototype.init = function () {
             console.log("init");
             var demo = $("#" + id)[0];
             demo.preload = "auto";
             AddListenerAudio(demo, this);
         };
 
-        Audio.prototype.reset = function(option) {
+        Audio.prototype.reset = function (option) {
             console.log("reset");
 
             var demo = this.$target[0];
@@ -33,7 +34,7 @@
             if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0) {
                 function autoPlay() {
                     var playRes = window.playAgentAudio(demo);
-                    if (!playRes) return;
+                    if(!playRes) return;
                     child0.style.display = 'none';
                     child1.style.display = 'inline';
                 }
@@ -42,11 +43,11 @@
 
         };
 
-        Audio.prototype.destroy = function(option) {
+        Audio.prototype.destroy = function (option) {
             console.log("destroy");
             var demo = this.$target[0];
             var isHasSpecParents = parents("div[title='PopupContent'][title='Animation']", demo);
-            if (isHasSpecParents.length === 0 && this.data.playOnPageTurn === "true") {
+            if(isHasSpecParents.length === 0 && this.data.playOnPageTurn === "true"){
                 window.pauseAgentAudio(demo);
             } else {
                 demo.pause();
@@ -62,6 +63,7 @@
         var child0 = GetChild('', pardiv, 0);
         var child1 = GetChild('', pardiv, 1);
         var jsonnode = GetChild('input', pardiv, 0);
+        var isHasSpecParents = parents("div[title='PopupContent'][title='Animation']", demo);
 
         //超链接的音频没有input节点
         if (jsonnode === undefined) {
@@ -107,41 +109,27 @@
         var data = eval('(' + jsonnode.value + ')');
 
         if (child0.style.display === 'inline') {
-            if (isHasSpecParents.length === 0 && data.playOnPageTurn === "true") {
-                console.log(1)
-                    // observeAudioAutoPlay.observe(demo)
+            if(isHasSpecParents.length === 0 && data.playOnPageTurn === "true"){
                 var playRes = window.playAgentAudio(demo);
-                if (!playRes) return;
+                if(!playRes) return;
             } else {
                 demo.play();
-                console.log('demo', demo, demo.paused)
-                if (demo.paused) return;
+                if(demo.paused) return;
             }
-
+            
             child0.style.display = 'none';
             child1.style.display = 'inline';
-        } else {
-            console.log(2)
+        }
+        else {
             child0.style.display = 'inline';
             child1.style.display = 'none';
-            if (isHasSpecParents.length === 0 && data.playOnPageTurn === "true") {
-                console.log(3)
+            if(isHasSpecParents.length === 0 && data.playOnPageTurn === "true"){
                 window.pauseAgentAudio(demo);
             } else {
-                console.log(4)
                 demo.pause();
             }
-
+            
         }
     }
-
-    var observeAudioAutoPlay = new IntersectionObserver((entries) => {
-        entries.forEach((item, index) => {
-            if (item.isIntersecting) {
-                window.playAgentAudio(demo);
-            }
-        })
-    });
-
 
 })();
