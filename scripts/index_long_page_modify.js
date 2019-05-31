@@ -11,7 +11,7 @@ window.onloadOver = function() {
     bgmController.controlAutoBgm(0, undefined);
 
     window.fx = new FXH5(fx_options);
-    // fx.reset("0");
+    fx.reset("0");
 };
 
 
