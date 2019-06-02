@@ -49,7 +49,7 @@ SizeAdjustor.prototype = {
             objW = Math.ceil(objW);
             finalW = objW;
             finalH = clientH;
-        } else if (adjustType === "widthAdjust") {
+        } else if (adjustType === "widthAdjust" || adjustType==="longPageAdjust") {
             var objH = clientW * pg_Height / pg_Width;
             objH = Math.ceil(objH);
             finalW = clientW;

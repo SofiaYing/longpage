@@ -17,6 +17,13 @@
 
         Audio.prototype.reset = function (option) {
             console.log("reset");
+            // 获取布局json
+            var json;
+            json = document.getElementById("json");
+            if (json == undefined) return;
+            var strdata = document.getElementById('json').value;
+            var jsondata = eval("(" + strdata + ")");
+            var isLongPage = jsondata.adjustType === "longPageAdjust"
 
             var demo = this.$target[0];
             var pardiv = demo.parentNode;
@@ -31,8 +38,11 @@
             }
             var data = eval('(' + jsonnode.value + ')');
             this.data = data;
-            if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0) {
+            if (data.playOnPageTurn === 'true' && isLongPage) {
+                observeAudioAutoPlay.observe($(demo).parent()[0])
+            }else if(data.playOnPageTurn === "true" && isHasSpecParents.length === 0) {
                 function autoPlay() {
+                    console.log(demo);
                     var playRes = window.playAgentAudio(demo);
                     if(!playRes) return;
                     child0.style.display = 'none';
@@ -59,6 +69,7 @@
     });
 
     function AddListenerAudio(demo, Audio) {
+        console.log("demo:",demo)
         var pardiv = demo.parentNode;
         var child0 = GetChild('', pardiv, 0);
         var child1 = GetChild('', pardiv, 1);
@@ -131,5 +142,24 @@
             
         }
     }
+
+    var observeAudioAutoPlay = new IntersectionObserver((entries) => {
+        console.log('ssss');
+        entries.forEach((item, index) => {
+            var child0 = GetChild('', item.target, 0);
+            var child1 = GetChild('', item.target, 1);
+            if (item.isIntersecting) {
+                console.log('in',item.target);
+                var res = window.playAgentAudio($(item.target).children('audio')[0]);
+                if(!res) return;
+                child0.style.display = 'none';
+                child1.style.display = 'inline';
+            }else{
+                window.pauseAgentAudio($(item.target).children('audio')[0]);
+                // 下一次重新开始播放
+                $(item.target).children('audio')[0].currentTime = 0;
+            }
+        })
+    });
 
 })();
