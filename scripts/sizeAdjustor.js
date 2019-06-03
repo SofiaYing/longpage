@@ -80,6 +80,7 @@ SizeAdjustor.prototype = {
     },
 
     adjustContainer: function() {
+        var adjustType = this.jsonData.adjustType;
         var clientH = document.documentElement.clientHeight;
         var clientW = document.documentElement.clientWidth;
         var container = document.getElementById("swiper_container");
