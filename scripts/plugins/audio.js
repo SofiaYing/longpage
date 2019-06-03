@@ -91,8 +91,9 @@
                 child1.style.display = 'none';
             }
         }
-        console.log('demoooooooo', demo)
-        bindEvent(demo, 'ended', audioEndedEvent);
+
+        // bindEvent(demo, 'ended', audioEndedEvent);
+        demo.addEventListener('ended', audioEndedEvent)
 
         bindEvent(child0, 'vmousedown', PreventDefault);
         bindEvent(child0, 'vmouseup', PreventDefault);
