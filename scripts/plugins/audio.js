@@ -85,15 +85,13 @@
         bindEvent(pardiv, 'vpointerdown', childClickEvent);
 
         function audioEndedEvent(e) {
-            alert(child0.style.display)
             if (child0.style.display !== 'inline') {
                 child0.style.display = 'inline';
                 child1.style.display = 'none';
             }
         }
 
-        // bindEvent(demo, 'ended', audioEndedEvent);
-        demo.addEventListener('ended', audioEndedEvent)
+        bindEvent(demo, 'ended', audioEndedEvent);
 
         bindEvent(child0, 'vmousedown', PreventDefault);
         bindEvent(child0, 'vmouseup', PreventDefault);
@@ -156,6 +154,8 @@
                 window.pauseAgentAudio($(item.target).children('audio')[0]);
                 // 下一次重新开始播放
                 $(item.target).children('audio')[0].currentTime = 0;
+                child0.style.display = 'inline';
+                child1.style.display = 'none';
             }
         })
     });
