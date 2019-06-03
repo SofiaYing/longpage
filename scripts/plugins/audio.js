@@ -1,21 +1,20 @@
-﻿
-(function () {
-    FX.plugins["audio"] = (function (id, option) {
-        var Audio = function (id) {
+﻿(function() {
+    FX.plugins["audio"] = (function(id, option) {
+        var Audio = function(id) {
             this.$target = $("#" + id);
             this.init(id, option);
         };
 
         FX.utils.inherit(FXInterface, Audio);
 
-        Audio.prototype.init = function () {
+        Audio.prototype.init = function() {
             console.log("init");
             var demo = $("#" + id)[0];
             demo.preload = "auto";
             AddListenerAudio(demo, this);
         };
 
-        Audio.prototype.reset = function (option) {
+        Audio.prototype.reset = function(option) {
             console.log("reset");
             // 获取布局json
             var json;
@@ -40,11 +39,11 @@
             this.data = data;
             if (data.playOnPageTurn === 'true' && isLongPage) {
                 observeAudioAutoPlay.observe($(demo).parent()[0])
-            }else if(data.playOnPageTurn === "true" && isHasSpecParents.length === 0) {
+            } else if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0) {
                 function autoPlay() {
                     console.log(demo);
                     var playRes = window.playAgentAudio(demo);
-                    if(!playRes) return;
+                    if (!playRes) return;
                     child0.style.display = 'none';
                     child1.style.display = 'inline';
                 }
@@ -53,11 +52,11 @@
 
         };
 
-        Audio.prototype.destroy = function (option) {
+        Audio.prototype.destroy = function(option) {
             console.log("destroy");
             var demo = this.$target[0];
             var isHasSpecParents = parents("div[title='PopupContent'][title='Animation']", demo);
-            if(isHasSpecParents.length === 0 && this.data.playOnPageTurn === "true"){
+            if (isHasSpecParents.length === 0 && this.data.playOnPageTurn === "true") {
                 window.pauseAgentAudio(demo);
             } else {
                 demo.pause();
@@ -69,7 +68,7 @@
     });
 
     function AddListenerAudio(demo, Audio) {
-        console.log("demo:",demo)
+        console.log("demo:", demo)
         var pardiv = demo.parentNode;
         var child0 = GetChild('', pardiv, 0);
         var child1 = GetChild('', pardiv, 1);
@@ -120,41 +119,39 @@
         var data = eval('(' + jsonnode.value + ')');
 
         if (child0.style.display === 'inline') {
-            if(isHasSpecParents.length === 0 && data.playOnPageTurn === "true"){
+            if (isHasSpecParents.length === 0 && data.playOnPageTurn === "true") {
                 var playRes = window.playAgentAudio(demo);
-                if(!playRes) return;
+                if (!playRes) return;
             } else {
                 demo.play();
-                if(demo.paused) return;
+                if (demo.paused) return;
             }
-            
+
             child0.style.display = 'none';
             child1.style.display = 'inline';
-        }
-        else {
+        } else {
             child0.style.display = 'inline';
             child1.style.display = 'none';
-            if(isHasSpecParents.length === 0 && data.playOnPageTurn === "true"){
+            if (isHasSpecParents.length === 0 && data.playOnPageTurn === "true") {
                 window.pauseAgentAudio(demo);
             } else {
                 demo.pause();
             }
-            
+
         }
     }
 
     var observeAudioAutoPlay = new IntersectionObserver((entries) => {
-        console.log('ssss');
         entries.forEach((item, index) => {
             var child0 = GetChild('', item.target, 0);
             var child1 = GetChild('', item.target, 1);
             if (item.isIntersecting) {
-                console.log('in',item.target);
+                console.log('in', item.target);
                 var res = window.playAgentAudio($(item.target).children('audio')[0]);
-                if(!res) return;
+                if (!res) return;
                 child0.style.display = 'none';
                 child1.style.display = 'inline';
-            }else{
+            } else {
                 window.pauseAgentAudio($(item.target).children('audio')[0]);
                 // 下一次重新开始播放
                 $(item.target).children('audio')[0].currentTime = 0;
