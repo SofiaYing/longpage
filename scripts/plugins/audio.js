@@ -41,7 +41,6 @@
                 observeAudioAutoPlay.observe($(demo).parent()[0])
             } else if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0) {
                 function autoPlay() {
-                    console.log(demo);
                     var playRes = window.playAgentAudio(demo);
                     if (!playRes) return;
                     child0.style.display = 'none';
@@ -86,11 +85,13 @@
         bindEvent(pardiv, 'vpointerdown', childClickEvent);
 
         function audioEndedEvent(e) {
+            alert(child0.style.display)
             if (child0.style.display !== 'inline') {
                 child0.style.display = 'inline';
                 child1.style.display = 'none';
             }
         }
+        console.log('demoooooooo', demo)
         bindEvent(demo, 'ended', audioEndedEvent);
 
         bindEvent(child0, 'vmousedown', PreventDefault);
@@ -146,7 +147,6 @@
             var child0 = GetChild('', item.target, 0);
             var child1 = GetChild('', item.target, 1);
             if (item.isIntersecting) {
-                console.log('in', item.target);
                 var res = window.playAgentAudio($(item.target).children('audio')[0]);
                 if (!res) return;
                 child0.style.display = 'none';
