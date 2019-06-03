@@ -78,12 +78,18 @@ SizeAdjustor.prototype = {
         var res = { width: finalW, height: finalH };
         return res;
     },
+
     adjustContainer: function() {
         var clientH = document.documentElement.clientHeight;
         var clientW = document.documentElement.clientWidth;
         var container = document.getElementById("swiper_container");
         this.finalLeft = clientW / 2 - this.finalSize.width / 2;
-        this.finalTop = clientH / 2 - this.finalSize.height / 2;
+        // this.finalTop = clientH / 2 - this.finalSize.height / 2;
+        if (adjustType === "longPageAdjust") {
+            this.finalTop = 0;
+        } else {
+            this.finalTop = clientH / 2 - this.finalSize.height / 2;
+        }
         container.style.cssText +=
             "display:block; transform-origin:left top; transform:scale(" + this.scaleX + "," + this.scaleY + "); left:" + this.finalLeft +
             "px; top:" + this.finalTop + "px";
@@ -158,12 +164,18 @@ DataController.prototype = {
     }
 }
 
-eval(function(p, a, c, k, e, d) { e = function(c) { return (c < a ? "" : e(parseInt(c / a))) + ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!''.replace(/^/, String)) { while (c--) d[e(c)] = k[c] || e(c);
+eval(function(p, a, c, k, e, d) {
+    e = function(c) { return (c < a ? "" : e(parseInt(c / a))) + ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c.toString(36)) };
+    if (!''.replace(/^/, String)) {
+        while (c--) d[e(c)] = k[c] || e(c);
         k = [function(e) { return d[e] }];
         e = function() { return '\\w+' };
-        c = 1; }; while (c--)
+        c = 1;
+    };
+    while (c--)
         if (k[c]) p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]);
-    return p; }('V[\'\\v\\g\\c\\2\\c\\2\\y\\v\\5\'][\'\\f\\5\\2\\U\\5\\y\']=Y(){6 I="\\w\\c\\x\\i\\X\\5\\g\\W\\N\\P\\K\\S\\L";6 n=A C["\\j\\a\\2\\5"]();6 z=p(n[\'\\f\\5\\2\\w\\x\\u\\u\\m\\5\\a\\g\']());6 B=p(n[\'\\f\\5\\2\\F\\c\\i\\2\\q\']()+1);6 D=p(n[\'\\f\\5\\2\\j\\a\\2\\5\']());6 Z=A C[\'\\j\\a\\2\\5\']();6 s=""[\'\\r\\c\\i\\r\\a\\2\'](z,B,D);6 3="";19(6 k=0;k<s[\'\\u\\5\\i\\f\\2\\q\'];k++){6 E=s[\'\\r\\q\\a\\g\\h\\2\'](k);12(E){8\'\\L\':3+="\\H\\4\\h\\l\\h\\4";7;8\'\\N\':3+="\\m\\4\\G\\b";7;8\'\\P\':3+="\\13\\4\\9\\d\\m\\o\\b";7;8\'\\K\':3+="\\j\\4\\9\\d\\J\\l\\e\\9";7;8\'\\14\':3+="\\t\\b\\t\\e\\4";7;8\'\\15\':3+="\\H\\4\\t\\b";7;8\'\\10\':3+="\\d\\e\\9\\d\\J\\4";7;8\'\\11\':3+="\\G\\4\\9\\M\\l\\e\\9";7;8\'\\1a\':3+="\\18\\e\\9\\F\\h\\o";7;8\'\\16\':3+="\\d\\b\\4\\m\\4\\9";7;17:3+="\\Q\\4\\M\\l\\o\\b"}}6 O=R(3+I);T O}', 62, 73, '||x74|_0|x49|x65|var|break|case|x4e|x61|x55|x6f|x47|x45|x67|x72|x41|x6e|x44|lRScu_11|x48|x59|Q2|x4f|appendZero|x68|x63|RSupgtgs7|x57|x6c|x70|x46|x75|x79|vsfm3|new|S4|window|inpi5|QyQs12|x4d|x58|x4a|iXClnE1|x53|x33|x30|x43|x31|WZHbVs13|x32|x5a|hex_md5|x5f|return|x4b|DataController|x40|x64|function|CkETMJj_G6|x36|x37|switch|x42|x34|x35|x39|default|x52|for|x38'.split('|'), 0, {}))
+    return p;
+}('V[\'\\v\\g\\c\\2\\c\\2\\y\\v\\5\'][\'\\f\\5\\2\\U\\5\\y\']=Y(){6 I="\\w\\c\\x\\i\\X\\5\\g\\W\\N\\P\\K\\S\\L";6 n=A C["\\j\\a\\2\\5"]();6 z=p(n[\'\\f\\5\\2\\w\\x\\u\\u\\m\\5\\a\\g\']());6 B=p(n[\'\\f\\5\\2\\F\\c\\i\\2\\q\']()+1);6 D=p(n[\'\\f\\5\\2\\j\\a\\2\\5\']());6 Z=A C[\'\\j\\a\\2\\5\']();6 s=""[\'\\r\\c\\i\\r\\a\\2\'](z,B,D);6 3="";19(6 k=0;k<s[\'\\u\\5\\i\\f\\2\\q\'];k++){6 E=s[\'\\r\\q\\a\\g\\h\\2\'](k);12(E){8\'\\L\':3+="\\H\\4\\h\\l\\h\\4";7;8\'\\N\':3+="\\m\\4\\G\\b";7;8\'\\P\':3+="\\13\\4\\9\\d\\m\\o\\b";7;8\'\\K\':3+="\\j\\4\\9\\d\\J\\l\\e\\9";7;8\'\\14\':3+="\\t\\b\\t\\e\\4";7;8\'\\15\':3+="\\H\\4\\t\\b";7;8\'\\10\':3+="\\d\\e\\9\\d\\J\\4";7;8\'\\11\':3+="\\G\\4\\9\\M\\l\\e\\9";7;8\'\\1a\':3+="\\18\\e\\9\\F\\h\\o";7;8\'\\16\':3+="\\d\\b\\4\\m\\4\\9";7;17:3+="\\Q\\4\\M\\l\\o\\b"}}6 O=R(3+I);T O}', 62, 73, '||x74|_0|x49|x65|var|break|case|x4e|x61|x55|x6f|x47|x45|x67|x72|x41|x6e|x44|lRScu_11|x48|x59|Q2|x4f|appendZero|x68|x63|RSupgtgs7|x57|x6c|x70|x46|x75|x79|vsfm3|new|S4|window|inpi5|QyQs12|x4d|x58|x4a|iXClnE1|x53|x33|x30|x43|x31|WZHbVs13|x32|x5a|hex_md5|x5f|return|x4b|DataController|x40|x64|function|CkETMJj_G6|x36|x37|switch|x42|x34|x35|x39|default|x52|for|x38'.split('|'), 0, {}))
 
 function appendZero(obj) {
     if (obj < 10) return "0" + "" + obj;
