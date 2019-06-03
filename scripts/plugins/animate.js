@@ -42,15 +42,9 @@
                         // $(animationDiv[0]).on('click', function() {
                         //         $(this).addClass('animated fadeOut ' + 'delay-' + item.playDelay + 's')
                         //     })
-                        clickAnimationArray.push({ node: animationDiv[0], isClick: false })
+                        clickAnimationArray.push({ node: animationDiv[0], isClickAnimationEnd: true, isClick: false, isInView: false })
                             // currentClickAnimationArray = clickAnimationArray
                         intersectionObserverClickAnimation.observe(animationDiv[0])
-                        $(animationDiv[0]).on('click', function() {
-                            return false
-                        })
-
-                        // intersectionObserverClickAnimation.observe(animationDiv[0])
-
 
                         clickAnimationCount += 1
                     }
@@ -58,38 +52,28 @@
             })
 
             $('body').on('click', function() {
-                console.log('click', currentClickAnimationArray, lastIndex)
-                if (currentClickAnimationArray.length > lastIndex) {
-                    var inputNode = $(currentClickAnimationArray[lastIndex]).parent().children('input')
-                    var value = animationDataProcess(inputNode)
-                    $(currentClickAnimationArray[lastIndex]).animateCss('animated fadeOut ' + 'delay-' + value.playDelay + 's')
-                    lastIndex += 1
-                }
-                return false
-            })
-            console.log('clickAnimationArray', clickAnimationArray)
-
-            if (clickAnimationArray.length > 0) {
-                $('#divpar').scroll(function() {
-                    // lastClickAnimationArray = currentClickAnimationArray
-                    // currentClickAnimationArray = []
-
-                    $.each(lastClickAnimationArray, function(index, item) {
-                        if (lastClickAnimationArray.length > 0) {
-                            if (currentClickAnimationArray[0] === lastClickAnimationArray[0]) {
-                                // $(currentClickAnimationArray[lastIndex]).addClass('animated fadeOut')
-                            } else {
-                                // $(currentClickAnimationArray[0]).addClass('animated fadeOut')
-                                lastIndex = 0
-                            }
-                        } else {
-                            lastIndex = 0
-                                // $(currentClickAnimationArray[lastIndex]).addClass('animated fadeOut')
-                        }
-                    })
-
+                var clickIndex = clickAnimationArray.findIndex(function(item) {
+                    return !item.isClick && item.isInView
                 })
-            }
+
+                if (clickIndex > -1) {
+                    clickAnimationArray[clickIndex].isClickAnimationEnd = false
+                    clickAnimationArray[clickIndex].isClick = true
+
+                    var inputNode = $(clickAnimationArray[clickIndex].node).parent().children('input')
+                    var value = animationDataProcess(inputNode)
+
+                    var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend'
+
+                    $(clickAnimationArray[clickIndex].node).addClass('animated bounceInUp ' + 'delay-' + value.playDelay + 's').one(animationEnd, function(event) {
+                        event.stopPropagation()
+                        clickAnimationArray[clickIndex].isClickAnimationEnd = true
+                    });
+                }
+
+                console.log('clickAnimationArray', clickAnimationArray)
+
+            })
 
         };
 
@@ -108,10 +92,10 @@
             $.fn.extend({
                 animateCss: function(animationName) {
                     var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-                    $(this).addClass('animated ' + animationName).one(animationEnd, function() {
-
+                    $(this).addClass('animated ' + animationName).one(animationEnd, function(event) {
                         $(this).removeClass('animated ' + animationName);
-                        return false
+
+                        event.stopPropagation() // alert(event.isPropagationStopped())
                     });
                 }
             });
@@ -120,22 +104,30 @@
 
         // 监听视窗：进入可视窗口单击可触发动画
         var intersectionObserverClickAnimation = new IntersectionObserver((entries) => {
-            if (!observeCallFlag) {
 
-            }
             entries.forEach((item, index) => {
-                console.log('currentClickAnimationArray', currentClickAnimationArray)
+                var inputNode = $(item.target).parent().children('input')
+                var value = animationDataProcess(inputNode)
 
-                if (item.isIntersecting) {
+                if (item.intersectionRatio > 0) {
+                    console.log('ratio', item.intersectionRatio)
+                    var inIndex = clickAnimationArray.findIndex(function(arrItem) {
+                        return arrItem.node === item.target
+                    })
+                    if (clickAnimationArray[inIndex].isClickAnimationEnd) {
+                        clickAnimationArray[inIndex].isInView = true
+                    }
 
-                    console.log('item', item.target)
-                    var inputNode = $(item.target).parent().children('input')
-                    var value = animationDataProcess(inputNode)
-
-                    currentClickAnimationArray.push(item.target)
-
-                    console.log('1111111', currentClickAnimationArray)
-                        // $(item.target).removeClass('animated fadeOut') // value.animations.effect
+                    // value.animations.effect
+                } else {
+                    var outIndex = clickAnimationArray.findIndex(function(arrItem) {
+                        return arrItem.node === item.target
+                    })
+                    if (clickAnimationArray[outIndex].isClickAnimationEnd) {
+                        $(item.target).removeClass('animated bounceInUp')
+                        clickAnimationArray[outIndex].isClick = false
+                        clickAnimationArray[outIndex].isInView = false
+                    }
                 }
             })
         });
@@ -145,7 +137,6 @@
         // 监听视窗:进入可视窗口自动触发动画
         var intersectionObserverAutoAnimation = new IntersectionObserver((entries) => {
             entries.forEach((item) => {
-                // console.log(item)
                 if (item.intersectionRatio > 0) {
                     var inputNode = $(item.target).parent().children('input')
                     var value = animationDataProcess(inputNode)
@@ -161,7 +152,7 @@
                     $(item.target).find('img').animateCss('fadeInUpBig ' + 'delay-' + value.animations.playDelay + 's')
 
                 } else {
-                    // $(item.target).removeClass('animated fadeInUp')
+
                 }
             })
         });

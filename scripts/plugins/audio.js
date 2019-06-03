@@ -16,13 +16,8 @@
 
         Audio.prototype.reset = function(option) {
             console.log("reset");
-            // 获取布局json
-            var json;
-            json = document.getElementById("json");
-            if (json == undefined) return;
-            var strdata = document.getElementById('json').value;
-            var jsondata = eval("(" + strdata + ")");
-            var isLongPage = jsondata.adjustType === "longPageAdjust"
+            //判断是否为长页面
+            var isLongPage = window.sizeAdjustor.jsonData.adjustType === "longPageAdjust"
 
             var demo = this.$target[0];
             var pardiv = demo.parentNode;
@@ -67,7 +62,6 @@
     });
 
     function AddListenerAudio(demo, Audio) {
-        console.log("demo:", demo)
         var pardiv = demo.parentNode;
         var child0 = GetChild('', pardiv, 0);
         var child1 = GetChild('', pardiv, 1);
@@ -104,7 +98,6 @@
 
         var pardiv = event.target.parentNode;
 
-        //var pardiv = demo.parentNode;
         var child0 = GetChild('', pardiv, 0);
         var child1 = GetChild('', pardiv, 1);
         var demo = GetChild('', pardiv, 2);

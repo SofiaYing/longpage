@@ -70,7 +70,6 @@ function bindEvent(node, type, func) {
         }
     }
     if (node.addEventListener) {
-        console.log('这里')
         node.addEventListener(type, func, false);
     } else if (node.attachEvent) {
         node.attachEvent("on" + type, func);
