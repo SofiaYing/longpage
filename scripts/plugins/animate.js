@@ -58,6 +58,11 @@
 
                         var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend'
 
+                        $(clickAnimationArray[clickIndex].node).css({
+                            "animatiton-duration": value.playTime + 's',
+                            "-webkit-animation-duration": value.playTime + 's',
+                        })
+
                         $(clickAnimationArray[clickIndex].node).addClass('animated ' + value.effect + ' delay-' + value.playDelay + 's').one(animationEnd, function(event) {
                             event.stopPropagation()
                             clickAnimationArray[clickIndex].isClickAnimationEnd = true

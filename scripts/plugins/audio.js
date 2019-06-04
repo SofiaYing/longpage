@@ -84,8 +84,14 @@
                 child1.style.display = 'none';
             }
         }
+        demo.onended = function(event) {
+                if (child0.style.display !== 'inline') {
+                    child0.style.display = 'inline';
+                    child1.style.display = 'none';
+                }
+            }
+            // bindEvent(demo, 'ended', audioEndedEvent);
 
-        bindEvent(demo, 'ended', audioEndedEvent);
 
         bindEvent(child0, 'vmousedown', PreventDefault);
         bindEvent(child0, 'vmouseup', PreventDefault);
