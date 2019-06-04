@@ -45,7 +45,8 @@
             })
 
             // if (clickAnimationArray.length > 0) {
-            $('#divpar').on('click', function() {
+            // $('#divpar').on('click', function() {
+            $('.swiper-container').on('click', function() {
                     var clickIndex = clickAnimationArray.findIndex(function(item) {
                         return !item.isClick && item.isInView
                     })
