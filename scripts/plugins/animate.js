@@ -156,22 +156,6 @@
             })
         });
 
-        function animationDataProcess(node) {
-            var valueObject = {};
-            var valueTemp = JSON.parse(node[0].value)
-            var animations = valueTemp.states[0].animations
-            $.each(animations, function(index, item) {
-                    valueObject.animations = item
-                })
-                // direction: "bottom"
-                // effect: "fall"
-                // playDelay: "0"
-                // playTime: "4"
-                // type: "toAppearance-0"
-                // uid: "0-0"
-            return valueObject
-        }
-
         return new Animate(id, option);
     });
 })();
