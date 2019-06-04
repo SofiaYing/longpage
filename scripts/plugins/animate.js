@@ -45,7 +45,7 @@
             })
 
             // if (clickAnimationArray.length > 0) {
-            $('body').on('click', function() {
+            $('#divpar').on('click', function() {
                     alert('eeee')
                     var clickIndex = clickAnimationArray.findIndex(function(item) {
                         return !item.isClick && item.isInView
