@@ -44,8 +44,9 @@
                 })
             })
 
-            if (clickAnimationArray.length > 0) {
-                $('body').on('click', function() {
+            // if (clickAnimationArray.length > 0) {
+            $('body').on('click', function() {
+                    alert('eeee')
                     var clickIndex = clickAnimationArray.findIndex(function(item) {
                         return !item.isClick && item.isInView
                     })
@@ -73,7 +74,7 @@
                     console.log('clickAnimationArray', clickAnimationArray)
 
                 })
-            }
+                // }
 
         };
 
