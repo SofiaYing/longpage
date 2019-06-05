@@ -34,16 +34,6 @@
             this.data = data;
             if (isLongPage) {
                 observeAudioAutoPlay.observe($(demo).parent()[0])
-                if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0 && !($(demo).attr('loop'))) {
-                    demo.addEventListener('ended', function(event) {
-                        alert('end')
-                            // console.log('end', event, $(event).attr('loop'))
-                        if (child0.style.display !== 'inline') {
-                            child0.style.display = 'inline';
-                            child1.style.display = 'none';
-                        }
-                    }, false)
-                }
             } else if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0) {
                 function autoPlay() {
                     var playRes = window.playAgentAudio(demo);
@@ -95,8 +85,7 @@
             }
         }
 
-        // bindEvent(demo, 'ended', audioEndedEvent);
-
+        bindEvent(demo, 'ended', audioEndedEvent);
 
         bindEvent(child0, 'vmousedown', PreventDefault);
         bindEvent(child0, 'vmouseup', PreventDefault);
@@ -148,6 +137,7 @@
     var observeAudioAutoPlay = new IntersectionObserver((entries) => {
         entries.forEach((item, index) => {
             var demo = $(item.target).children('audio')[0]
+
             var data = dataProcess(demo)
             var child0 = GetChild('', item.target, 0);
             var child1 = GetChild('', item.target, 1);
