@@ -79,6 +79,7 @@
         bindEvent(pardiv, 'vpointerdown', childClickEvent);
 
         function audioEndedEvent(e) {
+            alert('audioend')
             if (child0.style.display !== 'inline') {
                 child0.style.display = 'inline';
                 child1.style.display = 'none';
