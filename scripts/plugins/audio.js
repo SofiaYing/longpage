@@ -151,7 +151,11 @@
                         child0.style.display = 'none';
                         child1.style.display = 'inline';
                     }
-                    setTimeout(autoPlay, data.playDelay);
+                    if (data.playDelay > 0) {
+                        setTimeout(autoPlay, data.playDelay);
+                    } else {
+                        autoPlay()
+                    }
                 }
             } else {
                 window.pauseAgentAudio(demo);
