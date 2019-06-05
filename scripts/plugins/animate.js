@@ -133,12 +133,12 @@
                 var value = autoAnimationArray[index].animations
 
                 if (item.intersectionRatio > 0) {
-                    $(item.target).find('img').css({
+                    $(item.target).find('div').css({
                         "animatiton-duration": value.playTime + 's',
                         "-webkit-animation-duration": value.playTime + 's',
                     })
 
-                    $(item.target).find('img').addClass('animated ' + value.effect + ' delay-' + value.playDelay + 's')
+                    $(item.target).find('div').addClass('animated ' + value.effect + ' delay-' + value.playDelay + 's')
 
                     if (value.type.charAt(0) === 't') {
                         $(item.target).css({ 'opacity': 0 })
@@ -151,10 +151,10 @@
                     })
                     if (index > -1) {
                         if (clickAnimationArray[index].isClickAnimationEnd) {
-                            $(item.target).find('img').removeClass('animated ' + value.effect + ' delay-' + value.playDelay + 's')
+                            $(item.target).find('div').removeClass('animated ' + value.effect + ' delay-' + value.playDelay + 's')
                         }
                     } else {
-                        $(item.target).find('img').removeClass('animated ' + value.effect + ' delay-' + value.playDelay + 's')
+                        $(item.target).find('div').removeClass('animated ' + value.effect + ' delay-' + value.playDelay + 's')
 
                     }
                 }

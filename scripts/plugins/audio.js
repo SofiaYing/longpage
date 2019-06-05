@@ -32,9 +32,10 @@
             }
             var data = eval('(' + jsonnode.value + ')');
             this.data = data;
-            if (isLongPage) {
-                observeAudioAutoPlay.observe($(demo).parent()[0])
-            } else if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0) {
+            // if (isLongPage) {
+            //     observeAudioAutoPlay.observe($(demo).parent()[0])
+            // } else 
+            if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0) {
                 function autoPlay() {
                     var playRes = window.playAgentAudio(demo);
                     if (!playRes) return;
@@ -152,7 +153,7 @@
                         child0.style.display = 'none';
                         child1.style.display = 'inline';
                     }
-                    setTimeout(autoPlay, data.playDelay * 10);
+                    setTimeout(autoPlay, data.playDelay);
                 }
             } else {
                 window.pauseAgentAudio(demo);
