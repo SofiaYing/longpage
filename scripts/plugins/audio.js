@@ -32,7 +32,7 @@
             }
             var data = eval('(' + jsonnode.value + ')');
             this.data = data;
-            if (data.playOnPageTurn === 'true' && isLongPage) {
+            if (isLongPage) {
                 observeAudioAutoPlay.observe($(demo).parent()[0])
             } else if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0) {
                 function autoPlay() {
@@ -84,13 +84,8 @@
                 child1.style.display = 'none';
             }
         }
-        demo.onended = function(event) {
-                if (child0.style.display !== 'inline') {
-                    child0.style.display = 'inline';
-                    child1.style.display = 'none';
-                }
-            }
-            // bindEvent(demo, 'ended', audioEndedEvent);
+
+        bindEvent(demo, 'ended', audioEndedEvent);
 
 
         bindEvent(child0, 'vmousedown', PreventDefault);
@@ -142,21 +137,36 @@
 
     var observeAudioAutoPlay = new IntersectionObserver((entries) => {
         entries.forEach((item, index) => {
+            var demo = $(item.target).children('audio')[0]
+            var data = dataProcess(demo)
             var child0 = GetChild('', item.target, 0);
             var child1 = GetChild('', item.target, 1);
+            var isHasSpecParents = parents("div[title='PopupContent'][title='Animation']", demo);
+
             if (item.isIntersecting) {
-                var res = window.playAgentAudio($(item.target).children('audio')[0]);
-                if (!res) return;
-                child0.style.display = 'none';
-                child1.style.display = 'inline';
+                if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0) {
+                    function autoPlay() {
+                        var playRes = window.playAgentAudio(demo);
+                        if (!playRes) return;
+                        child0.style.display = 'none';
+                        child1.style.display = 'inline';
+                    }
+                    setTimeout(autoPlay, data.playDelay * 10);
+                }
             } else {
-                window.pauseAgentAudio($(item.target).children('audio')[0]);
+                window.pauseAgentAudio(demo);
                 // 下一次重新开始播放
-                $(item.target).children('audio')[0].currentTime = 0;
+                demo.currentTime = 0;
                 child0.style.display = 'inline';
                 child1.style.display = 'none';
             }
         })
     });
+
+    function dataProcess(node) {
+        var inputNode = $(node).parent().children('input')
+        var value = JSON.parse(inputNode[0].value)
+        return value
+    }
 
 })();

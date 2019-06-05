@@ -11,8 +11,37 @@ window.onloadOver = function() {
     bgmController.controlAutoBgm(0, undefined);
 
     window.fx = new FXH5(fx_options);
-    fx.reset("0");
+    fx.reset('0')
+        // var node = $.each(fx_options[0], function(index, item) {
+        //     console.log('fx_opt', $('#' + item.container).parent())
+        //     if (item.plugin === 'animate') {
+
+    //     } else {
+    //         observeLongpage.observe($('#' + item.container).parent()[0])
+    //     }
+    // })
+
 };
+
+// var observeLongpage = new IntersectionObserver((entries) => {
+//     entries.forEach((item, index) => {
+//         var index = fx_options[0].findIndex(function(e) {
+//             return e.container === $(item.target).children('audio').attr('id')
+//         })
+//         var tempObj = {}
+//         var tempArr = []
+//         tempArr.push(fx_options[0][index])
+//         tempObj.t = tempArr
+//         console.log('tempObj', item.target, fx_options[0][index], index)
+//         window.fx = new FXH5(tempObj);
+//         $(item.target).children('audio')
+//         if (item.isIntersecting) {
+//             fx.reset("t");
+//         } else {
+//             fx.destroy("t")
+//         }
+//     })
+// });
 
 
 (function(global, undefined) {
