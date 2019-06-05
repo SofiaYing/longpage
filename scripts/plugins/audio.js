@@ -32,10 +32,19 @@
             }
             var data = eval('(' + jsonnode.value + ')');
             this.data = data;
-            // if (isLongPage) {
-            //     observeAudioAutoPlay.observe($(demo).parent()[0])
-            // } else 
-            if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0) {
+            if (isLongPage) {
+                observeAudioAutoPlay.observe($(demo).parent()[0])
+                if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0 && !($(demo).attr('loop'))) {
+                    demo.addEventListener('ended', function(event) {
+                        alert('end')
+                            // console.log('end', event, $(event).attr('loop'))
+                        if (child0.style.display !== 'inline') {
+                            child0.style.display = 'inline';
+                            child1.style.display = 'none';
+                        }
+                    }, false)
+                }
+            } else if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0) {
                 function autoPlay() {
                     var playRes = window.playAgentAudio(demo);
                     if (!playRes) return;
@@ -80,14 +89,13 @@
         bindEvent(pardiv, 'vpointerdown', childClickEvent);
 
         function audioEndedEvent(e) {
-            alert('audioend')
             if (child0.style.display !== 'inline') {
                 child0.style.display = 'inline';
                 child1.style.display = 'none';
             }
         }
 
-        bindEvent(demo, 'ended', audioEndedEvent);
+        // bindEvent(demo, 'ended', audioEndedEvent);
 
 
         bindEvent(child0, 'vmousedown', PreventDefault);
