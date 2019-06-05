@@ -145,17 +145,17 @@
 
             if (item.isIntersecting) {
                 if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0) {
-                    function autoPlay() {
-                        var playRes = window.playAgentAudio(demo);
-                        if (!playRes) return;
-                        child0.style.display = 'none';
-                        child1.style.display = 'inline';
-                    }
-                    if (data.playDelay > 0) {
-                        setTimeout(autoPlay, data.playDelay);
-                    } else {
-                        autoPlay()
-                    }
+                    // function autoPlay() {
+                    var playRes = window.playAgentAudio(demo);
+                    if (!playRes) return;
+                    child0.style.display = 'none';
+                    child1.style.display = 'inline';
+                    // }
+                    // if (data.playDelay > 0) {
+                    //     setTimeout(autoPlay, data.playDelay);
+                    // } else {
+                    //     autoPlay()
+                    // }
                 }
             } else {
                 window.pauseAgentAudio(demo);
