@@ -1,4 +1,5 @@
-﻿function InitAudio() {
+﻿
+function InitAudio() {
     var arr = document.getElementsByTagName("audio");
     for (var i = 0; i < arr.length; i++) {
         AddListenerAudio(arr[i]);
@@ -13,7 +14,7 @@ function AddListenerAudio(demo) {
     var isHasSpecParents = parents("div[title='PopupContent'][title='Animation']", demo);
 
     //超链接的音频没有input节点
-    if (jsonnode === undefined) {
+    if (jsonnode === undefined) {        
         return;
     }
     var data = eval('(' + jsonnode.value + ')');
@@ -21,30 +22,36 @@ function AddListenerAudio(demo) {
     bindEvent(pardiv, 'vmousedown', PreventDefault);
 
     function parentUpEvent(e) {
-        alert('111')
         PreventDefault(e);
         if (child0.style.display === 'inline') {
             child0.style.display = 'none';
             child1.style.display = 'inline';
-            if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0 && is_weixin() === true) {
+            if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0 && is_weixin() === true)
+            {
                 try {
                     parent.playAudio();
-                } catch (e) {
+                }
+                catch (e) {
                     demo.play();
                 }
-            } else {
+            }
+            else {
                 demo.play();
             }
-        } else {
+        }
+        else {
             child0.style.display = 'inline';
             child1.style.display = 'none';
-            if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0 && is_weixin() === true) {
+            if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0 && is_weixin() === true)
+            {
                 try {
                     parent.pauseAudio();
-                } catch (e) {
+                }
+                catch (e) {
                     demo.pause();
                 }
-            } else {
+            }
+            else {
                 demo.pause();
             }
         }
@@ -71,13 +78,15 @@ function AddListenerAudio(demo) {
             if (is_weixin() === true) {
                 try {
                     parent.autoPlayAudio(demo.src, data.loop);
-                } catch (e) {
+                }
+                catch (e) {
                     demo.play();
                 }
-            } else {
+            }
+            else {
                 demo.play();
             }
         }
-        setTimeout(autoPlay, data.playDelay * 1000);
+        setTimeout(autoPlay, data.playDelay*1000);
     }
 }

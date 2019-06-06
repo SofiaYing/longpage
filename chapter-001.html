@@ -2,21 +2,24 @@
 <html xml:lang="zh-cn" xmlns:epub="http://www.idpf.org/2007/ops" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg">
 	<head>
 		<meta charset="UTF-8"></meta>
-		<title>无命题3</title>
-		<meta name="viewport" content="width=768, height=2024"></meta>
+		<title>无命题1</title>
+		<meta name="viewport" content="width=1080, height=2920"></meta>
 		<script type="text/javascript" src="scripts/base.js"></script>
 		<script type="text/javascript" src="scripts/compatibility.js"></script>
 		<script type="text/javascript" src="scripts/jquery.js"></script>
 		<script type="text/javascript" src="scripts/jquery.mobile.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="./scripts/jquery.mobile.min.css"></link>
-		<script type="text/javascript" src="scripts/animation.js"></script>
+		<link rel="stylesheet" type="text/css" href="./scripts/animate.css"></link>
+		<script type="text/javascript" src="scripts/animate.js"></script>
+		<script type="text/javascript" src="scripts/video.js"></script>
 		<script type="text/javascript" src="scripts/audio.js"></script>
 		<script type="text/javascript">$(document).ready(function()
 {
 compatibility()
-animation()
+animate()
 window.onload=function()
 {
+Initvideo()
 InitAudio()
 };
 });
@@ -24,7 +27,7 @@ InitAudio()
 		<link rel="stylesheet" type="text/css" href="CSS/book_textstyle1.css"></link>
 		<link rel="stylesheet" type="text/css" href="CSS/book_Chapter1.css"></link>
 	</head>
-	<body data-width="768" data-height="2024">
+	<body data-width="1080" data-height="2920">
 		<div class="p1para1 p1textdiv0">
 			<div id="pGrp-2" class="p1pGrpDiv-FxLi2">
 				<div class="">
@@ -32,59 +35,60 @@ InitAudio()
 						<img class="p1image5" src="Media/chapter-001image1.jpg" id="imageItem-4" alt="Media/chapter-001image1.jpg"></img>
 					</div>
 				</div>
-				<div class="">
-					<div class="p1InAdiv6">
-						<img style="top:0px;left:0px;width:100%;height:100%;display:inline;position:absolute;" src="Media/chapter-001image5.png"></img>
-						<img style="top:0px;left:0px;width:100%;height:100%;display:none;position:absolute;" src="Media/chapter-001image6.png"></img>
-						<audio src="Media/chapter-001Audio1.mp3" id="audioItem-8">Your browser does not support the audio element.	  
-		</audio>
-						<input type="hidden" name="json" value="{&quot;playOnPageTurn&quot;:&quot;true&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;loop&quot;:false}"></input>
-					</div>
-				</div>
-				<div title="Animation" id="si_80000150" style="left:-42.5210343307086px;top:-42.5209492913387px;height:2024px;width:768px;position:absolute;pointer-events:none;">
-					<div style="left:265.134px;top:544.241px;height:80px;width:265.095px;position:absolute;opacity:0.0;">
+				<div title="Animation" id="si_80000145" style="left:-42.5196850393701px;top:-42.5188289763779px;height:2920px;width:1080px;position:absolute;pointer-events:none;">
+					<div style="left:296.929px;top:472.586px;height:631px;width:553px;position:absolute;" class="animated bounceInUp">
 						<div title="groupItem" style="width:100%;height:100%;">
 							<div style="width:100%;height:100%;">
 								<img src="Media/chapter-001image2.png" id="imageItem-5" alt="Media/chapter-001image2.png" style="width:100%;height:100%;"></img>
 							</div>
 						</div>
 					</div>
-					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance-1&quot;,&quot;uid&quot;:&quot;0-1&quot;,&quot;effect&quot;:&quot;fade&quot;,&quot;direction&quot;:&quot;bottom&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;2&quot;}]}]}"></input>
+					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance-0&quot;,&quot;uid&quot;:&quot;0-0&quot;,&quot;effect&quot;:&quot;back&quot;,&quot;direction&quot;:&quot;bottom&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;2&quot;},{&quot;type&quot;:&quot;fromAppearance-1&quot;,&quot;uid&quot;:&quot;2-2&quot;,&quot;effect&quot;:&quot;fade&quot;,&quot;direction&quot;:&quot;bottom&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;2&quot;}]}]}"></input>
 				</div>
-				<div title="Animation" id="si_80000154" style="left:-42.5210343307086px;top:-42.5209492913387px;height:2024px;width:768px;position:absolute;pointer-events:none;">
-					<div style="left:191.549px;top:945.296px;height:127.407px;width:265.095px;position:absolute;">
+				<div class="">
+					<div class="p1InAdiv6">
+						<img style="top:0px;left:0px;width:100%;height:100%;display:inline;position:absolute;" src="Media/chapter-001image5.png"></img>
+						<img style="top:0px;left:0px;width:100%;height:100%;display:none;position:absolute;" src="Media/chapter-001image6.png"></img>
+						<audio preload="none" src="Media/chapter-001Audio1.mp3" loop="loop" id="audioItem-8">Your browser does not support the audio element.	  
+		</audio>
+						<input type="hidden" name="json" value="{&quot;playOnPageTurn&quot;:&quot;false&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;loop&quot;:true}"></input>
+					</div>
+				</div>
+				<div class="">
+					<div title="video" class="p1InAdiv7" id="videoItem-10">
+						<svg:svg style="top:0px;left:0px;width:100%;height:100%;position:absolute;background:#000000;"></svg:svg>
+						<video controls="controls" src="Media/chapter-001video1.mp4" poster="Media/chapter-001video4.png" style="top:0px;left:0px;width:100%;height:100%;position:absolute;display:inline;pointer-events:auto;"></video>
+						<img src="Media/chapter-001video2.png" style="top:0px;left:0px;position:absolute;z-index:80;display:none;"></img>
+						<img src="Media/chapter-001video3.png" style="top:0px;left:0px;position:absolute;z-index:80;display:none;"></img>
+						<img src="Media/Play_1.PNG" style="top:50%;left:50%;margin-left:-40px;margin-top:-40px;position:absolute;z-index:89;display:none;"></img>
+						<input type="hidden" name="json" value="{&quot;floatingWin&quot;:&quot;false&quot;,&quot;loop&quot;:false,&quot;playOnPageTurn&quot;:&quot;false&quot;}"></input>
+					</div>
+				</div>
+				<div title="Animation" id="si_80000164" style="left:-42.5196850393701px;top:-42.5188289763779px;height:2920px;width:1080px;position:absolute;pointer-events:none;">
+					<div style="left:402.501px;top:2471.816px;height:144px;width:363px;position:absolute;" class="animated bounceIn">
 						<div title="groupItem" style="width:100%;height:100%;">
 							<div style="width:100%;height:100%;">
 								<img src="Media/chapter-001image3.png" id="imageItem-6" alt="Media/chapter-001image3.png" style="width:100%;height:100%;"></img>
 							</div>
 						</div>
 					</div>
-					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;fromAppearance-0&quot;,&quot;uid&quot;:&quot;1-0&quot;,&quot;effect&quot;:&quot;slide&quot;,&quot;direction&quot;:&quot;bottom&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;2&quot;}]}]}"></input>
+					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance-0&quot;,&quot;uid&quot;:&quot;3-0&quot;,&quot;effect&quot;:&quot;pop&quot;,&quot;direction&quot;:&quot;bottom&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;2&quot;}]}]}"></input>
 				</div>
-				<div class="">
-					<div class="p1InAdiv7">
-						<img style="top:0px;left:0px;width:100%;height:100%;display:inline;position:absolute;" src="Media/chapter-001image7.png"></img>
-						<img style="top:0px;left:0px;width:100%;height:100%;display:none;position:absolute;" src="Media/chapter-001image8.png"></img>
-						<audio preload="none" src="Media/chapter-001Audio2.mp3" loop="loop" id="audioItem-9">Your browser does not support the audio element.	  
-		</audio>
-						<input type="hidden" name="json" value="{&quot;playOnPageTurn&quot;:&quot;false&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;loop&quot;:true}"></input>
-					</div>
-				</div>
-				<div title="Animation" id="si_800001D2" style="left:-42.5210343307086px;top:-42.5209492913387px;height:2024px;width:768px;position:absolute;pointer-events:none;">
-					<div style="left:322.597px;top:1731.079px;height:248.401px;width:265.095px;position:absolute;">
+				<div title="Animation" id="si_80000159" style="left:-42.5196850393701px;top:-42.5188289763779px;height:2920px;width:1080px;position:absolute;pointer-events:none;">
+					<div style="left:330.929px;top:2647.218px;height:144px;width:485px;position:absolute;" class="animated flipInY">
 						<div title="groupItem" style="width:100%;height:100%;">
 							<div style="width:100%;height:100%;">
 								<img src="Media/chapter-001image4.png" id="imageItem-7" alt="Media/chapter-001image4.png" style="width:100%;height:100%;"></img>
 							</div>
 						</div>
 					</div>
-					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance-0&quot;,&quot;uid&quot;:&quot;2-0&quot;,&quot;effect&quot;:&quot;pop&quot;,&quot;direction&quot;:&quot;bottom&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;2&quot;},{&quot;type&quot;:&quot;toAppearance-1&quot;,&quot;uid&quot;:&quot;3-2&quot;,&quot;effect&quot;:&quot;flip&quot;,&quot;direction&quot;:&quot;bottom&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;2&quot;}]}]}"></input>
+					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance-1&quot;,&quot;uid&quot;:&quot;1-1&quot;,&quot;effect&quot;:&quot;flip&quot;,&quot;direction&quot;:&quot;bottom&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;2&quot;}]}]}"></input>
 				</div>
 				<div class="">
 					<div class="p1InAdiv8">
-						<img style="top:0px;left:0px;width:100%;height:100%;display:inline;position:absolute;" src="Media/chapter-001image9.png"></img>
-						<img style="top:0px;left:0px;width:100%;height:100%;display:none;position:absolute;" src="Media/chapter-001image10.png"></img>
-						<audio src="Media/chapter-001Audio3.mp3" id="audioItem-10">Your browser does not support the audio element.	  
+						<img style="top:0px;left:0px;width:100%;height:100%;display:inline;position:absolute;" src="Media/chapter-001image7.png"></img>
+						<img style="top:0px;left:0px;width:100%;height:100%;display:none;position:absolute;" src="Media/chapter-001image8.png"></img>
+						<audio src="Media/chapter-001Audio2.mp3" id="audioItem-9">Your browser does not support the audio element.	  
 		</audio>
 						<input type="hidden" name="json" value="{&quot;playOnPageTurn&quot;:&quot;true&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;loop&quot;:false}"></input>
 					</div>

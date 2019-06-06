@@ -1,4 +1,5 @@
-﻿function GetChild(selector, parent, index) {
+﻿
+function GetChild(selector, parent, index) {
     var indexElement = 0;
     var children = parent.childNodes;
     var len = children.length;
@@ -33,39 +34,52 @@ function bindEvent(node, type, func) {
         if (type === 'vmousedown') {
             addDefaultEvent(node, 'mousedown');
             type = "touchstart";
-        } else if (type === 'vmousemove') {
+        }
+        else if (type === 'vmousemove') {
             addDefaultEvent(node, 'mousemove');
             type = "touchmove";
-        } else if (type === 'vmouseover') {
+        }
+        else if (type === 'vmouseover') {
             addDefaultEvent(node, 'mouseover');
             type = "touch";
-        } else if (type === 'vmouseup') {
+        }
+        else if (type === 'vmouseup') {
             addDefaultEvent(node, 'mouseup');
             type = "touchend";
-        } else if (type === 'vpointerdown') {
+        }
+        else if (type === 'vpointerdown') {
             addDefaultEvent(node, 'pointerdown');
             type = "touchstart";
-        } else if (type === 'vpointermove') {
+        }
+        else if (type === 'vpointermove') {
             addDefaultEvent(node, 'pointermove');
             type = "touchmove";
-        } else if (type === 'vpointerup') {
+        }
+        else if (type === 'vpointerup') {
             addDefaultEvent(node, 'pointerup');
             type = "touchend";
         }
-    } else {
+    }
+    else {
         if (type === 'vmousedown') {
             type = "mousedown";
-        } else if (type === 'vmousemove') {
+        }
+        else if (type === 'vmousemove') {
             type = "mousemove";
-        } else if (type === 'vmouseover') {
+        }
+        else if (type === 'vmouseover') {
             type = "mouseover";
-        } else if (type === 'vmouseup') {
+        }
+        else if (type === 'vmouseup') {
             type = "mouseup";
-        } else if (type === 'vpointerdown') {
+        }
+        else if (type === 'vpointerdown') {
             type = "pointerdown";
-        } else if (type === 'vpointermove') {
+        }
+        else if (type === 'vpointermove') {
             type = "pointermove";
-        } else if (type === 'vpointerup') {
+        }
+        else if (type === 'vpointerup') {
             type = "pointerup";
         }
     }
@@ -79,14 +93,14 @@ function bindEvent(node, type, func) {
 }
 
 function addDefaultEvent(node, type) {
-    node.addEventListener(type, function(e) {
+    node.addEventListener(type, function (e) {
         e.preventDefault();
     }, false);
 }
 
 function bindEvent1(node, type, func, para1) {
     var eventCallBack = func;
-    eventCallBack = function(event) {
+    eventCallBack = function (event) {
         func(para1);
     }
     bindEvent(node, type, eventCallBack);
@@ -110,10 +124,10 @@ function is_weixin() {
 }
 
 /*
- * 取得对应类和标签的HTML元素
- * clsName:给定类名
- * tagName：给定的HTML元素，如果为任意 tagName='*'
- */
+* 取得对应类和标签的HTML元素
+* clsName:给定类名
+* tagName：给定的HTML元素，如果为任意 tagName='*'
+*/
 function getElementsByClassName(clsName, tagName) {
     var ClassElements = [];
     selElements = document.getElementsByTagName(tagName);
@@ -132,12 +146,12 @@ function parents(selector, node) {
     for (; 1; cur = cur.parentNode) {
         if (cur.nodeType === 9)
             break;
-        if (isMatch(splits, cur) === false) {
+        if (isMatch(splits, cur) === false) {            
             continue;
         }
-        if (cur.nodeType === 1) {
-            matched.push(cur);
-        }
+        if ( cur.nodeType === 1 ) {
+			matched.push( cur );
+		}
     }
     return matched;
 }
@@ -156,7 +170,8 @@ function getsplit(selector) {
         if (splits2.length === 1) {
             matched.push(splits2[0]);
             matched.push("");
-        } else if (splits2.length >= 2) {
+        }
+        else if (splits2.length >= 2) {
             for (var j = 0; j < splits2.length; j++) {
                 if (splits2[j] === "")
                     continue;
@@ -179,8 +194,9 @@ function isMatch(matched, node) {
     if (matched.length > 2) {
         //有属性且都不匹配
         return false;
-    } else
-        return true;
+    }
+    else
+        return true;  
 }
 
 function pad(num, n) {
@@ -193,9 +209,9 @@ function pad(num, n) {
 }
 
 function getUserZoom() {
-    if (top === self)
+    if (top === self) 
         return 1;
-    else
+    else 
         return parent.document.getElementById("ifr1").getAttribute("userzoom");
 }
 
