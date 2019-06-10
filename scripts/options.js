@@ -1,10 +1,7 @@
 ﻿var fx_options = {
-"0": [{container: "si_80000145",plugin: "animate",option: {}},
-{container: "audioItem-8",plugin: "audio",option: {}},
-{container: "videoItem-10",plugin: "video",option: {}},
-{container: "si_80000164",plugin: "animate",option: {}},
-{container: "si_80000159",plugin: "animate",option: {}},
-{container: "audioItem-9",plugin: "audio",option: {}},
+"0": [{container: "si_8000013C",plugin: "animate",option: {}},
+{container: "si_80000142",plugin: "animate",option: {}},
+{container: "si_80000148",plugin: "animate",option: {}},
 ],
 };
 (function () {
@@ -14,9 +11,6 @@ var paths = [
 'core/fx.js',
 'core/utils.js',
 'plugins/animate.js',
-'plugins/audio.js',
-'plugins/video.js',
-'plugins/animate.css',
 ],
 baseURL = './scripts/';
 for (var i = 0, pi; pi = paths[i++];) {

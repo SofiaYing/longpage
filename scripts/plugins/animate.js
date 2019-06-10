@@ -93,6 +93,16 @@
 
         };
 
+        (function($) {
+            $.fn.extend({
+                animateCss: function(animationName) {
+                    var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+                    $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+                        $(this).removeClass('animated ' + animationName);
+                    });
+                }
+            });
+        })(jQuery);
 
         // 监听视窗：进入可视窗口单击可触发动画
         var intersectionObserverClickAnimation = new IntersectionObserver((entries) => {
@@ -128,48 +138,65 @@
         // 监听视窗:进入可视窗口自动触发动画
         var intersectionObserverAutoAnimation = new IntersectionObserver((entries) => {
             entries.forEach((item) => {
-                var index = autoAnimationArray.findIndex(function(arrItem) {
+                var autoIndex = autoAnimationArray.findIndex(function(arrItem) {
                     return arrItem.node === item.target
                 })
-                var value = autoAnimationArray[index].animations
+                var value = autoAnimationArray[autoIndex].animations
                 var effect = effectDataProcess(value)
 
+                var clickIndex = clickAnimationArray.findIndex(function(ele) {
+                    return ele.node === item.target
+                })
+
                 if (item.intersectionRatio > 0) {
+                    console.log('111')
                     $(item.target).find('img').css({
                         "animatiton-duration": value.playTime + 's',
                         "-webkit-animation-duration": value.playTime + 's',
                     })
                     var effect = effectDataProcess(value)
-                    $(item.target).find('img').addClass('animated ' + effect + ' delay-' + value.playDelay + 's')
-
-                    if (value.type.charAt(0) === 't') {
-                        $(item.target).css({ 'opacity': 1 })
-                    } else {
-                        $(item.target).css({ 'opacity': 0 })
-                    }
-                } else {
-                    var index = clickAnimationArray.findIndex(function(ele) {
-                        return ele.node === item.target
-                    })
-                    if (index > -1) {
+                        // $(item.target).find('img').addClass('animated ' + effect + ' delay-' + value.playDelay + 's')
+                    if (clickIndex > -1) {
                         if (clickAnimationArray[index].isClickAnimationEnd) {
-                            $(item.target).find('img').removeClass('animated ' + effect + ' delay-' + value.playDelay + 's')
+                            var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+                            $(item.target).find('img').addClass('animated ' + effect).one(animationEnd, function() {
+                                $(this).removeClass('animated ' + effect);
+                            });
 
                             if (value.type.charAt(0) === 't') {
-                                $(item.target).css({ 'opacity': 0 })
-                            } else {
                                 $(item.target).css({ 'opacity': 1 })
+                            } else {
+                                $(item.target).css({ 'opacity': 0 })
                             }
                         }
                     } else {
-                        $(item.target).find('img').removeClass('animated ' + effect + ' delay-' + value.playDelay + 's')
+
+                        var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+                        $(item.target).find('img').addClass('animated ' + effect).one(animationEnd, function() {
+                            $(this).removeClass('animated ' + effect);
+                        });
 
                         if (value.type.charAt(0) === 't') {
-                            $(item.target).css({ 'opacity': 0 })
-                        } else {
                             $(item.target).css({ 'opacity': 1 })
+                        } else {
+                            $(item.target).css({ 'opacity': 0 })
                         }
+
                     }
+
+                } else {
+                    console.log('222')
+                        // var index = clickAnimationArray.findIndex(function(ele) {
+                        //     return ele.node === item.target
+                        // })
+                        // if (index > -1) {
+                        //     if (clickAnimationArray[index].isClickAnimationEnd) {
+                        //         $(item.target).find('img').removeClass('animated ' + effect + ' delay-' + value.playDelay + 's')
+                        //     }
+                        // } else {
+                        //     $(item.target).find('img').removeClass('animated ' + effect + ' delay-' + value.playDelay + 's')
+
+                    // }
                 }
             })
         });
@@ -184,22 +211,22 @@
 
             var inEffectObj = {
                 'fade': 'fadeIn',
-                'slide-top': 'fadeInUp',
-                'slide-bottom': 'fadeInDown',
-                'slide-left': 'fadeInLeft',
-                'slide-right': 'fadeInRight',
-                'slide-leftTop': 'fadeInLeftTop',
-                'slide-rightTop': 'fadeInRightTop',
-                'slide-leftBottom': 'fadeInLeftBottom',
-                'slide-rightBottom': 'fadeInRightBottom',
+                'slide-top': 'fadeInUpBig',
+                'slide-bottom': 'fadeInDownBig',
+                'slide-left': 'fadeInLeftBig',
+                'slide-right': 'fadeInRightBig',
+                'slide-leftTop': 'fadeInUpBig',
+                'slide-rightTop': 'fadeInUpBig',
+                'slide-leftBottom': 'fadeInUpBig',
+                'slide-leftBottom': 'fadeInUpBig',
                 'back-top': 'bounceInUp',
                 'back-bottom': 'bounceInDown',
                 'back-left': 'bounceInLeft',
                 'back-right': 'bounceInRight',
-                'back-leftTop': 'bounceInLeftTop',
-                'back-rightTop': 'bounceInRightTop',
-                'back-leftBottom': 'bounceInLeftBottom',
-                'back-rightBottom': 'bounceInRightBottom',
+                'back-leftTop': 'bounceInUp',
+                'back-rightTop': 'bounceInUp',
+                'back-leftBottom': 'bounceInUp',
+                'back-leftBottom': 'bounceInUp',
                 'fall': 'fall',
                 'fly': 'zoomIn',
                 'pop': 'bounceIn',
@@ -207,22 +234,22 @@
             }
             var outEffectObj = {
                 'fade': 'fadeOut',
-                'slide-top': 'fadeOutUp',
-                'slide-bottom': 'fadeOutDown',
-                'slide-left': 'fadeOutLeft',
-                'slide-right': 'fadeOutRight',
-                'slide-leftTop': 'fadeOutLeftTop',
-                'slide-rightTop': 'fadeOutRightTop',
-                'slide-leftBottom': 'fadeOutLeftBottom',
-                'slide-rightBottom': 'fadeOutRightBottom',
+                'slide-top': 'fadeOutUpBig',
+                'slide-bottom': 'fadeOutDownBig',
+                'slide-left': 'fadeOutLeftBig',
+                'slide-right': 'fadeOutRightBig',
+                'slide-leftTop': 'fadeOutUpBig',
+                'slide-rightTop': 'fadeOutUpBig',
+                'slide-leftBottom': 'fadeOutUpBig',
+                'slide-leftBottom': 'fadeOutUpBig',
                 'back-top': 'bounceOutUp',
                 'back-bottom': 'bounceOutDown',
                 'back-left': 'bounceOutLeft',
                 'back-right': 'bounceOutRight',
-                'back-leftTop': 'bounceOutLeftTop',
-                'back-rightTop': 'bounceOutRightTop',
-                'back-leftBottom': 'bounceOutLeftBottom',
-                'back-rightBottom': 'bounceOutRightBottom',
+                'back-leftTop': 'bounceOutUp',
+                'back-rightTop': 'bounceOutUp',
+                'back-leftBottom': 'bounceOutUp',
+                'back-leftBottom': 'bounceOutUp',
                 'fall': 'zoomOut',
                 'fly': 'fly',
                 'pop': 'bounceOut',
