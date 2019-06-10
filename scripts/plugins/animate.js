@@ -30,10 +30,10 @@
                     var autoAnimationCount = 0
                     var clickAnimationCount = 0
                     if (item.type.charAt(item.type.length - 1) === '0' && autoAnimationCount === 0) {
-                        autoAnimationArray.push({ node: animationDiv[0], animations: item })
+                        autoAnimationArray.push({ node: animationDiv[0], animations: item, isAutoAnimationEnd: true })
                             //载入页面动画 绑定视窗监听事件
 
-                        // intersectionObserverAutoAnimation.observe(animationDiv[0])
+                        intersectionObserverAutoAnimation.observe(animationDiv[0])
                         autoAnimationCount += 1
                     } else if (item.type.charAt(item.type.length - 1) === '1' && clickAnimationCount === 0) {
                         clickAnimationArray.push({ node: animationDiv[0], isClickAnimationEnd: true, isClick: false, isInView: false, animations: item })
@@ -45,18 +45,17 @@
                 })
             })
 
-            $('#divpar').on('scrollstart', function() {
+            $('#divpar').on('scroll', function() {
                 $.each(autoAnimationArray, function(index, item) {
                     intersectionObserverAutoAnimation.unobserve(item.node)
                 })
             })
 
-            $('#divpar').on('scrollstop', function() {
-                alert('stop')
+            $('#divpar').scrollEnd(function() {
                 $.each(autoAnimationArray, function(index, item) {
                     intersectionObserverAutoAnimation.observe(item.node)
                 })
-            })
+            }, 0)
 
             if (clickAnimationArray.length > 0) {
                 $('.swiper-container').on('click', function() {
@@ -97,6 +96,7 @@
 
         };
 
+
         //重置数据
         Animate.prototype.reset = function(option) {
 
@@ -107,12 +107,23 @@
 
         };
 
+
+
         (function($) {
             $.fn.extend({
                 animateCss: function(animationName) {
                     var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
                     $(this).addClass('animated ' + animationName).one(animationEnd, function() {
                         $(this).removeClass('animated ' + animationName);
+                    });
+                },
+                scrollEnd: function(callback, timeout) {
+                    $(this).scroll(function() {
+                        var $this = $(this);
+                        if ($this.data('scrollTimeout')) {
+                            clearTimeout($this.data('scrollTimeout'));
+                        }
+                        $this.data('scrollTimeout', setTimeout(callback, timeout));
                     });
                 }
             });
@@ -163,54 +174,70 @@
                 })
 
                 if (item.intersectionRatio > 0) {
-                    console.log('111')
+
                     $(item.target).find('img').css({
                         "animatiton-duration": value.playTime + 's',
                         "-webkit-animation-duration": value.playTime + 's',
                     })
                     var effect = effectDataProcess(value)
-                        // $(item.target).find('img').addClass('animated ' + effect + ' delay-' + value.playDelay + 's')
                     if (clickIndex > -1) {
                         if (clickAnimationArray[index].isClickAnimationEnd) {
+                            if (autoAnimationArray[autoIndex].isAutoAnimationEnd) {
+                                autoAnimationArray[autoIndex].isAutoAnimationEnd = false
+                            }
+
                             var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-                            $(item.target).find('img').addClass('animated ' + effect).one(animationEnd, function() {
-                                $(this).removeClass('animated ' + effect);
+                            $(item.target).find('img').addClass('animated ' + effect).one(animationEnd, function(e) {
+                                event.stopPropagation()
+                                autoAnimationArray[autoIndex].isAutoAnimationEnd = true
+                                $(item.target).find('img').removeClass('animated ' + effect);
+                                if (value.type.charAt(0) === 'f') {
+                                    $(item.target).css({ 'opacity': 0 })
+                                }
                             });
 
                             if (value.type.charAt(0) === 't') {
                                 $(item.target).css({ 'opacity': 1 })
-                            } else {
-                                $(item.target).css({ 'opacity': 0 })
                             }
                         }
                     } else {
+                        if (autoAnimationArray[autoIndex].isAutoAnimationEnd) {
+                            autoAnimationArray[autoIndex].isAutoAnimationEnd = false
+                        }
 
                         var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-                        $(item.target).find('img').addClass('animated ' + effect).one(animationEnd, function() {
-                            $(this).removeClass('animated ' + effect);
+                        $(item.target).find('img').addClass('animated ' + effect).one(animationEnd, function(e) {
+                            event.stopPropagation()
+                            autoAnimationArray[autoIndex].isAutoAnimationEnd = true
+                            $(item.target).find('img').removeClass('animated ' + effect);
+                            if (value.type.charAt(0) === 'f') {
+                                $(item.target).css({ 'opacity': 0 })
+                            }
                         });
 
                         if (value.type.charAt(0) === 't') {
                             $(item.target).css({ 'opacity': 1 })
-                        } else {
-                            $(item.target).css({ 'opacity': 0 })
                         }
-
                     }
 
                 } else {
-                    console.log('222')
-                        // var index = clickAnimationArray.findIndex(function(ele) {
-                        //     return ele.node === item.target
-                        // })
-                        // if (index > -1) {
-                        //     if (clickAnimationArray[index].isClickAnimationEnd) {
-                        //         $(item.target).find('img').removeClass('animated ' + effect + ' delay-' + value.playDelay + 's')
-                        //     }
-                        // } else {
-                        //     $(item.target).find('img').removeClass('animated ' + effect + ' delay-' + value.playDelay + 's')
+                    if (value.type.charAt(0) === 't') {
+                        $(item.target).css({ 'opacity': 0 })
 
-                    // }
+                    } else {
+                        $(item.target).css({ 'opacity': 1 })
+                    }
+                    if (clickIndex > -1) {
+                        if (clickAnimationArray[clickIndex].isClickAnimationEnd) {
+                            if (autoAnimationArray[autoIndex].isAutoAnimationEnd) {
+                                $(item.target).find('img').removeClass('animated ' + effect + ' delay-' + value.playDelay + 's')
+                            }
+                        }
+                    } else {
+                        if (autoAnimationArray[autoIndex].isAutoAnimationEnd) {
+                            $(item.target).find('img').removeClass('animated ' + effect + ' delay-' + value.playDelay + 's')
+                        }
+                    }
                 }
             })
         });
@@ -225,22 +252,22 @@
 
             var inEffectObj = {
                 'fade': 'fadeIn',
-                'slide-top': 'fadeInUp',
-                'slide-bottom': 'fadeInDown',
-                'slide-left': 'fadeInLeft',
-                'slide-right': 'fadeInRight',
-                'slide-leftTop': 'fadeInLeftTop',
-                'slide-rightTop': 'fadeInRightTop',
-                'slide-leftBottom': 'fadeInLeftBottom',
-                'slide-rightBottom': 'fadeInRightBottom',
+                'slide-top': 'fadeInUpBig',
+                'slide-bottom': 'fadeInDownBig',
+                'slide-left': 'fadeInLeftBig',
+                'slide-right': 'fadeInRightBig',
+                'slide-leftTop': 'fadeInUpBig',
+                'slide-rightTop': 'fadeInUpBig',
+                'slide-leftBottom': 'fadeInUpBig',
+                'slide-leftBottom': 'fadeInUpBig',
                 'back-top': 'bounceInUp',
                 'back-bottom': 'bounceInDown',
                 'back-left': 'bounceInLeft',
                 'back-right': 'bounceInRight',
-                'back-leftTop': 'bounceInLeftTop',
-                'back-rightTop': 'bounceInRightTop',
-                'back-leftBottom': 'bounceInLeftBottom',
-                'back-rightBottom': 'bounceInRightBottom',
+                'back-leftTop': 'bounceInUp',
+                'back-rightTop': 'bounceInUp',
+                'back-leftBottom': 'bounceInUp',
+                'back-leftBottom': 'bounceInUp',
                 'fall': 'fall',
                 'fly': 'zoomIn',
                 'pop': 'bounceIn',
@@ -248,22 +275,22 @@
             }
             var outEffectObj = {
                 'fade': 'fadeOut',
-                'slide-top': 'fadeOutUp',
-                'slide-bottom': 'fadeOutDown',
-                'slide-left': 'fadeOutLeft',
-                'slide-right': 'fadeOutRight',
-                'slide-leftTop': 'fadeOutLeftTop',
-                'slide-rightTop': 'fadeOutRightTop',
-                'slide-leftBottom': 'fadeOutLeftBottom',
-                'slide-rightBottom': 'fadeOutRightBottom',
+                'slide-top': 'fadeOutUpBig',
+                'slide-bottom': 'fadeOutDownBig',
+                'slide-left': 'fadeOutLeftBig',
+                'slide-right': 'fadeOutRightBig',
+                'slide-leftTop': 'fadeOutUpBig',
+                'slide-rightTop': 'fadeOutUpBig',
+                'slide-leftBottom': 'fadeOutUpBig',
+                'slide-leftBottom': 'fadeOutUpBig',
                 'back-top': 'bounceOutUp',
                 'back-bottom': 'bounceOutDown',
                 'back-left': 'bounceOutLeft',
                 'back-right': 'bounceOutRight',
-                'back-leftTop': 'bounceOutLeftTop',
-                'back-rightTop': 'bounceOutRightTop',
-                'back-leftBottom': 'bounceOutLeftBottom',
-                'back-rightBottom': 'bounceOutRightBottom',
+                'back-leftTop': 'bounceOutUp',
+                'back-rightTop': 'bounceOutUp',
+                'back-leftBottom': 'bounceOutUp',
+                'back-leftBottom': 'bounceOutUp',
                 'fall': 'zoomOut',
                 'fly': 'fly',
                 'pop': 'bounceOut',
