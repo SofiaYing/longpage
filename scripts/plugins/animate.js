@@ -32,7 +32,8 @@
                     if (item.type.charAt(item.type.length - 1) === '0' && autoAnimationCount === 0) {
                         autoAnimationArray.push({ node: animationDiv[0], animations: item })
                             //载入页面动画 绑定视窗监听事件
-                        intersectionObserverAutoAnimation.observe(animationDiv[0])
+
+                        // intersectionObserverAutoAnimation.observe(animationDiv[0])
                         autoAnimationCount += 1
                     } else if (item.type.charAt(item.type.length - 1) === '1' && clickAnimationCount === 0) {
                         clickAnimationArray.push({ node: animationDiv[0], isClickAnimationEnd: true, isClick: false, isInView: false, animations: item })
@@ -41,6 +42,19 @@
 
                         clickAnimationCount += 1
                     }
+                })
+            })
+
+            $('#divpar').on('scrollstart', function() {
+                $.each(autoAnimationArray, function(index, item) {
+                    intersectionObserverAutoAnimation.unobserve(item.node)
+                })
+            })
+
+            $('#divpar').on('scrollstop', function() {
+                alert('stop')
+                $.each(autoAnimationArray, function(index, item) {
+                    intersectionObserverAutoAnimation.observe(item.node)
                 })
             })
 
@@ -211,22 +225,22 @@
 
             var inEffectObj = {
                 'fade': 'fadeIn',
-                'slide-top': 'fadeInUpBig',
-                'slide-bottom': 'fadeInDownBig',
-                'slide-left': 'fadeInLeftBig',
-                'slide-right': 'fadeInRightBig',
-                'slide-leftTop': 'fadeInUpBig',
-                'slide-rightTop': 'fadeInUpBig',
-                'slide-leftBottom': 'fadeInUpBig',
-                'slide-leftBottom': 'fadeInUpBig',
+                'slide-top': 'fadeInUp',
+                'slide-bottom': 'fadeInDown',
+                'slide-left': 'fadeInLeft',
+                'slide-right': 'fadeInRight',
+                'slide-leftTop': 'fadeInLeftTop',
+                'slide-rightTop': 'fadeInRightTop',
+                'slide-leftBottom': 'fadeInLeftBottom',
+                'slide-rightBottom': 'fadeInRightBottom',
                 'back-top': 'bounceInUp',
                 'back-bottom': 'bounceInDown',
                 'back-left': 'bounceInLeft',
                 'back-right': 'bounceInRight',
-                'back-leftTop': 'bounceInUp',
-                'back-rightTop': 'bounceInUp',
-                'back-leftBottom': 'bounceInUp',
-                'back-leftBottom': 'bounceInUp',
+                'back-leftTop': 'bounceInLeftTop',
+                'back-rightTop': 'bounceInRightTop',
+                'back-leftBottom': 'bounceInLeftBottom',
+                'back-rightBottom': 'bounceInRightBottom',
                 'fall': 'fall',
                 'fly': 'zoomIn',
                 'pop': 'bounceIn',
@@ -234,22 +248,22 @@
             }
             var outEffectObj = {
                 'fade': 'fadeOut',
-                'slide-top': 'fadeOutUpBig',
-                'slide-bottom': 'fadeOutDownBig',
-                'slide-left': 'fadeOutLeftBig',
-                'slide-right': 'fadeOutRightBig',
-                'slide-leftTop': 'fadeOutUpBig',
-                'slide-rightTop': 'fadeOutUpBig',
-                'slide-leftBottom': 'fadeOutUpBig',
-                'slide-leftBottom': 'fadeOutUpBig',
+                'slide-top': 'fadeOutUp',
+                'slide-bottom': 'fadeOutDown',
+                'slide-left': 'fadeOutLeft',
+                'slide-right': 'fadeOutRight',
+                'slide-leftTop': 'fadeOutLeftTop',
+                'slide-rightTop': 'fadeOutRightTop',
+                'slide-leftBottom': 'fadeOutLeftBottom',
+                'slide-rightBottom': 'fadeOutRightBottom',
                 'back-top': 'bounceOutUp',
                 'back-bottom': 'bounceOutDown',
                 'back-left': 'bounceOutLeft',
                 'back-right': 'bounceOutRight',
-                'back-leftTop': 'bounceOutUp',
-                'back-rightTop': 'bounceOutUp',
-                'back-leftBottom': 'bounceOutUp',
-                'back-leftBottom': 'bounceOutUp',
+                'back-leftTop': 'bounceOutLeftTop',
+                'back-rightTop': 'bounceOutRightTop',
+                'back-leftBottom': 'bounceOutLeftBottom',
+                'back-rightBottom': 'bounceOutRightBottom',
                 'fall': 'zoomOut',
                 'fly': 'fly',
                 'pop': 'bounceOut',
