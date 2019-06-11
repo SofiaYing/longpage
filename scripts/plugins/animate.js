@@ -45,18 +45,6 @@
                 })
             })
 
-            // $('#divpar').on('scroll', function() {
-            //     $.each(autoAnimationArray, function(index, item) {
-            //         intersectionObserverAutoAnimation.unobserve(item.node)
-            //     })
-            // })
-
-            // $('#divpar').scrollEnd(function() {
-            //     $.each(autoAnimationArray, function(index, item) {
-            //         intersectionObserverAutoAnimation.observe(item.node)
-            //     })
-            // }, 0)
-
             if (clickAnimationArray.length > 0) {
                 $('.swiper-container').on('click', function() {
                     var clickIndex = clickAnimationArray.findIndex(function(item) {
@@ -181,11 +169,13 @@
                     })
                     var effect = effectDataProcess(value)
                     if (clickIndex > -1) {
-                        if (clickAnimationArray[index].isClickAnimationEnd) {
+                        if (clickAnimationArray[clickIndex].isClickAnimationEnd) {
                             if (autoAnimationArray[autoIndex].isAutoAnimationEnd) {
                                 autoAnimationArray[autoIndex].isAutoAnimationEnd = false
                             }
-
+                            if (value.type.charAt(0) === 'f') {
+                                $(item.target).css({ 'opacity': 1 })
+                            }
                             var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
                             $(item.target).find('img').addClass('animated ' + effect).one(animationEnd, function(e) {
                                 event.stopPropagation()
@@ -204,9 +194,11 @@
                         if (autoAnimationArray[autoIndex].isAutoAnimationEnd) {
                             autoAnimationArray[autoIndex].isAutoAnimationEnd = false
                         }
-
+                        if (value.type.charAt(0) === 'f') {
+                            $(item.target).css({ 'opacity': 1 })
+                        }
                         var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-                        $(item.target).find('img').addClass('animated ' + effect).one(animationEnd, function(e) {
+                        $(item.target).find('img').addClass('animated ' + effect).one(animationEnd, function(event) {
                             event.stopPropagation()
                             autoAnimationArray[autoIndex].isAutoAnimationEnd = true
                             $(item.target).find('img').removeClass('animated ' + effect);
@@ -221,21 +213,25 @@
                     }
 
                 } else {
-                    if (value.type.charAt(0) === 't') {
-                        $(item.target).css({ 'opacity': 0 })
-
-                    } else {
-                        $(item.target).css({ 'opacity': 1 })
-                    }
                     if (clickIndex > -1) {
                         if (clickAnimationArray[clickIndex].isClickAnimationEnd) {
                             if (autoAnimationArray[autoIndex].isAutoAnimationEnd) {
-                                $(item.target).find('img').removeClass('animated ' + effect + ' delay-' + value.playDelay + 's')
+                                if (value.type.charAt(0) === 't') {
+                                    $(item.target).css({ 'opacity': 0 })
+
+                                } else {
+                                    $(item.target).css({ 'opacity': 1 })
+                                }
                             }
                         }
                     } else {
                         if (autoAnimationArray[autoIndex].isAutoAnimationEnd) {
-                            $(item.target).find('img').removeClass('animated ' + effect + ' delay-' + value.playDelay + 's')
+                            if (value.type.charAt(0) === 't') {
+                                $(item.target).css({ 'opacity': 0 })
+
+                            } else {
+                                $(item.target).css({ 'opacity': 1 })
+                            }
                         }
                     }
                 }
