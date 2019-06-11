@@ -16,6 +16,26 @@ function removeSwiping() {
     });
 }
 
+var observeOptions = new IntersectionObserver((entries) => {
+    entries.forEach((item, index) => {
+
+        var node = fx_options[0].find(function(optItem) {
+            return optItem.container === item.target.id
+        })
+        var tempOpt = { 'view': [node] }
+        var viewFx = new FXH5(tempOpt);
+        console.log('item.target', node)
+        if (item.intersectionRatio == 1) {
+
+            viewFx.reset("view");
+        } else {
+            viewFx.destroy('view')
+        }
+    })
+}, {
+    threshold: [1]
+});
+
 window.onloadOver = function() {
     window.sizeAdjustor.adjustContainer();
     var scale = window.sizeAdjustor.scaleX;
@@ -41,18 +61,19 @@ window.onloadOver = function() {
     };
 
     window.onmessage = function(event) {
-        var data = eval('(' + event.data + ')');
-        if (data.act === 'slidto') {
-            var index = parseInt(data.val);
-            //swiper在loop=true模式下,页面索引会加1
-            if (isLoop) index++;
-            mySwiper.slideTo(index, 0);
-        } else {
-            window.wxuserid = data.val;
+            var data = eval('(' + event.data + ')');
+            if (data.act === 'slidto') {
+                var index = parseInt(data.val);
+                //swiper在loop=true模式下,页面索引会加1
+                if (isLoop) index++;
+                mySwiper.slideTo(index, 0);
+            } else {
+                window.wxuserid = data.val;
+            }
         }
-    }
-    //实例化一个FXH5对象并对第一页reset
+        //实例化一个FXH5对象并对第一页reset
     window.fx = new FXH5(fx_options);
+    fx.reset("0");
     if (jsonData.adjustType !== "longPageAdjust") {
         fx.reset("0");
         //实力化一个swiper对象并初始化
@@ -113,6 +134,16 @@ window.onloadOver = function() {
             if (noSwiping) removeSwiping();
             removeAttrInSwiperDuplicate();
         })();
+    } else {
+        var inViewOptions
+        var nodes
+        fx_options['0'].forEach(function(item, index) {
+            console.log('uu', document.getElementById(item.container))
+            if (item.plugin !== 'animate') {
+                observeOptions.observe(document.getElementById(item.container))
+            }
+        })
+
     }
 
 };

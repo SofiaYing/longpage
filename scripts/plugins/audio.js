@@ -49,8 +49,9 @@
         Audio.prototype.destroy = function(option) {
             console.log("destroy");
             var demo = this.$target[0];
+            var data = dataProcess(demo)
             var isHasSpecParents = parents("div[title='PopupContent'][title='Animation']", demo);
-            if (isHasSpecParents.length === 0 && this.data.playOnPageTurn === "true") {
+            if (isHasSpecParents.length === 0 && data.playOnPageTurn === "true") {
                 window.pauseAgentAudio(demo);
             } else {
                 demo.pause();
