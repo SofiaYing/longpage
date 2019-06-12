@@ -135,10 +135,7 @@ window.onloadOver = function() {
             removeAttrInSwiperDuplicate();
         })();
     } else {
-        var inViewOptions
-        var nodes
         fx_options['0'].forEach(function(item, index) {
-            console.log('uu', document.getElementById(item.container))
             if (item.plugin !== 'animate') {
                 observeOptions.observe(document.getElementById(item.container))
             }

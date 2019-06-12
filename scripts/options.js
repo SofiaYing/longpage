@@ -16,7 +16,6 @@ var paths = [
 'plugins/animate.js',
 'plugins/audio.js',
 'plugins/video.js',
-'plugins/animate.css',
 ],
 baseURL = './scripts/';
 for (var i = 0, pi; pi = paths[i++];) {
