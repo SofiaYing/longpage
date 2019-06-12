@@ -18,19 +18,16 @@ function removeSwiping() {
 
 var observeOptions = new IntersectionObserver((entries) => {
     entries.forEach((item, index) => {
-
         var node = fx_options[0].find(function(optItem) {
             return optItem.container === item.target.id
         })
-        var tempOpt = { 'view': [node] }
-        var viewFx = new FXH5(tempOpt);
-        console.log('item.target', node)
+        fx.viewOn('view', node)
         if (item.intersectionRatio == 1) {
-
-            viewFx.reset("view");
+            fx.reset('view')
         } else {
-            viewFx.destroy('view')
+            fx.destroy('view')
         }
+        fx.off('view', node)
     })
 }, {
     threshold: [1]
@@ -113,7 +110,6 @@ window.onloadOver = function() {
         var isWeixin = is_weixin();
         window.addEventListener(evt, function() {
             window.sizeAdjustor.update();
-            //alert(sizeAdjustor.clientW + "&&" + sizeAdjustor.clientH);
             window.sizeAdjustor.adjustContainer();
             var scale = window.sizeAdjustor.scale;
             mySwiper.touchRatio = 1 / scale;
@@ -136,7 +132,7 @@ window.onloadOver = function() {
         })();
     } else {
         fx_options['0'].forEach(function(item, index) {
-            if (item.plugin !== 'animate') {
+            if (item.plugin === 'video') {
                 observeOptions.observe(document.getElementById(item.container))
             }
         })

@@ -1,6 +1,7 @@
 ﻿var fx_options = {
 "0": [{container: "si_80000145",plugin: "animate",option: {}},
 {container: "audioItem-8",plugin: "audio",option: {}},
+{container: "imageDragItem-11",plugin: "imageDrag",option: {}},
 {container: "videoItem-10",plugin: "video",option: {}},
 {container: "si_80000164",plugin: "animate",option: {}},
 {container: "si_80000159",plugin: "animate",option: {}},
@@ -15,6 +16,7 @@ var paths = [
 'core/utils.js',
 'plugins/animate.js',
 'plugins/audio.js',
+'plugins/imageDrag.js',
 'plugins/video.js',
 ],
 baseURL = './scripts/';

@@ -2,12 +2,13 @@
 <html xmlns="http://www.w3.org/1999/html">
 
 <head>
-    <meta name="viewport" id="webviewport" content="width=1080, height=2920" />
+    <meta name="viewport" id="webviewport" content="width=750, height=3334" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <title>长页面(copy)</title>
+    <title>长页面(copy)(copy)</title>
     <script src="scripts/base.js" type="text/javascript"></script>
     <script src="scripts/jquery.js" type="text/javascript"></script>
     <script src="scripts/bgmController.js"></script>
+    <script src="scripts/observe.polyfill.min.js" type="text/javascript"></script>
     <style>
         input[type=checkbox]:checked:after {
             content: '\2714';
@@ -146,14 +147,14 @@
         .divnoshow {
             position: absolute;
             z-index: 1;
-            width: 540px;
-            height: 1460px;
+            width: 375px;
+            height: 1667px;
             display: none;
         }
         
         .swiper-container {
-            width: 1080px;
-            height: 2920px;
+            width: 750px;
+            height: 3334px;
         }
         
         #divpar {
@@ -237,14 +238,13 @@
         />
         <script src="scripts/sizeAdjustor.js" type="text/javascript"></script>
         <script src="scripts/loadingbar.js" type="text/javascript"></script>
-        <script src="scripts/observe.polyfill.min.js" type="text/javascript"></script>
         <script src="scripts/index_modify.js" type="text/javascript"></script>
         <div id="divbgm" class="divbgm">
             <img id="bgmPlay" class="imgbgm" src="Media/bgmplay.png"></img>
             <img id="bgmPause" class="imgbgm" src="Media/bgmpause.png"></img>
             <audio id="aubgm" src="Media/bgmusic0.mp3" preload="auto"></audio>
         </div>
-        <div class="swiper-container" id="swiper_container" style="position:absolute;overflow:hidden;display:none;" data-width="1080" data-height="2920">
+        <div class="swiper-container" id="swiper_container" style="position:absolute;overflow:hidden;display:none;" data-width="750" data-height="3334">
             <div class="swiper-wrapper">
                 <div id="page1" class="divshow swiper-slide">
                     <div class="p1para1 p1textdiv0">
@@ -261,9 +261,9 @@
 
                             </div>
 
-                            <div title="Animation" id="si_80000145" style="left:-42.5196850393701px;top:-42.5188289763779px;height:2920px;width:1080px;position:absolute;pointer-events:none;">
+                            <div title="Animation" id="si_80000145" style="left:-42.5211023622049px;top:-42.5203001574802px;height:3334px;width:750px;position:absolute;pointer-events:none;">
 
-                                <div style="left:296.929px;top:469.586px;height:631px;width:553px;position:absolute;">
+                                <div style="left:120.841px;top:578.463px;height:631px;width:553px;position:absolute;">
 
                                     <div title="groupItem" style="width:100%;height:100%;">
 
@@ -299,9 +299,17 @@
 
                             </div>
 
+                            <div title="imageDrag" class="p1InAdiv7" id="imageDragItem-11" style="height:296px;width:241px;z-index:1;">
+
+                                <img src="Media/chapter-001imagedragitem1.jpg" style="height:100%;width:100%;"></img>
+
+                                <input type="hidden" name="json" value="{&quot;suppressDrag&quot;:&quot;true&quot;}"></input>
+
+                            </div>
+
                             <div class="">
 
-                                <div title="video" class="p1InAdiv7" id="videoItem-10">
+                                <div title="video" class="p1InAdiv8" id="videoItem-10">
 
                                     <svg:svg xmlns:svg="http://www.w3.org/2000/svg" style="top:0px;left:0px;width:100%;height:100%;position:absolute;background:#000000;"></svg:svg>
 
@@ -319,9 +327,9 @@
 
                             </div>
 
-                            <div title="Animation" id="si_80000164" style="left:-42.5196850393701px;top:-42.5188289763779px;height:2920px;width:1080px;position:absolute;pointer-events:none;">
+                            <div title="Animation" id="si_80000164" style="left:-42.5211023622049px;top:-42.5203001574802px;height:3334px;width:750px;position:absolute;pointer-events:none;">
 
-                                <div style="left:402.501px;top:2471.816px;height:144px;width:363px;position:absolute;">
+                                <div style="left:222.907px;top:2837.527px;height:144px;width:363px;position:absolute;">
 
                                     <div title="groupItem" style="width:100%;height:100%;">
 
@@ -339,9 +347,9 @@
 
                             </div>
 
-                            <div title="Animation" id="si_80000159" style="left:-42.5196850393701px;top:-42.5188289763779px;height:2920px;width:1080px;position:absolute;pointer-events:none;">
+                            <div title="Animation" id="si_80000159" style="left:-42.5211023622049px;top:-42.5203001574802px;height:3334px;width:750px;position:absolute;pointer-events:none;">
 
-                                <div style="left:330.929px;top:2647.218px;height:144px;width:485px;position:absolute;">
+                                <div style="left:154.841px;top:3038.543px;height:144px;width:485px;position:absolute;">
 
                                     <div title="groupItem" style="width:100%;height:100%;">
 
@@ -361,7 +369,7 @@
 
                             <div class="">
 
-                                <div class="p1InAdiv8">
+                                <div class="p1InAdiv9">
 
                                     <img style="top:0px;left:0px;width:100%;height:100%;display:inline;position:absolute;" src="Media/chapter-001image7.png"></img>
 
@@ -394,6 +402,7 @@
         <div id="divnext" style="position:absolute;left:90%;width:10%;top:10%;height:90%;z-index:1;display:none;"></div>
     </div>
     <script src="./scripts/options.js"></script>
+
 </body>
 
 </html>
