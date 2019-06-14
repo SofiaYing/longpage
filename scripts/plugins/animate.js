@@ -163,7 +163,7 @@
 
                 if (item.intersectionRatio > 0) {
 
-                    $(item.target).find('img').css({
+                    $(item.target).find('div').css({
                         "animatiton-duration": value.playTime + 's',
                         "-webkit-animation-duration": value.playTime + 's',
                     })
@@ -177,10 +177,10 @@
                                 $(item.target).css({ 'opacity': 1 })
                             }
                             var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-                            $(item.target).find('img').addClass('animated ' + effect).one(animationEnd, function(e) {
+                            $(item.target).find('div').addClass('animated ' + effect).one(animationEnd, function(e) {
                                 event.stopPropagation()
                                 autoAnimationArray[autoIndex].isAutoAnimationEnd = true
-                                $(item.target).find('img').removeClass('animated ' + effect);
+                                $(item.target).find('div').removeClass('animated ' + effect);
                                 if (value.type.charAt(0) === 'f') {
                                     $(item.target).css({ 'opacity': 0 })
                                 }
@@ -198,10 +198,10 @@
                             $(item.target).css({ 'opacity': 1 })
                         }
                         var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-                        $(item.target).find('img').addClass('animated ' + effect).one(animationEnd, function(event) {
+                        $(item.target).find('div').addClass('animated ' + effect).one(animationEnd, function(event) {
                             event.stopPropagation()
                             autoAnimationArray[autoIndex].isAutoAnimationEnd = true
-                            $(item.target).find('img').removeClass('animated ' + effect);
+                            $(item.target).find('div').removeClass('animated ' + effect);
                             if (value.type.charAt(0) === 'f') {
                                 $(item.target).css({ 'opacity': 0 })
                             }

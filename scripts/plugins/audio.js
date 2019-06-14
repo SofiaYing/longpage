@@ -10,14 +10,17 @@
         Audio.prototype.init = function() {
             console.log("init");
             var demo = $("#" + id)[0];
+            //判断是否为长页面
+            var isLongPage = window.sizeAdjustor.jsonData.adjustType === "longPageAdjust"
             demo.preload = "auto";
             AddListenerAudio(demo, this);
+            if (isLongPage) {
+                observeAudioAutoPlay.observe($(demo).parent()[0])
+            }
         };
 
         Audio.prototype.reset = function(option) {
             console.log("reset");
-            //判断是否为长页面
-            var isLongPage = window.sizeAdjustor.jsonData.adjustType === "longPageAdjust"
 
             var demo = this.$target[0];
             var pardiv = demo.parentNode;
@@ -32,9 +35,7 @@
             }
             var data = eval('(' + jsonnode.value + ')');
             this.data = data;
-            if (isLongPage) {
-                observeAudioAutoPlay.observe($(demo).parent()[0])
-            } else
+
             if (data.playOnPageTurn === "true" && isHasSpecParents.length === 0) {
                 function autoPlay() {
                     var playRes = window.playAgentAudio(demo);

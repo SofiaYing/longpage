@@ -16,21 +16,67 @@ function removeSwiping() {
     });
 }
 
+// var observeOptions = new IntersectionObserver((entries) => {
+//     entries.forEach((item, index) => {
+
+//         var node = fx_options[0].find(function(optItem) {
+//             return optItem.container === item.target.id
+//         })
+//         var tempOpt = { 'view': [node] }
+//         var viewFx = new FXH5(tempOpt);
+//         console.log('item.target', node)
+//         if (item.intersectionRatio == 1) {
+
+//             viewFx.reset("view");
+//         } else {
+//             viewFx.destroy('view')
+//         }
+//     })
+// }, {
+//     threshold: [1]
+// });
+
+// var observeOptions = new IntersectionObserver((entries) => {
+//     entries.forEach((item, index) => {
+//         var node = fx_options[0].find(function(optItem) {
+//             return optItem.container === item.target.id
+//         })
+//         fx.viewOn('view', node)
+//         if (item.intersectionRatio >= 0.25) {
+//             fx.reset('view')
+//         } else {
+//             fx.destroy('view')
+//         }
+//         fx.off('view', node)
+//     })
+// }, {
+//     threshold: [0.25]
+// });
+var longPageOptions = {}
+var longPageArray = []
+
 var observeOptions = new IntersectionObserver((entries) => {
     entries.forEach((item, index) => {
-        var node = fx_options[0].find(function(optItem) {
-            return optItem.container === item.target.id
-        })
-        fx.viewOn('view', node)
-        if (item.intersectionRatio == 1) {
-            fx.reset('view')
+        var nodeIndex = longPageArray.findIndex(function(optItem) {
+                return optItem.container === item.target.id
+            })
+            // fxTest.viewOn('view', node)
+        if (item.intersectionRatio >= 0.75) {
+            // fxTest.reset('view')
+            // if (item.target.id.match('imageDrag')) {
+            //     // fx.reset(nodeIndex.toString())
+            // } else {
+            fx.reset(nodeIndex.toString())
+                // }
         } else {
-            fx.destroy('view')
+            // fxTest.destroy('view')
+            fx.destroy(nodeIndex.toString())
+
         }
-        fx.off('view', node)
+        // fx.off('view', node)
     })
 }, {
-    threshold: [1]
+    threshold: [0.75]
 });
 
 window.onloadOver = function() {
@@ -69,9 +115,10 @@ window.onloadOver = function() {
             }
         }
         //实例化一个FXH5对象并对第一页reset
-    window.fx = new FXH5(fx_options);
-    fx.reset("0");
+        // window.fx = new FXH5(fx_options);
+
     if (jsonData.adjustType !== "longPageAdjust") {
+        window.fx = new FXH5(fx_options);
         fx.reset("0");
         //实力化一个swiper对象并初始化
         window.mySwiper = new Swiper('.swiper-container', {
@@ -110,6 +157,7 @@ window.onloadOver = function() {
         var isWeixin = is_weixin();
         window.addEventListener(evt, function() {
             window.sizeAdjustor.update();
+            //alert(sizeAdjustor.clientW + "&&" + sizeAdjustor.clientH);
             window.sizeAdjustor.adjustContainer();
             var scale = window.sizeAdjustor.scale;
             mySwiper.touchRatio = 1 / scale;
@@ -131,8 +179,23 @@ window.onloadOver = function() {
             removeAttrInSwiperDuplicate();
         })();
     } else {
+        // window.fx = new FXH5(fx_options);
+        // fx.reset('0')
+        // var firstResetArray = fx_options['0'].filter(function(item,index) {
+        //     return item.plugin !== 'video'
+        // })
+        // fx.on('firstReset', firstResetArray)
+        // fx.reset('firstReset')
+
+        $.each(fx_options['0'], function(index, item) {
+            longPageOptions[index] = [item]
+            longPageArray.push(item)
+        })
+        console.log('longpageOptions', longPageOptions)
+        window.fx = new FXH5(longPageOptions);
+
         fx_options['0'].forEach(function(item, index) {
-            if (item.plugin === 'video') {
+            if (item.plugin !== 'audio' && item.plugin !== 'animate') {
                 observeOptions.observe(document.getElementById(item.container))
             }
         })
