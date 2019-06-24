@@ -12,6 +12,7 @@
         window.IntersectionObserver || document.write('<script src="scripts/observe.polyfill.min.js"><\/script>');
     </script>
     <style>
+        * { touch-action: pan-y; } 
         input[type=checkbox]:checked:after {
             content: '\2714';
             color: #555555;
