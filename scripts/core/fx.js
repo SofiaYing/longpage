@@ -46,7 +46,6 @@ FX.plugins = {};
                     options = arr;
                 }
                 options.forEach(function(config) {
-                    console.log('on-listeners', getListener(obj, ti, true))
                     getListener(obj, ti, true).push(FX.plugins[config.plugin](config.container, config.option));
                 });
                 obj.options[ti] = obj.options[ti] || [];

@@ -16,68 +16,7 @@ function removeSwiping() {
     });
 }
 
-// var observeOptions = new IntersectionObserver((entries) => {
-//     entries.forEach((item, index) => {
 
-//         var node = fx_options[0].find(function(optItem) {
-//             return optItem.container === item.target.id
-//         })
-//         var tempOpt = { 'view': [node] }
-//         var viewFx = new FXH5(tempOpt);
-//         console.log('item.target', node)
-//         if (item.intersectionRatio == 1) {
-
-//             viewFx.reset("view");
-//         } else {
-//             viewFx.destroy('view')
-//         }
-//     })
-// }, {
-//     threshold: [1]
-// });
-
-// var observeOptions = new IntersectionObserver((entries) => {
-//     entries.forEach((item, index) => {
-//         var node = fx_options[0].find(function(optItem) {
-//             return optItem.container === item.target.id
-//         })
-//         fx.viewOn('view', node)
-//         if (item.intersectionRatio >= 0.25) {
-//             fx.reset('view')
-//         } else {
-//             fx.destroy('view')
-//         }
-//         fx.off('view', node)
-//     })
-// }, {
-//     threshold: [0.25]
-// });
-var longPageOptions = {}
-var longPageArray = []
-
-var observeOptions = new IntersectionObserver((entries) => {
-    entries.forEach((item, index) => {
-        var nodeIndex = longPageArray.findIndex(function(optItem) {
-                return optItem.container === item.target.id
-            })
-            // fxTest.viewOn('view', node)
-        if (item.intersectionRatio >= 0.75) {
-            // fxTest.reset('view')
-            // if (item.target.id.match('imageDrag')) {
-            //     // fx.reset(nodeIndex.toString())
-            // } else {
-            fx.reset(nodeIndex.toString())
-                // }
-        } else {
-            // fxTest.destroy('view')
-            fx.destroy(nodeIndex.toString())
-
-        }
-        // fx.off('view', node)
-    })
-}, {
-    threshold: [0.75]
-});
 
 window.onloadOver = function() {
     window.sizeAdjustor.adjustContainer();
@@ -179,29 +118,38 @@ window.onloadOver = function() {
             removeAttrInSwiperDuplicate();
         })();
     } else {
-        // window.fx = new FXH5(fx_options);
-        // fx.reset('0')
-        // var firstResetArray = fx_options['0'].filter(function(item,index) {
-        //     return item.plugin !== 'video'
-        // })
-        // fx.on('firstReset', firstResetArray)
-        // fx.reset('firstReset')
+        if (fx_options['0']) {
+            var longPageOptions = {}
+            var longPageArray = []
 
-        $.each(fx_options['0'], function(index, item) {
-            longPageOptions[index] = [item]
-            longPageArray.push(item)
-        })
-        console.log('longpageOptions', longPageOptions)
-        window.fx = new FXH5(longPageOptions);
+            var observeOptions = new IntersectionObserver((entries) => {
+                entries.forEach((item, index) => {
+                    var nodeIndex = longPageArray.findIndex(function(optItem) {
+                        return optItem.container === item.target.id
+                    })
+                    if (item.intersectionRatio >= 0.75) {
+                        fx.reset(nodeIndex.toString())
+                    } else {
+                        fx.destroy(nodeIndex.toString())
+                    }
+                })
+            }, {
+                threshold: [0.75]
+            });
 
-        fx_options['0'].forEach(function(item, index) {
-            if (item.plugin !== 'audio' && item.plugin !== 'animate') {
-                observeOptions.observe(document.getElementById(item.container))
-            }
-        })
+            $.each(fx_options['0'], function(index, item) {
+                longPageOptions[index] = [item]
+                longPageArray.push(item)
+            })
+            window.fx = new FXH5(longPageOptions);
 
+            fx_options['0'].forEach(function(item, index) {
+                if (item.plugin !== 'panorama' && item.plugin !== 'jigsaw' && item.plugin !== 'imageDrag' && item.plugin !== 'audio' && item.plugin !== 'animate' && item.plugin !== 'panorama' && item.plugin !== 'jigsaw') {
+                    observeOptions.observe(document.getElementById(item.container))
+                }
+            })
+        }
     }
-
 };
 
 

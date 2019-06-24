@@ -1,11 +1,9 @@
 ﻿var fx_options = {
-"0": [{container: "si_80000145",plugin: "animate",option: {}},
-{container: "audioItem-8",plugin: "audio",option: {}},
-{container: "imageDragItem-11",plugin: "imageDrag",option: {}},
-{container: "videoItem-10",plugin: "video",option: {}},
-{container: "si_80000164",plugin: "animate",option: {}},
-{container: "si_80000159",plugin: "animate",option: {}},
-{container: "audioItem-9",plugin: "audio",option: {}},
+"0": [{container: "multiStateItem-17",plugin: "slideShow",option: {}},
+{container: "multiStateItem-18",plugin: "slideShow",option: {}},
+{container: "buttonItem-15",plugin: "button",option: {}},
+{container: "buttonItem-16",plugin: "button",option: {}},
+{container: "multiStateItem-19",plugin: "slideShow",option: {}},
 ],
 };
 (function () {
@@ -14,10 +12,8 @@ var paths = [
 'core/interface.js',
 'core/fx.js',
 'core/utils.js',
-'plugins/animate.js',
-'plugins/audio.js',
-'plugins/imageDrag.js',
-'plugins/video.js',
+'plugins/slideShow.js',
+'plugins/button.js',
 ],
 baseURL = './scripts/';
 for (var i = 0, pi; pi = paths[i++];) {
