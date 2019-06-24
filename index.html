@@ -338,12 +338,13 @@
 </body>
 
 </html> -->
-<html lang="en">
+
+<html>
 
 <head>
     <meta name="viewport" id="webviewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>长页面拖拽测试</title>
+    <title>长页面画廊测试</title>
     <style type="text/css">
         html,
         body {
@@ -386,9 +387,9 @@
 </head>
 
 <body style="position: fixed;">
-    <div class="tips" id="tips" style="">此为预览链接，将于2019-06-25 18:28:17失效</div>
+    <div class="tips" id="tips" style="">此为预览链接，将于2019-06-25 17:43:36失效</div>
     <div id="iframeBox">
-        <iframe id="mainFrame" name="mainFrame" scrolling="no" allowfullscreen="true" src="http://47.93.36.77:5080/TQMS/resourceDir/20190619/c173d940f14544e0b3d16e653dc71a61/index.html" frameborder="0" style="padding: 0px; width: 100%; height: 100%;"></iframe>
+        <iframe id="mainFrame" name="mainFrame" scrolling="no" allowfullscreen="true" src="http://47.93.36.77:5080/TQMS/resourceDir/20190624/16e1b66788aa463480c1222a2257a5ae/index.html" frameborder="0" style="padding: 0px; width: 100%; height: 100%;"></iframe>
         <iframe style="display:none" src="http://47.93.36.77:5080/TQMS//resourceDir/common/cross_domain_processing.html?operate=0&amp;aimId=mainFrame" name="exec_frame" id="exec_frame"></iframe>
     </div>
     <div id="divbgm" class="divbgm">
@@ -425,7 +426,7 @@
                     //获取iframe的id
                     var ifr = document.getElementById('mainFrame');
                     //iframe的路径
-                    var url = 'http://47.93.36.77:5080/TQMS/resourceDir/20190619/c173d940f14544e0b3d16e653dc71a61/index.html';
+                    var url = 'http://47.93.36.77:5080/TQMS/resourceDir/20190624/16e1b66788aa463480c1222a2257a5ae/index.html';
                     //要发送的数据
                     var data = "";
                     var val = {
@@ -516,9 +517,9 @@
 
     <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script type="text/javascript">
-        var workId = 'd29ya0lkPTEwNTc0MCZ0eXBlPTAmdGltZXN0YW1wcz0xNTYxMzcyMDk3MDIz';
+        var workId = 'd29ya0lkPTEwNDc5MCZ0eXBlPTAmdGltZXN0YW1wcz0xNTYxMzY5NDE2NzMx';
         var formData = '';
-        var imgUrl = 'http://47.93.36.77:5080/TQMS/resourceDir/20190619/c173d940f14544e0b3d16e653dc71a61/Media/cover.jpg'; // 分享后展示的一张图片
+        var imgUrl = 'http://47.93.36.77:5080/TQMS/resourceDir/20190624/16e1b66788aa463480c1222a2257a5ae/Media/cover.jpg'; // 分享后展示的一张图片
         var openid = '';
         if (openid == null || openid == undefined) {
             openid = '';
@@ -532,14 +533,14 @@
         } else {
             descContent = ""; // 分享后的描述信息
         }
-        var shareTitle = '长页面拖拽测试'; // 分享后的标题
+        var shareTitle = '长页面画廊测试'; // 分享后的标题
         $(function() {
             wx.config({
                 debug: false, ////生产环境需要关闭debug模式
                 appId: 'wx6ba4def6d4aa0565', //appId通过微信服务号后台查看
-                timestamp: '1561372826', //生成签名的时间戳
-                nonceStr: '00d0c926-b394-4299-881c-03c1126b3656', //生成签名的随机字符串
-                signature: 'cc9083121eefd28262219fe6b7a8b5193fce6a83', //签名
+                timestamp: '1561373175', //生成签名的时间戳
+                nonceStr: '57d3c54f-6b59-4894-ba60-150f8dc29413', //生成签名的随机字符串
+                signature: '4428ed70f9b90104e60c819a4a1e8ee8bd99cbee', //签名
                 jsApiList: [ //需要调用的JS接口列表
                     'checkJsApi', //判断当前客户端版本是否支持指定JS接口
                     'onMenuShareTimeline', //分享给好友
