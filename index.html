@@ -12,7 +12,8 @@
         window.IntersectionObserver || document.write('<script src="scripts/observe.polyfill.min.js"><\/script>');
     </script>
     <style>
-        * { touch-action: pan-y; } 
+        /* * { touch-action: pan-y; }  */
+        
         input[type=checkbox]:checked:after {
             content: '\2714';
             color: #555555;
@@ -161,12 +162,14 @@
         }
         
         #divpar {
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
+            /* margin-left: auto;
+            margin-right: auto; */
+            position: absolute;
             overflow-y: scroll;
             -webkit-overflow-scrolling: touch;
             height: 100vh;
+            left: 0;
+            right: 0;
         }
         
         @keyframes arrowmove {
