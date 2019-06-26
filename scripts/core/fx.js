@@ -63,7 +63,6 @@ FX.plugins = {};
                     options = arr;
                 }
                 options.forEach(function(config) {
-                    console.log('on-listeners', getListener(obj, ti, true))
                     getListener(obj, ti, true).push(FX.plugins[config.plugin](config.container, config.option));
                 });
                 obj.options[ti] = obj.options[ti] || [];
@@ -77,7 +76,6 @@ FX.plugins = {};
             types = trim(types).split(/\s+/);
             for (var i = 0, ti; ti = types[i++];) {
                 var listeners = getListener(this, ti);
-                console.log('off-listeners', listeners)
                 var listenersIndex = listeners.findIndex(function(item, index) {
                     var ele = (item.$target && item.$target[0]) || item.el
                     return ele.getAttribute('id') === options.container

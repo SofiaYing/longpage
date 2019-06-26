@@ -451,7 +451,6 @@
                 demo2.animate({ top: "0px" }, speed, 'linear');
                 demo1.animate({ top: spaceH + "px" }, speed, 'linear');
             }
-            console.log('dddddddd', demo1, demo2)
         }
 
         function getNextFadePicIndex() //更改fadePicIndex是得指向下一张图
