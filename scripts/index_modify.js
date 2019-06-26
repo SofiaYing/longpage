@@ -118,6 +118,9 @@ window.onloadOver = function() {
             removeAttrInSwiperDuplicate();
         })();
     } else {
+        if (!window.IntersectionObserver) {
+            document.write('<script src="scripts/observe.polyfill.min.js"><\/script>');
+        }
 
         var overscroll = function(el) {
             el.addEventListener('touchstart', function() {
@@ -129,6 +132,7 @@ window.onloadOver = function() {
                 //
                 //this prevents the scroll from "passing through" to
                 //the body.
+                console.log('11', el, el.scrollHeight, el.scrollTop)
                 if (top === 0) {
                     el.scrollTop = 1;
                 } else if (currentScroll === totalScroll) {
@@ -140,13 +144,16 @@ window.onloadOver = function() {
                 //that scrolling can occur
                 if (el.offsetHeight < el.scrollHeight)
                     evt._isScroller = true;
+                console.log('22', evt, el, el.offsetHeight)
             });
         }
         overscroll(document.querySelector('#divpar'));
         document.body.addEventListener('touchmove', function(evt) {
             //In this case, the default behavior is scrolling the body, which
             //would result in an overflow.  Since we don't want that, we preventDefault.
+            console.log('333')
             if (!evt._isScroller) {
+                console.log('444')
                 evt.preventDefault();
             }
         });
