@@ -241,7 +241,7 @@
     function typePrcess(type) {
         switch (type) {
             case 'ring':
-                var r = toPoint($(loadingBar).attr('r')) * $('svg').height();
+                var r = toPoint($(loadingBar).attr('r')) * $('svg').width();
                 var c = Math.PI * (2 * r);
 
                 return function(percent) {
@@ -378,7 +378,7 @@
     function clipPie(context, percent) {
         var startPoint = -Math.PI * 2 * 0.25
         var r = imgW * 0.5;
-        var percent;
+
         if (percent <= 25) {
             percent = (percent - 25) / 100;
         } else {
@@ -396,8 +396,6 @@
     }
 
     function clipBar(context, percent) {
-        var percent;
-
         context.beginPath();
         context.moveTo(r, r);
 
