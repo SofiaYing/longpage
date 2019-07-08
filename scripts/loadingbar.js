@@ -15,7 +15,7 @@
         var fgPic = jsondata.loadingbar.fgpic;
         var bgPic = jsondata.loadingbar.bgpic;
         var bgColor = jsondata.loadingbar.bgcolor;
-        var loadPic = jsondata.loadingbar.loadpic;
+        var loadPic = jsondata.loadingbar.loadpic || '';
         var direction = jsondata.loadingbar.direction || '';
     }
     var loadingBox = document.getElementById("loadingBox");
@@ -30,20 +30,6 @@
         'width': clientW + 'px',
     })
 
-    // if (jsondata.adjustType !== "longPageAdjust") {
-    //     loadingBox.style.width = finalW + "px";
-    //     loadingBox.style.height = finalH + "px";
-    //     loadingBox.style.display = "block";
-    //     loadingBox.style.top = clientH / 2 - finalH / 2 + "px";
-    //     loadingBox.style.left = clientW / 2 - finalW / 2 + "px";
-    // } else {
-    //     $(loadingBox).css({
-    //         'display':'block',
-    //         'height': clientH + 'px',
-    //         'width': clientW + 'px',  
-    //     })
-    // }
-
     //要操作的进度条
     var loadingBarBox = document.getElementById("loadingBarBox");
     var loadingBar = document.getElementById("loadingBar");
@@ -55,61 +41,14 @@
     var canvas; //pie/imgbar加载
     var newImg; //pie/imgbar加载
 
-    //获取图片原始尺寸
-    var imgReady = (function() {  
-        var list = [],
-            intervalId = null,
-               // 用来执行队列
-              tick = function() {    
-                var i = 0;    
-                for (; i < list.length; i++) {      
-                    list[i].end ? list.splice(i--, 1) : list[i]();    
-                };    
-                !list.length && stop();  
-            },
-               // 停止所有定时器队列
-              stop = function() {    
-                clearInterval(intervalId);    
-                intervalId = null;  
-            };  
-        return function(url, ready, load, error) {    
-            var onready, width, height, newWidth, newHeight,     img = new Image();    
-            img.src = url;    
-            if (img.complete) {      
-                ready.call(img);      
-                load && load.call(img);      
-                return;    
-            };    
-            width = img.width;    
-            height = img.height;     
-            img.onerror = function() {      
-                error && error.call(img);      
-                onready.end = true;      
-                img = img.onload = img.onerror = null;    
-            };      
-            onready = function() {      
-                newWidth = img.width;      
-                newHeight = img.height;      
-                if (newWidth !== width || newHeight !== height || newWidth * newHeight > 1024) {          
-                    ready.call(img);        
-                    onready.end = true;      
-                };    
-            };    
-            onready();    
-            img.onload = function() {  
-                !onready.end && onready();      
-                load && load.call(img);            
-                img = img.onload = img.onerror = null;    
-            };       
-            if (!onready.end) {      
-                list.push(onready);   
-                if (intervalId === null) intervalId = setInterval(tick, 40);    
-            };  
-        };
-    })();
+    var process = typePrcess(jsondata.loadingbar.bartype);
 
     //jsondata.type default:进度条 ring:环形 pie：饼形 bar:条状 rotate:旋转
     if (jsondata.loadingbar) {
+
+        //设置背景图/颜色
+        loadingBox.style.background = jsondata.loadingbar.bgtype === "color" ? bgColor : "url(" + bgPic + ") no-repeat"; //背景图
+        loadingBox.style.backgroundSize = "100% 100%";
 
         switch (jsondata.loadingbar.bartype) {
             case 'ring':
@@ -136,10 +75,12 @@
                         'transform-origin': 'center',
                     });
 
-                    if (parseInt(loadingBox.style.width) > 980) {
+                    if (parseInt(loadingBox.style.width) > 800) {
                         $(loadingBox).css({ 'align-items': 'center' });
                         $('.logo_fx_white').css({ 'position': 'static' });
                     }
+
+                    startLoading();
                 }
 
                 break;
@@ -154,8 +95,11 @@
                             'background-size': '100% 100%',
                         })
                     }
-                    var src = fgPic;
-                    imgReady(src, function() {
+
+                    var img = new Image();
+                    img.src = fgPic;
+
+                    img.onload = function() {
                         imgH = (this.height / this.width) * imgW;
 
                         $(loadingBarBox).css({
@@ -168,13 +112,15 @@
                         canvas.setAttribute('width', imgW);
 
                         drawCanvas(canvas, 'bar', fgPic, 0);
-                    })
+                    }
 
-                    if (parseInt(loadingBox.style.width) > 980) {
+                    if (parseInt(loadingBox.style.width) > 800) {
                         $(loadingBox).css({ 'align-items': 'center' });
                     } else {
                         $(loadingBarBox).addClass('logo_fx_white');
                     }
+
+                    startLoading();
                 }
 
                 break;
@@ -201,12 +147,14 @@
                     canvas.setAttribute('width', loadingBarBox.style.width);
 
                     drawCanvas(canvas, 'pie', fgPic, 0);
-                }
 
-                if (parseInt(loadingBox.style.width) > 980) {
-                    $(loadingBox).css({ 'align-items': 'center' });
-                } else {
-                    $(loadingBarBox).addClass('logo_fx_white');
+                    if (parseInt(loadingBox.style.width) > 800) {
+                        $(loadingBox).css({ 'align-items': 'center' });
+                    } else {
+                        $(loadingBarBox).addClass('logo_fx_white');
+                    }
+
+                    startLoading();
                 }
 
                 break;
@@ -219,22 +167,22 @@
                     $(loadingBox).css({ 'align-items': 'center' });
                 }
 
+                startLoading();
+
                 break;
             default:
                 if (fgPic === "") logo.style.opacity = "0.0";
                 else logo.src = fgPic;
 
-                if (parseInt(loadingBox.style.width) > 980) {
+                if (parseInt(loadingBox.style.width) > 800) {
                     logo.style.width = clientH * 0.3 + 'px';
                 }
 
                 loadingBar.style.background = barFgColor;
                 loadingBarBox.style.background = barBgColor;
-        }
 
-        //设置背景图/颜色
-        loadingBox.style.background = jsondata.loadingbar.bgtype === "color" ? bgColor : "url(" + bgPic + ") no-repeat"; //背景图
-        loadingBox.style.backgroundSize = "100% 100%";
+                startLoading();
+        }
     }
 
     //根据加载选项确定渲染函数
@@ -274,16 +222,13 @@
                 }
         }
     }
-    var process = typePrcess(jsondata.loadingbar.bartype);
-
-    startLoading();
 
     //进度条效果
     var firstTimer, slowerTimer, slowestTimer, finalTimer, percent = 0;
 
     function startLoading() {
         firstTimer = setInterval(function() {
-            process(percent)
+            process(percent);
             if (window.isPageLoad) {
                 clearInterval(firstTimer);
                 goStraightToEnd();
@@ -332,10 +277,10 @@
         var endTimer = setInterval(function() {
             process(percent);
             if (percent === 100) {
-                // document.getElementById("loadingBox").style.display = "none";
+                document.getElementById("loadingBox").style.display = "none";
                 clearInterval(endTimer);
                 window.isLoadingbarOver = true;
-                // window.onloadOver();
+                window.onloadOver();
                 console.log("加载完成，进度条结束");
             }
             percent++;
