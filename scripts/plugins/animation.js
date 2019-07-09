@@ -292,7 +292,8 @@
                 'fly': 'zoomIn',
                 'pop': 'bounceIn',
                 'flip': 'flipInY',
-                'diamond': 'diamond'
+                'diamond': 'diamond',
+                'radial-gradient': 'radial-gradient',
             }
             var outEffectObj = {
                 'fade': 'fadeOut',
@@ -317,6 +318,7 @@
                 'pop': 'bounceOut',
                 'flip': 'flipOutY',
                 'diamond': 'diamond',
+                'radial-gradient': 'radial-gradient',
             }
             if (value.type.charAt(0) === 't') {
                 return inEffectObj[name];
