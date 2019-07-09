@@ -66,6 +66,10 @@
                             $(demo).css({ 'opacity': 0 });
                         }
                     });
+
+                    if (effect === 'cover') {
+                        cover(demo);
+                    }
                 })
 
                 //处理1
@@ -235,6 +239,29 @@
             return pageObj;
         };
 
+        function cover(d) {
+            var i = 0;
+            console.log('d', d)
+
+            function animate(dom, i) {
+
+                $(dom).css('-webkit-mask-image', 'linear-gradient(to right,#000 ' + i.toString() + '%,transparent ' + i.toString() + '%)')
+                $(dom).css('mask-image', 'linear-gradient(to right,#000 ' + i.toString() + '%,transparent ' + i.toString() + '%)')
+                $(dom).css('mask-size', '20px')
+                $(dom).css('-webkit-mask-size', '20px')
+
+            }
+            // animate(d, 50)
+            var timer = setInterval(function() {
+                animate(d, i)
+                i++
+                if (i === 101) {
+                    clearInterval(timer);
+                    return
+                }
+            }, 10);
+        }
+
         function playAnimation(item) {
             var demo = $(item.node).children('div')[0];
             var value = item.animations;
@@ -293,7 +320,7 @@
                 'pop': 'bounceIn',
                 'flip': 'flipInY',
                 'diamond': 'diamond',
-                'radial-gradient': 'radial-gradient',
+                'cover': 'cover',
             }
             var outEffectObj = {
                 'fade': 'fadeOut',
@@ -318,7 +345,7 @@
                 'pop': 'bounceOut',
                 'flip': 'flipOutY',
                 'diamond': 'diamond',
-                'radial-gradient': 'radial-gradient',
+                'cover': 'cover',
             }
             if (value.type.charAt(0) === 't') {
                 return inEffectObj[name];
