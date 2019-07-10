@@ -1,8 +1,10 @@
 ﻿var fx_options = {
-"0": [{container: "dynamicImageItem-40",plugin: "dynamicImage",option: {}},
-{container: "dynamicImageItem-41",plugin: "dynamicImage",option: {}},
-{container: "dynamicImageItem-42",plugin: "dynamicImage",option: {}},
-{container: "dynamicImageItem-43",plugin: "dynamicImage",option: {}},
+"0": [{container: "dynamicImageItem-4",plugin: "dynamicImage",option: {}},
+{container: "dynamicImageItem-5",plugin: "dynamicImage",option: {}},
+{container: "dynamicImageItem-6",plugin: "dynamicImage",option: {}},
+{container: "dynamicImageItem-7",plugin: "dynamicImage",option: {}},
+{container: "dynamicImageItem-8",plugin: "dynamicImage",option: {}},
+{container: "dynamicImageItem-9",plugin: "dynamicImage",option: {}},
 ],
 };
 (function () {

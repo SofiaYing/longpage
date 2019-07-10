@@ -1,31 +1,28 @@
-function dynamicImage()
-{
-    var startEvent = 'vmousedown';
-    var touchendEvent = "touchend";
-    var moveEvent = 'vmousemove';
-    var outEvent = 'vmouseout';
+(function() {
+    FX.plugins["dynamicImage"] = (function(id, option) {
 
-    $("div[title='DynamicImage']").each(function () {
+        var startEvent;
+        var endEvent;
+        var moveEvent;
+        var outEvent = 'vmouseout';
 
-        var demoDynamicImage = $(this);
+        var demoDynamicImage;
+        var lisnerID;
 
-        var lisnerID = 0;
+        var count_of;
 
-        var count_of = demoDynamicImage.children().length;
+        var driftParentNode;
+        var driftFirstnode;
+        var driftOriH;
+        var driftOriW;
 
-        var driftParentNode = demoDynamicImage.children().eq(1);
-        var driftFirstnode = driftParentNode.children().eq(0);
-        var driftOriH = driftFirstnode.height();
-        var driftOriW = driftFirstnode.width();
+        var regionW;
+        var regionH;
 
-        var regionW = demoDynamicImage.width();
-        var regionH = demoDynamicImage.height();
+        var pointPosX;
+        var pointPosY;
 
-        var pointPosX = -1;
-        var pointPosY = -1;
-
-        var scatterIdx = -1;
-
+        var scatterIdx;
         /*
         --imageCount--                 //小图个数//
         （整形数字）           1~100
@@ -68,7 +65,6 @@ function dynamicImage()
         打散                   scatter
         聚拢                   gather  
         */
-
         var filedirection = '';
 
         var imageCount = '';
@@ -83,91 +79,170 @@ function dynamicImage()
         var swingMode = '';
         var path = '';
         var gesture = '';
-        // no json
-        var jsonnode = demoDynamicImage.children()[count_of - 1];
-        var jsonStr = jsonnode.value;
-        var data = eval('(' + jsonStr + ')');
-        // no json
-
-        //json
-        //$.getJSON('./scripts/' + demoSlide[0].id + '.json', function (data) {
-        //$.ajax({type:"GET",url:'./scripts/' + demoSlide[0].id + '.json',dataType:"json",cache:false,success:function(data){
-        //json
-
-        imageCount = Number(data.imageCount);
-        filedirection = data.direction;
-        direction = filedirection;
-        speed = data.speed;
-        scaleEnable = data.scaleEnable;
-        minScale = data.minScale;
-        maxScale = data.maxScale;
-        swingEnable = data.swingEnable;
-        swingMinLimit = data.swingMinLimit;
-        swingMaxLimit = data.swingMaxLimit;
-        swingMode = data.swingMode;
-        path = data.path;
-        gesture = data.gesture;
 
         var speedstr;
-        switch (speed) {
-            case 'veryFast':
-                speedstr = 2000;
-                break;
-            case 'fast':
-                speedstr = 4000;
-                break;
-            case 'medium':
-                speedstr = 9000;
-                break;
-            case 'slow':
-                speedstr = 12000;
-                break;
-            case 'verySlow':
-                speedstr = 15000;
-                break;
-            default:
-                break;
-        }
 
-        var driftScaleMaxH = driftOriH * Number(maxScale) / 100;
-        var driftScaleMaxW = driftOriW * Number(maxScale) / 100;
-        var driftScaleMinH = driftOriH * Number(minScale) / 100;
-        var driftScaleMinW = driftOriW * Number(minScale) / 100;
+        var atbd;
+        var data;
 
-        var swinInc = new Array(imageCount);
-        for (var i = 0; i < imageCount; i++) {
-            swinInc[i] = 1;
-        }
+        var driftScaleMaxH;
+        var driftScaleMaxW;
+        var driftScaleMinH;
+        var driftScaleMinW;
 
+        var swinInc;
         var minRot = 0;
         var maxRot = 360;
-        if (swingEnable === "true") {
-            minRot = Number(swingMinLimit);
-            maxRot = Number(swingMaxLimit);
-        }
+        var rot;
+        var scaleInc;
 
-        var rot = new Array(imageCount);
-        for (var i = 0; i < imageCount; i++) {
-            rot[i] = Math.random() * maxRot;
-        }
+        var drift_W;
+        var drift_H;
 
-        var scaleInc = new Array(imageCount);
-        for (var i = 0; i < imageCount; i++) {
-            scaleInc[i] = 1;
-        }
+        var isLongPage = window.sizeAdjustor.jsonData.adjustType === "longPageAdjust";
+        // 对象
+        var DynamicImage = function(id, option) {
+            this.$target = $("#" + id).children().eq(0);
+            this.init(id, option);
+        };
 
-        var drift_W = new Array(imageCount);
-        var drift_H = new Array(imageCount);
-        for (var i = 0; i < imageCount; i++) {
-            var ra_dom = Math.random();
-            drift_W[i] = driftScaleMinW + (ra_dom * (driftScaleMaxW - driftScaleMinW));
-            drift_H[i] = driftScaleMinH + (ra_dom * (driftScaleMaxH - driftScaleMinH));
-        }
+        // 继承接口
+        FX.utils.inherit(FXInterface, DynamicImage);
 
-        var atbd = new Array(imageCount);
-        for (var i = 0; i < imageCount; i++) {
-            atbd[i] = "false";
-        }
+        //组件初始化
+        DynamicImage.prototype.init = function(id, option) {
+
+            if (is_mobile()) {
+                startEvent = 'touchstart';
+                endEvent = 'touchend';
+                moveEvent = 'touchmove';
+            } else {
+                startEvent = 'pointerdown';
+                endEvent = 'pointerup';
+                moveEvent = 'pointermove';
+            }
+
+            demoDynamicImage = this.$target;
+            lisnerID = 0;
+
+            count_of = demoDynamicImage.children().length;
+
+            driftParentNode = demoDynamicImage.children().eq(1);
+            driftFirstnode = driftParentNode.children().eq(0);
+            driftOriH = driftFirstnode.height();
+            driftOriW = driftFirstnode.width();
+
+            regionW = demoDynamicImage.width();
+            regionH = demoDynamicImage.height();
+
+            pointPosX = -1;
+            pointPosY = -1;
+
+            scatterIdx = -1;
+
+            // no json
+            var jsonnode = demoDynamicImage.children()[count_of - 1];
+            var jsonStr = jsonnode.value;
+            data = eval('(' + jsonStr + ')');
+            // no json
+
+            //json
+            //$.getJSON('./scripts/' + demoSlide[0].id + '.json', function (data) {
+            //$.ajax({type:"GET",url:'./scripts/' + demoSlide[0].id + '.json',dataType:"json",cache:false,success:function(data){
+            //json
+
+            imageCount = Number(data.imageCount);
+            filedirection = data.direction;
+            direction = filedirection;
+            speed = data.speed;
+            scaleEnable = data.scaleEnable;
+            minScale = data.minScale;
+            maxScale = data.maxScale;
+            swingEnable = data.swingEnable;
+            swingMinLimit = data.swingMinLimit;
+            swingMaxLimit = data.swingMaxLimit;
+            swingMode = data.swingMode;
+            path = data.path;
+            gesture = data.gesture;
+
+            switch (speed) {
+                case 'veryFast':
+                    speedstr = 2000;
+                    break;
+                case 'fast':
+                    speedstr = 4000;
+                    break;
+                case 'medium':
+                    speedstr = 9000;
+                    break;
+                case 'slow':
+                    speedstr = 12000;
+                    break;
+                case 'verySlow':
+                    speedstr = 15000;
+                    break;
+                default:
+                    break;
+            }
+
+            driftScaleMaxH = driftOriH * Number(maxScale) / 100;
+            driftScaleMaxW = driftOriW * Number(maxScale) / 100;
+            driftScaleMinH = driftOriH * Number(minScale) / 100;
+            driftScaleMinW = driftOriW * Number(minScale) / 100;
+
+            swinInc = new Array(imageCount);
+            for (var i = 0; i < imageCount; i++) {
+                swinInc[i] = 1;
+            }
+
+            if (swingEnable === "true") {
+                minRot = Number(swingMinLimit);
+                maxRot = Number(swingMaxLimit);
+            }
+
+            rot = new Array(imageCount);
+            for (var i = 0; i < imageCount; i++) {
+                rot[i] = Math.random() * maxRot;
+            }
+
+            scaleInc = new Array(imageCount);
+            for (var i = 0; i < imageCount; i++) {
+                scaleInc[i] = 1;
+            }
+
+            drift_W = new Array(imageCount);
+            drift_H = new Array(imageCount);
+            for (var i = 0; i < imageCount; i++) {
+                var ra_dom = Math.random();
+                drift_W[i] = driftScaleMinW + (ra_dom * (driftScaleMaxW - driftScaleMinW));
+                drift_H[i] = driftScaleMinH + (ra_dom * (driftScaleMaxH - driftScaleMinH));
+            }
+
+            atbd = new Array(imageCount);
+            for (var i = 0; i < imageCount; i++) {
+                atbd[i] = "false";
+            }
+
+
+
+
+            addDynamicImageListener();
+        };
+
+        //重置数据
+        DynamicImage.prototype.reset = function(option) {
+            rotatescaleImage();
+            initImage();
+            driftImage();
+        };
+
+        //数据重置
+        DynamicImage.prototype.destroy = function() {
+            var driftParentnode = demoDynamicImage.children().eq(1);
+            for (var i = 0; i < imageCount; i++) {
+                driftParentnode.children().eq(i).stop();
+            }
+        };
 
         function rotatescale() {
             var driftParentnode = demoDynamicImage.children().eq(1);
@@ -175,7 +250,7 @@ function dynamicImage()
                 atboundary(driftParentnode.children().eq(i), i);
                 if (atbd[i] === "true") {
                     initdrift(driftParentnode.children().eq(i));
-                    drift(driftParentnode.children().eq(i), i);
+                    drift(driftParentnode.children().eq(i), i, 'init');
                     if (i === scatterIdx)
                         scatterIdx = -1;
                 }
@@ -184,12 +259,11 @@ function dynamicImage()
 
                 driftParentnode.children().eq(i).css({ "transform": "rotate(" + rot[i] + "deg)" });
                 rot[i] += swinInc[i];
-                if (swingMode === "1")   // 循环　
+                if (swingMode === "1") // 循环　
                 {
                     if (rot[i] > maxRot)
                         rot[i] = minRot;
-                }
-                else                    // 往复
+                } else // 往复
                 {
                     if (rot[i] > maxRot || rot[i] < minRot)
                         swinInc[i] *= -1;
@@ -220,7 +294,7 @@ function dynamicImage()
                     }
                     break;
                 case 'topToBottom':
-                    if (demo[0].style.top === regionH + 'px')
+                    if (parseInt(demo[0].style.top) >= regionH)
                         atbd[idx] = "true";
                     else
                         atbd[idx] = "false";
@@ -270,22 +344,19 @@ function dynamicImage()
                     var topPosition = Math.floor(Math.random() * regionH);
                     var leftPosition = Math.floor(Math.random() * regionW);
 
-                    if (leftRandom > 0.5 && topRandom > 0.5)    // 上
+                    if (leftRandom > 0.5 && topRandom > 0.5) // 上
                     {
                         demo[0].style.top = '-' + randomValueH + 'px';
                         demo[0].style.left = leftPosition + 'px';
-                    }
-                    else if (leftRandom > 0.5 && topRandom <= 0.5)   //下
+                    } else if (leftRandom > 0.5 && topRandom <= 0.5) //下
                     {
                         demo[0].style.top = String(Number(regionH) + randomValueH) + 'px';
                         demo[0].style.left = leftPosition + 'px';
-                    }
-                    else if (leftRandom <= 0.5 && topRandom > 0.5)   //左
+                    } else if (leftRandom <= 0.5 && topRandom > 0.5) //左
                     {
                         demo[0].style.top = topPosition + 'px';
                         demo[0].style.left = '-' + randomValueW + 'px';
-                    }
-                    else if (leftRandom <= 0.5 && topRandom <= 0.5)   //右
+                    } else if (leftRandom <= 0.5 && topRandom <= 0.5) //右
                     {
                         demo[0].style.top = topPosition + 'px';
                         demo[0].style.left = String(Number(regionW) + randomValueW) + 'px';
@@ -321,22 +392,19 @@ function dynamicImage()
                     var topPosition = Math.floor(Math.random() * regionH);
                     var leftPosition = Math.floor(Math.random() * regionW);
 
-                    if (leftRandom > 0.5 && topRandom > 0.5)    // 上
+                    if (leftRandom > 0.5 && topRandom > 0.5) // 上
                     {
                         demo[0].style.top = '-' + randomValueH + 'px';
                         demo[0].style.left = leftPosition + 'px';
-                    }
-                    else if (leftRandom > 0.5 && topRandom <= 0.5)   //下
+                    } else if (leftRandom > 0.5 && topRandom <= 0.5) //下
                     {
                         demo[0].style.top = String(Number(regionH) + randomValueH) + 'px';
                         demo[0].style.left = leftPosition + 'px';
-                    }
-                    else if (leftRandom <= 0.5 && topRandom > 0.5)   //左
+                    } else if (leftRandom <= 0.5 && topRandom > 0.5) //左
                     {
                         demo[0].style.top = topPosition + 'px';
                         demo[0].style.left = '-' + randomValueW + 'px';
-                    }
-                    else if (leftRandom <= 0.5 && topRandom <= 0.5)   //右
+                    } else if (leftRandom <= 0.5 && topRandom <= 0.5) //右
                     {
                         demo[0].style.top = topPosition + 'px';
                         demo[0].style.left = String(Number(regionW) + randomValueW) + 'px';
@@ -354,7 +422,7 @@ function dynamicImage()
             }
         }
 
-        function drift(demo, idx) {
+        function drift(demo, idx, type) {
             atbd[idx] = "false";
             demo.stop();
             var jdx = Math.floor(Math.random() * idx);
@@ -369,9 +437,10 @@ function dynamicImage()
                         ranLeft += Math.floor(Math.random() * regionW) - regionW * 0.5;
                     };
                     //demo.delay(jdx * (speedstr / 10)).animate({
+                    //stop无法取消delay，点击聚拢或者打散会出现延迟效果
                     demo.animate({
                         left: [ranLeft, 'swing'],
-                        top: [regionH, 'linear']
+                        top: [regionH * 2, 'linear']
                     }, speedstr);
                     break;
                 case 'bottomToTop':
@@ -413,13 +482,13 @@ function dynamicImage()
                     var topRandom = Math.random();
                     var topPosition = Math.floor(Math.random() * regionH);
                     var leftPosition = Math.floor(Math.random() * regionW);
-                    if (leftRandom > 0.5 && topRandom > 0.5)    // 上
+                    if (leftRandom > 0.5 && topRandom > 0.5) // 上
                         demo.delay(jdx * (speedstr / 10)).animate({ top: "0px", left: leftPosition + "px" }, speedstr, 'linear');
-                    else if (leftRandom > 0.5 && topRandom <= 0.5)   //下
+                    else if (leftRandom > 0.5 && topRandom <= 0.5) //下
                         demo.delay(jdx * (speedstr / 10)).animate({ top: regionH + "px", left: leftPosition + "px" }, speedstr, 'linear');
-                    else if (leftRandom <= 0.5 && topRandom > 0.5)   //左
+                    else if (leftRandom <= 0.5 && topRandom > 0.5) //左
                         demo.delay(jdx * (speedstr / 10)).animate({ top: topPosition + "px", left: "0px" }, speedstr, 'linear');
-                    else if (leftRandom <= 0.5 && topRandom <= 0.5)   //右
+                    else if (leftRandom <= 0.5 && topRandom <= 0.5) //右
                         demo.delay(jdx * (speedstr / 10)).animate({ top: topPosition + "px", left: regionW + "px" }, speedstr, 'linear');
                     break;
                 case '从四周到中间':
@@ -438,13 +507,13 @@ function dynamicImage()
         }
 
         function scatterdrift(demo, idx) {
+
             var drifttop = Math.floor(Number(demo[0].style.top.substring(0, demo[0].style.top.length - 2)));
             var driftleft = Math.floor(Number(demo[0].style.left.substring(0, demo[0].style.left.length - 2)));
             var driftwidth = Math.floor(Number(demo[0].style.width.substring(0, demo[0].style.width.length - 2)));
             var driftheight = Math.floor(Number(demo[0].style.height.substring(0, demo[0].style.height.length - 2)));
             var driftright = driftleft + driftwidth;
             var driftbottom = drifttop + driftheight;
-
             if (pointPosX > driftleft && pointPosX < driftright && pointPosY > drifttop && pointPosY > driftbottom) {
                 demo.stop();
                 scatterIdx = idx;
@@ -453,13 +522,13 @@ function dynamicImage()
                 var topRandom = Math.random();
                 var topPosition = Math.floor(Math.random() * regionH);
                 var leftPosition = Math.floor(Math.random() * regionW);
-                if (leftRandom > 0.5 && topRandom > 0.5)    // 上
+                if (leftRandom > 0.5 && topRandom > 0.5) { // 上
                     demo.animate({ top: "0px", left: leftPosition + "px" }, 500, 'linear');
-                else if (leftRandom > 0.5 && topRandom <= 0.5)   //下
+                } else if (leftRandom > 0.5 && topRandom <= 0.5) //下
                     demo.animate({ top: regionH + "px", left: leftPosition + "px" }, 500, 'linear');
-                else if (leftRandom <= 0.5 && topRandom > 0.5)   //左
+                else if (leftRandom <= 0.5 && topRandom > 0.5) //左
                     demo.animate({ top: topPosition + "px", left: "0px" }, 500, 'linear');
-                else if (leftRandom <= 0.5 && topRandom <= 0.5)   //右
+                else if (leftRandom <= 0.5 && topRandom <= 0.5) //右
                     demo.animate({ top: topPosition + "px", left: regionW + "px" }, 500, 'linear');
             }
         }
@@ -473,35 +542,28 @@ function dynamicImage()
 
         function addDynamicImageListener() {
             if (gesture === "gather" || gesture === "scatter") {
-                driftParentNode.on(startEvent, function (e) {
+                driftParentNode.on(startEvent, function(e) {
                     e.preventDefault();
+                    var point = e.originalEvent.touches ? e.originalEvent.touches[0] : e;
+                    var longpagePageY = $('#divpar').scrollTop() + point.pageY;
 
-                    var initxpos = demoDynamicImage[0].offsetLeft;
-                    var initypos = demoDynamicImage[0].offsetTop;
-
-                    var parentA = demoDynamicImage[0].parentNode;
-                    while (parentA) {
-                        var name = parentA.localName;
-                        if (name === 'body')
-                            break;
-                        initxpos += parentA.offsetLeft;
-                        initypos += parentA.offsetTop;
-
-                        parentA = parentA.parentNode;
+                    var scaledPos = FX.utils.getScaledPos(demoDynamicImage[0], point.pageX, point.pageY);
+                    if (!isLongPage) {
+                        var scaledPos = FX.utils.getScaledPos(demoDynamicImage[0], point.pageX, point.pageY);
+                    } else {
+                        var scaledPos = FX.utils.getScaledPos(demoDynamicImage[0], point.pageX, longpagePageY);
                     }
-
-                    pointPosX = e.pageX - initxpos;
-                    pointPosY = e.pageY - initypos;
+                    pointPosX = scaledPos.x;
+                    pointPosY = scaledPos.y;
 
                     if (gesture === "gather") {
                         direction = 'pointGather';
                         driftImage();
-                    }
-                    else if (gesture === "scatter")
+                    } else if (gesture === "scatter")
                         scatterImage();
                 });
 
-                driftParentNode.on('mouseup', function (e) {
+                driftParentNode.on('pointerup', function(e) {
                     e.preventDefault();
                     pointPosX = -1;
                     pointPosY = -1;
@@ -511,7 +573,7 @@ function dynamicImage()
                     }
                 });
 
-                driftParentNode.on(touchendEvent, function (e) {
+                driftParentNode.on(endEvent, function(e) {
                     e.preventDefault();
                     pointPosX = -1;
                     pointPosY = -1;
@@ -522,10 +584,6 @@ function dynamicImage()
                 });
             }
         }
-
-        rotatescaleImage();
-        initImage();
-        driftImage();
-        addDynamicImageListener();
+        return new DynamicImage(id, option);
     });
-}
+})();

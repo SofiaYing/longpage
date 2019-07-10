@@ -49,8 +49,6 @@ window.onloadOver = function() {
                 //swiper在loop=true模式下,页面索引会加1
                 if (isLoop) index++;
                 mySwiper.slideTo(index, 0);
-            } else if (data.act === 'gyroscope') {
-                window.deviceOrientation = data.val;
             } else {
                 window.wxuserid = data.val;
             }
@@ -150,12 +148,12 @@ window.onloadOver = function() {
             var observeOptions = new IntersectionObserver((entries) => {
                 entries.forEach((item, index) => {
                     var nodeIndex = longPageArray.findIndex(function(optItem) {
-                        return optItem.container === item.target.id
+                        return optItem.container === item.target.id;
                     })
                     if (item.intersectionRatio >= 0.75) {
-                        fx.reset(nodeIndex.toString())
+                        fx.reset(nodeIndex.toString());
                     } else {
-                        fx.destroy(nodeIndex.toString())
+                        fx.destroy(nodeIndex.toString());
                     }
                 })
             }, {
@@ -163,14 +161,14 @@ window.onloadOver = function() {
             });
 
             $.each(fx_options['0'], function(index, item) {
-                longPageOptions[index] = [item]
-                longPageArray.push(item)
+                longPageOptions[index] = [item];
+                longPageArray.push(item);
             })
             window.fx = new FXH5(longPageOptions);
 
             fx_options['0'].forEach(function(item, index) {
                 if (item.plugin !== 'panorama' && item.plugin !== 'jigsaw' && item.plugin !== 'imageDrag' && item.plugin !== 'audio' && item.plugin !== 'animate' && item.plugin !== 'panorama' && item.plugin !== 'jigsaw') {
-                    observeOptions.observe(document.getElementById(item.container))
+                    observeOptions.observe(document.getElementById(item.container));
                 }
             })
         }
