@@ -119,41 +119,18 @@ window.onloadOver = function() {
         })();
     } else {
         if (fx_options['0']) {
-            var longPageOptions = {};
-            var longPageArray = [];
-
-            var overscroll = function(el) {
-                el.addEventListener('touchstart', function() {
-                    var top = el.scrollTop,
-                        totalScroll = el.scrollHeight,
-                        currentScroll = top + el.offsetHeight;
-                    if (top === 0) {
-                        el.scrollTop = 1;
-                    } else if (currentScroll === totalScroll) {
-                        el.scrollTop = top - 1;
-                    }
-                });
-                el.addEventListener('touchmove', function(evt) {
-                    if (el.offsetHeight < el.scrollHeight)
-                        evt._isScroller = true;
-                });
-            }
-            overscroll(document.querySelector('#divpar'));
-            document.body.addEventListener('touchmove', function(evt) {
-                if (!evt._isScroller) {
-                    evt.preventDefault();
-                }
-            });
+            var longPageOptions = {}
+            var longPageArray = []
 
             var observeOptions = new IntersectionObserver((entries) => {
                 entries.forEach((item, index) => {
                     var nodeIndex = longPageArray.findIndex(function(optItem) {
-                        return optItem.container === item.target.id;
+                        return optItem.container === item.target.id
                     })
                     if (item.intersectionRatio >= 0.75) {
-                        fx.reset(nodeIndex.toString());
+                        fx.reset(nodeIndex.toString())
                     } else {
-                        fx.destroy(nodeIndex.toString());
+                        fx.destroy(nodeIndex.toString())
                     }
                 })
             }, {
@@ -161,14 +138,14 @@ window.onloadOver = function() {
             });
 
             $.each(fx_options['0'], function(index, item) {
-                longPageOptions[index] = [item];
-                longPageArray.push(item);
+                longPageOptions[index] = [item]
+                longPageArray.push(item)
             })
             window.fx = new FXH5(longPageOptions);
 
             fx_options['0'].forEach(function(item, index) {
                 if (item.plugin !== 'panorama' && item.plugin !== 'jigsaw' && item.plugin !== 'imageDrag' && item.plugin !== 'audio' && item.plugin !== 'animate' && item.plugin !== 'panorama' && item.plugin !== 'jigsaw') {
-                    observeOptions.observe(document.getElementById(item.container));
+                    observeOptions.observe(document.getElementById(item.container))
                 }
             })
         }
