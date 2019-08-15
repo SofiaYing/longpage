@@ -1,0 +1,64 @@
+@font-face {
+    font-family: "FZHTTest-FX";
+    src: url("../fonts/FZHTTest.ttf");
+}
+
+.p1span3 {
+    position: absolute;
+}
+
+.p2para1 {
+    font-size: 21.00px;
+    line-height: 108%;
+}
+
+.p2textdiv0 {
+    height: 2194.96px;
+    left: 42.52px;
+    position: absolute;
+    top: 42.52px;
+    width: 274.96px;
+}
+
+.p2imagediv4 {
+    height: 2280.00px;
+    left: -42.52px;
+    overflow: hidden;
+    position: absolute;
+    text-align: left;
+    top: -42.52px;
+    width: 360.00px;
+}
+
+.p2pGrpDiv-FxLi2 {
+    -moz-transform: scale;
+    -moz-transform-origin: 0% 0%;
+    -ms-transform: scale;
+    -ms-transform-origin: 0% 0%;
+    -o-transform: scale;
+    -o-transform-origin: 0% 0%;
+    -webkit-transform: scale;
+    -webkit-transform-origin: 0% 0%;
+    height: 2194.96px;
+    transform: scale;
+    transform-origin: 0% 0%;
+    width: 274.96px;
+}
+
+.p2image5 {
+    -moz-transform: rotate(-0.000000deg)scale(0.468750, 2.968750) skewX(0.000000deg);
+    -moz-transform-origin: 0.00% 0.00%;
+    -ms-transform: rotate(-0.000000deg)scale(0.468750, 2.968750) skewX(0.000000deg);
+    -ms-transform-origin: 0.00% 0.00%;
+    -o-transform: rotate(-0.000000deg)scale(0.468750, 2.968750) skewX(0.000000deg);
+    -o-transform-origin: 0.00% 0.00%;
+    -webkit-transform: rotate(-0.000000deg)scale(0.468750, 2.968750) skewX(0.000000deg);
+    -webkit-transform-origin: 0.00% 0.00%;
+    height: 768.00px;
+    margin-left: -0.00%;
+    margin-top: -0.00%;
+    position: absolute;
+    transform: rotate(-0.000000deg)scale(0.468750, 2.968750) skewX(0.000000deg);
+    transform-origin: 0.00% 0.00%;
+    width: 768.00px;
+}

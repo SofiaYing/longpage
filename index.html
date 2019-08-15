@@ -1,280 +1,323 @@
-<!DOCTYPE html>
-<html><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>3D全景之ThreeJs</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta id="jdouview" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="format-detection" content="telephone=no">
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta name="viewport" id="webviewport" content="width=360, height=2280" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>无命题3</title>
+    <script src="scripts/base.js" type="text/javascript"></script>
+    <script src="scripts/jquery.js" type="text/javascript"></script>
+    <script src="scripts/bgmController.js"></script>
+    <script src="scripts/observe.polyfill.min.js" type="text/javascript"></script>
     <style>
-    body { background-color: #000000; margin: 0; cursor: move; overflow: hidden; }
-    .bg_section { width: 1026px; height: 1026px; background-size: cover; position: absolute; }
-    .bg_section .bg { position: absolute; width: 1026px; height: 1026px; }
-    .btn1{position: absolute;width: 74px;height: 96px;top:20%;left:40%;-webkit-transform: perspective(600px);background: url(images/btn1.png);background-size: 100% 100%;}
-    .btn2{position: absolute;width: 71px;height: 91px;top:30%;left:50%;-webkit-transform: perspective(600px);background: url(images/btn2.png);background-size: 100% 100%;}
-    .controlBtn{ width: 60px; height: 60px; position: fixed; z-index: 99999; left: 8%; top: 5%; }
-    .controlIcon{ background: url(images/controlIcon.png); background-size: 100% 100%; }
-    .controlIconae{ background: url(images/controlIconae.png); background-size: 100% 100%; }
-    @-webkit-keyframes bounceant1{
-        0%{-webkit-transform:translateY(0)}
-        50%{-webkit-transform:translateY(-12px)}
-        100%{-webkit-transform:translateY(0px)}
-    }
-    @keyframes bounceant1{
-        0%{transform:translateY(0)}
-        50%{transform:translateY(-12px)}
-        100%{transform:translateY(0px)}
-    }
-    .bounceant1{-webkit-animation:bounceant1 3s infinite;animation:bounceant1 3s infinite}
+        input[type=checkbox]:checked:after {
+            content: '\2714';
+            color: #555555;
+            text-align: center;
+            position: absolute;
+            width: 21px;
+            height: 21px;
+            line-height: 100%;
+            font-size: inherit;
+            left: 0;
+            top: 0;
+        }
+        
+        input[type=radio]:checked:after {
+            content: '';
+            color: #555555;
+            position: absolute;
+            width: 70%;
+            height: 70%;
+            background-color: #555555;
+            border-radius: 100%;
+            line-height: 100%;
+            left: 15%;
+            top: 15%;
+        }
+        
+        div[title=Button] {
+            backface-visibility: hidden;
+        }
+        
+        ruby>span {
+            display: block;
+        }
+        
+        .loadingBox {
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            background: #333333;
+            z-index: 300;
+            display: none;
+        }
+        
+        .loadingBarBox {
+            height: 10px;
+            width: 50%;
+            background: #222222;
+            padding: 2px;
+            overflow: visible;
+            border-radius: 8px;
+        }
+        
+        .loadingBar {
+            width: 0;
+            animation: progress-bar-stripes reverse 0.50s linear infinite;
+            border-radius: 20px;
+            position: relative;
+            background-color: #f76317;
+            background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            -webkit-background-size: 40px 40px;
+            background-size: 40px 40px;
+            height: 100%;
+            background-position: 40px 0;
+        }
+        
+        @keyframes progress-bar-stripes {
+            from {
+                background-position: 40px 0
+            }
+            to {
+                background-position: 0 0
+            }
+        }
+        
+        .ifr {
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            border: solid 0px;
+        }
+        
+        @keyframes bgmrotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg)
+            }
+        }
+        
+        .divbgm {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 20;
+        }
+        
+        .animate {
+            animation: bgmrotate 8s linear infinite;
+        }
+        
+        .imgbgm {
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: none;
+        }
+        
+        .uiImage-btn {
+            position: absolute;
+            bottom: 0;
+            width: 70px;
+            height: 40px;
+            background-color: #6C67EF;
+            padding: 0;
+            border-width: 0;
+            border-radius: 6px;
+            color: white;
+            outline: none;
+            cursor: pointer;
+            display: none;
+            font-family: sans-serif, Roboto, Noto, Arial, PingFang SC, Hiragino Sans GB, Droidsansfallback, Heiti SC;
+        }
+        
+        .uiImage-btn:hover {
+            background-color: #818FF6;
+        }
+        
+        .divshow {
+            position: absolute;
+            overflow: hidden;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .divnoshow {
+            position: absolute;
+            z-index: 1;
+            width: 180px;
+            height: 1140px;
+            display: none;
+        }
+        
+        .swiper-container {
+            width: 360px;
+            height: 2280px;
+        }
+        
+        #divpar {
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+            height: 100vh;
+        }
+        /* .scroll-wrapper {
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+            height: 100vh;
+        } */
+        
+        @keyframes arrowmove {
+            0% {
+                opacity: 0.3
+            }
+            50% {
+                opacity: 1
+            }
+            100% {
+                transform: translateY(-35px);
+                opacity: 0.3
+            }
+        }
+        
+        .floatArrow {
+            width: 36px;
+            height: 28px;
+            position: fixed;
+            align: center;
+            left: 50%;
+            margin-left: -18px;
+            bottom: 5%;
+            animation: arrowmove 1.5s infinite;
+            z-index: 20;
+        }
     </style>
-    </head>
-    <body>
+    <link rel="stylesheet" type="text/css" href="CSS/animate.css"></link>
+    <link rel="stylesheet" type="text/css" href="CSS/book_textstyle1.css"></link>
+    <link rel="stylesheet" type="text/css" href="CSS/book_Chapter1.css"></link>
+    <link rel="stylesheet" type="text/css" href="CSS/book_Chapter2.css"></link>
+</head>
 
-<div id="controlBtn" class="controlBtn controlIconae controlIcon"></div> <!-- 陀螺仪开启按钮 -->
-<div id="pano">
-    <!-- 正方体的六个面 -->
-    <div id="bg_section_0" class="bg_section bg_section_4 scale_test">
-        <img class="bg" src="images/panorama.right.jpg" alt="">
-        <div class="btn1 bounceant1"></div> <!-- 可点击按钮1 -->
+<body style="margin:0px;position: fixed; width: 100%; height: 100%">
+    <div id="divpar">
+        <div id="cropper_container" style="width: 100%; height: 100%;z-index: 100000; display: none;position: absolute;">
+            <img src="" alt="" style="max-width: 100%">
+            <button class="uiImage-btn" id="apply" type="button" style="left: 0">应用</button>
+            <button class="uiImage-btn" id="cancel" type="button" style="right: 0;">取消</button>
+        </div>
+        <img id="floatArrow" class="floatArrow" src="Media/arrow.png"></img>
+        <video id="video" src="" style="height: 0;width: 0;position: absolute;top: -1000px"></video>
+        <audio id="au1" src=""></audio>
+        <div id="loadingBox" class="loadingBox">
+            <img id="logo" width="40%">
+            <div id="loadingBarBox" class="loadingBarBox">
+                <div id="loadingBar" class="loadingBar"></div>
+            </div>
+        </div>
+        <input type="hidden" id="json" value="{'layout':'fixed','lastfile':'chapter-1.html','pageturning':[{'pageresult':'Traslation','pagedir':'UpAndDown','pagecircle':'true','pagetime':'1500','pageicon':'true','pagenoslide':'true'}],'adjustType':'longPageAdjust','bgmhideicon':'false','bgmarea':[],'collect':'http://h5.founderfx.cn/external/h5/collectFormData','submitted':'http://h5.founderfx.cn/external/h5/findFormOne','loadingbar':{'bartype':'default','barpos':'30','showPercent':'false','barfgcolor':'rgba(247,99,23,1.0)','barbgcolor':'rgba(34,34,34,1.0)','promptText':'','promptSize':'21.0','promptColor':'#ffffff','fgpic':'Media/loadpage1.png','loadpic':'','bgpic':'','bgcolor':'#333333','bgtype':'color','direction':'leftToRight'}}"
+        />
+        <script src="scripts/sizeAdjustor.js" type="text/javascript"></script>
+        <script src="scripts/loadingbar.js" type="text/javascript"></script>
+        <script src="scripts/index_modify.js" type="text/javascript"></script>
+        <div id="divbgm" class="divbgm">
+            <img id="bgmPlay" class="imgbgm" src=""></img>
+            <img id="bgmPause" class="imgbgm" src=""></img>
+            <audio id="aubgm" src="" preload="none"></audio>
+        </div>
+        <div class="swiper-container" id="swiper_container" style="position:absolute;overflow:hidden;display:none;" data-width="360" data-height="2280">
+            <div class="swiper-wrapper">
+                <!-- <div class="scroll-wrapper"> -->
+                <div id="page1" class="divshow swiper-slide">
+                    <div class="p1para1 p1textdiv0">
+
+                        <div id="pGrp-2" class="p1pGrpDiv-FxLi2">
+
+                            <div class="">
+
+                                <div class="p1imagediv4">
+
+                                    <img class="p1image5" src="Media/chapter-1image1.jpg" id="imageItem-4" alt="Media/chapter-1image1.jpg"></img>
+
+                                </div>
+
+                            </div>
+
+                            <div class="p1InAdiv6" id="buttonItem-6">
+
+                                <div title="Button" style="overflow:hidden;height:210px;width:210px;position:relative;">
+
+                                    <div style="left:0px;top:0px;height:210px;width:210px;display:inline;position:absolute;">
+
+                                        <img src="Media/chapter-1image2.png" style="height:210px;width:210px;"></img>
+
+                                    </div>
+
+                                    <input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;1&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- </div> -->
+
+
+                <!-- <div class="scroll-wrapper"> -->
+                <div id="page2" class="divshow swiper-slide" style="display: none">
+                    <div class="p2para1 p2textdiv0">
+
+                        <div id="pGrp-10" class="p2pGrpDiv-FxLi2">
+
+                            <div class="">
+
+                                <div class="p2imagediv4">
+
+                                    <img class="p2image5" src="Media/chapter-1image1.jpg" id="imageItem-4" alt="Media/chapter-1image1.jpg"></img>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- </div> -->
+
+            </div>
+        </div>
+
+
+        <div id="wx_pic" style="margin:0 auto;overflow:hidden;width:0;height:0;">
+            <img src="Media/cover.jpg" />
+        </div><button id="prepage" style="display:none;">上一页</button>
+        <button id="nextpage" style="display:none;">下一页</button>
+        <div id="divpre" style="position:absolute;left:0%;width:10%;top:10%;height:90%;z-index:1;display:none;"></div>
+        <div id="divnext" style="position:absolute;left:90%;width:10%;top:10%;height:90%;z-index:1;display:none;"></div>
     </div>
-    <div id="bg_section_1" class="bg_section bg_section_5 scale_test">
-        <img class="bg" src="images/panorama.left.jpg" alt="">
-    </div>
-    <div id="bg_section_2" class="bg_section bg_section_2 scale_test">
-        <img class="bg" src="images/panorama.top.jpg" alt="">
-    </div>
-    <div id="bg_section_3" class="bg_section bg_section_3 scale_test">
-        <img class="bg" src="images/panorama.bottom.jpg" alt="">
-    </div>
-    <div id="bg_section_4" class="bg_section bg_section_1 scale_test">
-        <img class="bg" src="images/panorama.front.jpg" alt="">
-        <div class="btn2 bounceant1"></div> <!-- 可点击按钮2 -->
-    </div>
-    <div id="bg_section_5" class="bg_section bg_section_0 scale_test">
-        <img class="bg" src="images/panorama.back.jpg" alt="">
-    </div>
-</div>
+    <script src="./scripts/options.js"></script>
+</body>
 
-<script src="3dim_files/zepto.js"></script>
-<script src="3dim_files/three.js"></script>
-<script src="3dim_files/CSS3DRenderer.js"></script>
-<script src="3dim_files/DeviceOrientationControls.js"></script>
-<script>
-
-var camera, scene, renderer;
-var geometry, material, mesh;
-var target = new THREE.Vector3();
-
-var lon = 90, lat = 0;
-var phi = 0, theta = 0;
-
-var touchX, touchY;
-
-init();
-animate();
-
-function init() {
-    /**
-    * 添加相机
-     * @type {THREE.PerspectiveCamera}
-     */
-    camera = new THREE.PerspectiveCamera( 
-        75, // 相机视角的夹角
-        window.innerWidth / window.innerHeight,  // 相机画幅比
-        1, // 最近焦距
-        1000 // 最远焦距
-        ); 
-
-    /**
-     * 创建场景
-     * @type {THREE.Scene}
-     */
-    scene = new THREE.Scene();
-
-    /**
-     *正方体的6个面的资源及相关（坐标、旋转等）设置
-     */
-    var flipAngle = Math.PI, // 180度
-        rightAngle = flipAngle / 2, // 90度
-        tileWidth = 512; 
-    var sides = [{
-        url: "images/panorama.right.jpg", //right
-        position: [-tileWidth, 0, 0],
-        rotation: [0, rightAngle, 0]
-    }, {
-        url: "images/panorama.left.jpg", //left    
-        position: [tileWidth, 0, 0],
-        rotation: [0, -rightAngle, 0]
-    }, {
-        url: "images/panorama.top.jpg", //top
-        position: [0, tileWidth, 0],
-        rotation: [rightAngle, 0, Math.PI]
-    }, {
-        url: "images/panorama.bottom.jpg", //bottom
-        position: [0, -tileWidth, 0],
-        rotation: [-rightAngle, 0, Math.PI]
-    }, {
-        url: "images/panorama.front.jpg", //front
-        position: [0, 0, tileWidth],
-        rotation: [0, Math.PI, 0]
-    }, {
-        url: "images/panorama.back.jpg", //back
-        position: [0, 0, -tileWidth],
-        rotation: [0, 0, 0]
-    }];
-
-    for ( var i = 0; i < sides.length; i ++ ) {
-        var side = sides[ i ];
-        var element = document.getElementById("bg_section_"+i);
-        element.width = 1026;
-        element.height = 1026; // 2 pixels extra to close the gap.
-        // 添加一个渲染器
-        var object = new THREE.CSS3DObject( element );
-        object.position.fromArray( side.position );
-        object.rotation.fromArray( side.rotation );
-        scene.add( object );
-
-    }
-
-    renderer = new THREE.CSS3DRenderer(); // 定义渲染器
-    renderer.setSize( window.innerWidth, window.innerHeight ); // 定义尺寸
-    document.body.appendChild( renderer.domElement ); // 将场景到加入页面中
-
-    initDevices();
-    initMouseControl();
-
-}
-
-// 初始化控制器
-function initMouseControl() {
-    // mouseControl = new THREE.OrbitControls(camera);
-    document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-    document.addEventListener( 'wheel', onDocumentMouseWheel, false );
-    document.addEventListener( 'touchstart', onDocumentTouchStart, false );
-    document.addEventListener( 'touchmove', onDocumentTouchMove, false );
-    window.addEventListener( 'resize', onWindowResize, false );
-
-}
-
-var controlsBtn= document.getElementById("controlBtn"); // 控制陀螺仪开关的按钮
-var isDeviceing = false; // 陀螺仪状态
-controlsBtn.addEventListener("touchend", controlDevice, true);
-isDeviceing == true ? $("#controlBtn").addClass("controlIconae") : $("#controlBtn").addClass("controlIcon");
-// 初始化陀螺仪
-function initDevices() {
-    deviceControl = new THREE.DeviceOrientationControls(camera);
-}
-/* 控制陀螺仪 */
-function controlDevice(event) {
-    if (isDeviceing == true) {
-        isDeviceing = false;
-        //关闭陀螺仪
-        $("#controlBtn").removeClass("controlIcon").addClass("controlIconae");
-    } else {
-        isDeviceing = true;
-        //开启陀螺仪
-        $("#controlBtn").removeClass("controlIconae").addClass("controlIcon");
-    }
-}
-
-/**
- * 窗体大小改变
- */
-function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize( window.innerWidth, window.innerHeight );
-}
-
-/*
-相机焦点跟着鼠标或手指的操作移动
- */
-function onDocumentMouseDown( event ) {
-    event.preventDefault();
-    document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-    document.addEventListener( 'mouseup', onDocumentMouseUp, false );
-
-}
-
-function onDocumentMouseMove( event ) {
-    var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-    var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-    lon -= movementX * 0.1;
-    lat += movementY * 0.1;
-}
-
-function onDocumentMouseUp( event ) {
-    document.removeEventListener( 'mousemove', onDocumentMouseMove );
-    document.removeEventListener( 'mouseup', onDocumentMouseUp );
-}
-
-/**
- * 鼠标滚轮改变相机焦距
- */
-function onDocumentMouseWheel( event ) {
-    camera.fov += event.deltaY * 0.05;
-    camera.updateProjectionMatrix();
-}
-
-function onDocumentTouchStart( event ) {
-    event.preventDefault();
-    var touch = event.touches[ 0 ];
-    touchX = touch.screenX;
-    touchY = touch.screenY;
-
-}
-
-function onDocumentTouchMove( event ) {
-    event.preventDefault();
-    var touch = event.touches[ 0 ];
-    lon -= ( touch.screenX - touchX ) * 0.1;
-    lat += ( touch.screenY - touchY ) * 0.1;
-    touchX = touch.screenX;
-    touchY = touch.screenY;
-
-}
-
-/**
- * 实时渲染函数
- */
-function animate() {
-    requestAnimationFrame(animate);
-    // lon = Math.max(-180, Math.min(180, lon));//限制固定角度内旋转
-    // lon += 0.1;//自动旋转
-    lat = Math.max(-85, Math.min(85, lat)); //限制固定角度内旋转
-    phi = THREE.Math.degToRad(85 - lat);
-    theta = THREE.Math.degToRad(lon+180);
-    target.x = Math.sin(phi) * Math.cos(theta);
-    target.y = Math.cos(phi);
-    target.z = Math.sin(phi) * Math.sin(theta);
-    camera.lookAt( target );
-    camera.updateProjectionMatrix();
-    isDeviceing == false ? initMouseControl() : deviceControl.update();
-    renderer.render(scene, camera);
-}
-
-$('.btn1').on('touchstart',function(){
-    alert('第一个按钮被点击了');
-});
-$('.btn2').on('touchstart',function(){
-    alert('第二个按钮被点击了');
-});
-
-</script><div style="overflow: hidden; transform-style: preserve-3d; width: 1920px; height: 947px; perspective: 617.077px;"><div style="transform-style: preserve-3d; width: 1920px; height: 947px; transform: translate3d(0px, 0px, 617.077px) matrix3d(-0.984503, 0.0397471, -0.170803, 0, 0, -0.973976, -0.226651, 0, 0.175367, 0.223139, -0.958882, 0, 0, 0, 0, 1) translate3d(960px, 473.5px, 0px);"><div id="bg_section_0" class="bg_section bg_section_4 scale_test" style="position: absolute; transform: translate3d(-50%, -50%, 0px) matrix3d(0, 0, -1, 0, 0, -1, 0, 0, 1, 0, 0, 0, -512, 0, 0, 1);">
-        <img class="bg" src="3dim_files/panorama_005.jpg" alt="">
-        <div class="btn1 bounceant1"></div> <!-- 可点击按钮1 -->
-    </div><div id="bg_section_1" class="bg_section bg_section_5 scale_test" style="position: absolute; transform: translate3d(-50%, -50%, 0px) matrix3d(0, 0, 1, 0, 0, -1, 0, 0, -1, 0, 0, 0, 512, 0, 0, 1);">
-        <img class="bg" src="3dim_files/panorama_004.jpg" alt="">
-    </div><div id="bg_section_2" class="bg_section bg_section_2 scale_test" style="position: absolute; transform: translate3d(-50%, -50%, 0px) matrix3d(-1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 512, 0, 1);">
-        <img class="bg" src="3dim_files/panorama.jpg" alt="">
-    </div><div id="bg_section_3" class="bg_section bg_section_3 scale_test" style="position: absolute; transform: translate3d(-50%, -50%, 0px) matrix3d(-1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 0, 0, -512, 0, 1);">
-        <img class="bg" src="3dim_files/panorama_002.jpg" alt="">
-    </div><div id="bg_section_4" class="bg_section bg_section_1 scale_test" style="position: absolute; transform: translate3d(-50%, -50%, 0px) matrix3d(-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 512, 1);">
-        <img class="bg" src="3dim_files/panorama_006.jpg" alt="">
-        <div class="btn2 bounceant1"></div> <!-- 可点击按钮2 -->
-    </div><div id="bg_section_5" class="bg_section bg_section_0 scale_test" style="position: absolute; transform: translate3d(-50%, -50%, 0px) matrix3d(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, -512, 1);">
-        <img class="bg" src="3dim_files/panorama_003.jpg" alt="">
-    </div></div></div>
-    
-
-</body></html>
+</html>
