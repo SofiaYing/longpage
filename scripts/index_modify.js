@@ -45,22 +45,10 @@ window.onloadOver = function() {
     window.onmessage = function(event) {
             var data = eval('(' + event.data + ')');
             if (data.act === 'slidto') {
-                console.log('data', data, data.val)
                 var index = parseInt(data.val);
-
-                if (jsonData.adjustType !== "longPageAdjust") {
-                    //swiper在loop=true模式下,页面索引会加1
-                    if (isLoop) index++;
-                    mySwiper.slideTo(index, 0);
-                } else {
-                    if (isLoop) index++;
-
-                    $('#page' + index).css('display', 'none');
-                    $('#divpar').scrollTop(0);
-                    $('#page' + index).siblings('.divshow').css('display', 'block');
-
-
-                }
+                //swiper在loop=true模式下,页面索引会加1
+                if (isLoop) index++;
+                mySwiper.slideTo(index, 0);
             } else if (data.act === 'gyroscope') {
                 window.deviceOrientation = data.val;
             } else {
@@ -109,9 +97,10 @@ window.onloadOver = function() {
         var evt = "resize";
         var isWeixin = is_weixin();
         window.addEventListener(evt, function() {
-            window.sizeAdjustor.update();
-            //alert(sizeAdjustor.clientW + "&&" + sizeAdjustor.clientH);
-            window.sizeAdjustor.adjustContainer();
+            alert(document.documentElement.clientWidth)
+                // window.sizeAdjustor.update();
+                //alert(sizeAdjustor.clientW + "&&" + sizeAdjustor.clientH);
+                // window.sizeAdjustor.adjustContainer();
             var scale = window.sizeAdjustor.scale;
             mySwiper.touchRatio = 1 / scale;
             var videoItems = window.fx.getItemsByCtrlName("video");
@@ -155,6 +144,13 @@ window.onloadOver = function() {
             }
         });
 
+        // var evt = "resize";
+        // window.addEventListener(evt, function() {
+        //     alert(document.documentElement.clientWidth)
+        //     window.sizeAdjustor.update();
+        //     window.sizeAdjustor.adjustContainer();
+        // })
+
         if (fx_options['0']) {
             var longPageOptions = {}
             var longPageArray = []
@@ -190,18 +186,26 @@ window.onloadOver = function() {
 };
 
 
+
+
 (function(global, undefined) {
     if (is_weixin()) {
         if (top === global) {
             var bgmAudio, audio, isReady = false;
+            var playAudioFlag = false;
             document.addEventListener("WeixinJSBridgeReady", function() {
                 bgmAudio = document.getElementById("aubgm");
                 audio = document.getElementById("au1");
                 bgmAudio.load();
                 audio.load();
+                var videoItems = document.querySelectorAll("video[data-autoplay='true']");
+                videoItems.forEach(function(curItem) {
+                    curItem.load();
+                });
                 isReady = true;
             }, false);
             global.playAgentAudio = function(localAudio) {
+                playAudioFlag = true;
                 var count = 0;
                 var timer = setInterval(function() {
                     if (isReady) {
@@ -216,9 +220,20 @@ window.onloadOver = function() {
             }
             global.pauseAgentAudio = function(localAudio) {
                 audio.pause();
+                playAudioFlag = false;
             }
             global.isAgentAudioEnded = function(localAudio) {
-                return localAudio ? audio.ended || audio.paused : true;
+                if (playAudioFlag) {
+                    var timer = setInterval(function() {
+                        if (isReady) {
+                            clearInterval(timer);
+                            playAudioFlag = false;
+                            return localAudio ? audio.ended || audio.paused : true;
+                        }
+                    }, 100);
+                } else {
+                    return localAudio ? audio.ended || audio.paused : true;
+                }
             }
             global.playBgmAudio = function(bgmAudio) {
                 var count = 0;
