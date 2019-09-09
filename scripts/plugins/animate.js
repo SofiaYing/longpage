@@ -120,6 +120,8 @@
 
                         playComplexAnimation(animationId, node, value.playTime, value.effect);
                     }
+
+                    return false
                 })
             }
 
