@@ -121,35 +121,46 @@ window.onloadOver = function() {
             removeAttrInSwiperDuplicate();
         })();
     } else {
-        var overscroll = function(el) {
-            el.addEventListener('touchstart', function() {
-                var top = el.scrollTop,
-                    totalScroll = el.scrollHeight,
-                    currentScroll = top + el.offsetHeight;
-                if (top === 0) {
-                    el.scrollTop = 1;
-                } else if (currentScroll === totalScroll) {
-                    el.scrollTop = top - 1;
+        var throttle = function(func, delay) {
+            var timer = null;
+            var startTime = Date.now();
+            return function() {
+                var curTime = Date.now();
+                var remaining = delay - (curTime - startTime);
+                var context = this;
+                var args = arguments;
+                clearTimeout(timer);
+                if (remaining <= 0) {
+                    func.apply(context, args);
+                    startTime = Date.now();
+                } else {
+                    timer = setTimeout(func, remaining);
                 }
-            });
-            el.addEventListener('touchmove', function(evt) {
-                if (el.offsetHeight < el.scrollHeight)
-                    evt._isScroller = true;
-            });
-        }
-        overscroll(document.querySelector('#divpar'));
-        document.body.addEventListener('touchmove', function(evt) {
-            if (!evt._isScroller) {
-                evt.preventDefault();
             }
-        });
+        }
 
-        // var evt = "resize";
-        // window.addEventListener(evt, function() {
-        //     alert(document.documentElement.clientWidth)
-        //     window.sizeAdjustor.update();
-        //     window.sizeAdjustor.adjustContainer();
-        // })
+        if (is_ios()) {
+            var overscroll = function(el) {
+                el.addEventListener('touchstart', throttle(function() {
+                    var top = el.scrollTop,
+                        totalScroll = el.scrollHeight,
+                        currentScroll = top + el.offsetHeight;
+                    if (top === 0) {
+                        el.scrollTop = 1;
+                    } else if (currentScroll === totalScroll) {
+                        el.scrollTop = top - 1;
+                    }
+                }, 1000));
+            }
+            overscroll(document.querySelector('#divpar'));
+        }
+
+        var evt = "resize";
+        window.addEventListener(evt, function() {
+            alert(document.documentElement.clientWidth)
+            window.sizeAdjustor.update();
+            window.sizeAdjustor.adjustContainer();
+        })
 
         if (fx_options['0']) {
             var longPageOptions = {}
