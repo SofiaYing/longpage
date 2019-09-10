@@ -147,7 +147,7 @@
         
         .divshow {
             position: absolute;
-            /* overflow: hidden; */
+            overflow: hidden;
             z-index: 1;
             width: 100%;
             height: 100%;
@@ -170,7 +170,7 @@
             margin-left: auto;
             margin-right: auto;
             position: relative;
-            /* overflow-x: hidden; */
+            overflow-x: hidden;
             overflow-y: scroll;
             -webkit-overflow-scrolling: touch;
             height: 100vh;
@@ -216,7 +216,8 @@
         </div>
         <img id="floatArrow" class="floatArrow" src="Media/arrow.png"></img>
         <audio id="au1" src=""></audio>
-        <div id="loadingBox" class="loadingBox" style="background:url(Media/loadpage3.png) no-repeat">
+        <div id="loadingBox" class="loadingBox" style="background:url(Media/loadpage3.png) no-repeat;background-size: 100% 100%">
+            <!-- <img id="loadingBoxImg" src=""> -->
             <div id="loadingBarBox" style="opacity:1.0;">
                 <canvas id="canvasLoad"></canvas>
             </div>

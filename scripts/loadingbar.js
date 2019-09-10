@@ -27,6 +27,8 @@
     var jsonstr = document.getElementById("json").value;
     var jsondata = eval('(' + jsonstr + ')');
     var loadingBox = document.getElementById("loadingBox");
+    // var loadingBoxImg = document.getElementById("loadingBoxImg");
+
 
     if (jsondata.loadingbar) {
         var barFgColor = jsondata.loadingbar.barfgcolor;
@@ -68,6 +70,17 @@
             'margin': '0 auto',
             'align-items': 'center',
         })
+
+        // $(loadingBoxImg).css({
+        //     // 'display': 'flex',
+        //     "position":'absolute',
+        //     "top":'0',
+        //     "bottom":'0',
+        //     "left":'0',
+        //     "right":'0',
+        //     // 'height': clientH + 'px',
+        //     // 'width': clientW + 'px',
+        // })
     }
 
     //要操作的进度条
@@ -89,8 +102,8 @@
     //jsondata.type default:进度条 ring:环形 pie：饼形 bar:条状 rotate:旋转
     if (jsondata.loadingbar) {
 
-        loadingBox.style.background = jsondata.loadingbar.bgtype === "color" ? bgColor : "url(" + bgPic + ") no-repeat"; //背景图
-        loadingBox.style.backgroundSize = "100% 100%";
+        // loadingBox.style.background = jsondata.loadingbar.bgtype === "color" ? bgColor : "url(" + bgPic + ") no-repeat"; //背景图
+        // loadingBox.style.backgroundSize = "100% 100%";
 
         //设置背景图/颜色
 
@@ -381,6 +394,7 @@
         var endTimer = setInterval(function() {
             process(percent);
             if (percent === 100) {
+
                 document.getElementById("loadingBox").style.display = "none";
                 clearInterval(endTimer);
                 window.isLoadingbarOver = true;
