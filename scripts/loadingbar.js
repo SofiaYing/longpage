@@ -1,15 +1,19 @@
 (function(window, undefined) {
     window.sizeAdjustor = new SizeAdjustor();
-    window.isPageLoad = window.isLoadingbarOver = false;
+    window.isPageLoad = window.isLoadingbarOver = false; 
+
     window.onload = function() {
         window.isPageLoad = true;
     }
+
     var isLongPage = window.sizeAdjustor.jsonData.adjustType === "longPageAdjust";
 
     var finalH = window.sizeAdjustor.finalSize.height;
     var finalW = window.sizeAdjustor.finalSize.width;
     var jsonstr = document.getElementById("json").value;
     var jsondata = eval('(' + jsonstr + ')');
+    var loadingBox = document.getElementById("loadingBox");
+
     if (jsondata.loadingbar) {
         var barFgColor = jsondata.loadingbar.barfgcolor;
         var barBgColor = jsondata.loadingbar.barbgcolor;
@@ -19,7 +23,6 @@
         var loadPic = jsondata.loadingbar.loadpic || '';
         var direction = jsondata.loadingbar.direction || '';
     }
-    var loadingBox = document.getElementById("loadingBox");
 
     var clientH = document.documentElement.clientHeight;
     var clientW = document.documentElement.clientWidth;
@@ -72,9 +75,10 @@
     //jsondata.type default:进度条 ring:环形 pie：饼形 bar:条状 rotate:旋转
     if (jsondata.loadingbar) {
 
-        //设置背景图/颜色
         loadingBox.style.background = jsondata.loadingbar.bgtype === "color" ? bgColor : "url(" + bgPic + ") no-repeat"; //背景图
         loadingBox.style.backgroundSize = "100% 100%";
+
+        //设置背景图/颜色
 
         switch (jsondata.loadingbar.bartype) {
             case 'ring':
@@ -314,11 +318,11 @@
     function startLoading() {
         firstTimer = setInterval(function() {
             process(percent);
-            if (window.isPageLoad) {
-                clearInterval(firstTimer);
-                goStraightToEnd();
-                return;
-            }
+            // if (window.isPageLoad) {
+            //     clearInterval(firstTimer);
+            //     goStraightToEnd();
+            //     return;
+            // }
             percent++;
             if (percent === 50) {
                 clearInterval(firstTimer);
@@ -355,7 +359,7 @@
                     }
                 }, 160);
             }
-        }, 80);
+        }, 60);
     }
 
     function goStraightToEnd() {

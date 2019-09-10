@@ -73,7 +73,6 @@ SizeAdjustor.prototype = {
                 finalH = objH;
             }
         } else if (adjustType === "longPageAdjust") {
-
             // if (pg_Height < pg_Width) {
             //     $('body').css({ 'transform': 'rotate(90deg)', 'transform-origin': 'right' });
             //     $('#divpar').css({ 'overflow-x': 'scroll', 'height': '100%', 'width': '100vh' });
@@ -119,7 +118,6 @@ SizeAdjustor.prototype = {
             }
 
         } else {
-
             this.finalTop = clientH / 2 - this.finalSize.height / 2;
             this.finalLeft = clientW / 2 - this.finalSize.width / 2;
         }
@@ -132,7 +130,6 @@ SizeAdjustor.prototype = {
         this.finalSize = this.getFinalSize();
         this.scaleX = this.finalSize.width / this.originSize.width;
         this.scaleY = this.finalSize.height / this.originSize.height;
-
         // this.scaleY = this.finalSize.width / this.originSize.height;
         // this.scaleX = this.finalSize.height / this.originSize.width;
     }

@@ -9,7 +9,7 @@
 
         var Animate = function(id, option) {
             this.$target = $("#" + id);
-            this.pageObj = this.getAnimations();
+            // this.pageObj = this.getAnimations();
             this.init(id, option);
         };
 
@@ -25,8 +25,11 @@
             if (firstAniId !== id)
                 return;
 
-            clickAnimationArray = this.pageObj.clickAnimationArray;
-            autoAnimationArray = this.pageObj.autoAnimationArray;
+            console.log('option', option)
+                // clickAnimationArray = this.pageObj.clickAnimationArray;
+                // autoAnimationArray = this.pageObj.autoAnimationArray;
+            clickAnimationArray = option.clickAnimationArray;
+            autoAnimationArray = option.autoAnimationArray;
 
             $.each(aniInPage, function(index, demo) {
                 if ($(demo).parents("div[title='PopupContent']").length === 0) {
@@ -120,8 +123,6 @@
 
                         playComplexAnimation(animationId, node, value.playTime, value.effect);
                     }
-
-                    return false
                 })
             }
 
@@ -328,12 +329,12 @@
                         var event = animationItem.event;
                         var type = eventToNum(event);
                         var opacity = $(item).children('div').css('opacity');
-                        var animationDiv = $(item).children('div');
+                        // var animationDiv = $(item).children('div');
 
                         if (originalAnimationArray instanceof Array) {
-                            originalAnimationArray.push({ node: animationDiv[0], id: $(item).attr('id'), animations: animationItem, uId: animationItem.uid, order: i, groupId: gid, type: type, opacity: opacity, isPlay: false, isClick: false, isInView: false });
+                            originalAnimationArray.push({ id: $(item).attr('id'), animations: animationItem, uId: animationItem.uid, order: i, groupId: gid, type: type, opacity: opacity, isPlay: false, isClick: false, isInView: false });
                         } else {
-                            originalAnimationArray = [{ node: animationDiv[0], id: $(item).attr('id'), animations: animationItem, uId: animationItem.uid, order: i, groupId: gid, type: type, opacity: opacity, isPlay: false, isClick: false, isInView: false }];
+                            originalAnimationArray = [{ id: $(item).attr('id'), animations: animationItem, uId: animationItem.uid, order: i, groupId: gid, type: type, opacity: opacity, isPlay: false, isClick: false, isInView: false }];
                         }
                     })
 
@@ -371,7 +372,7 @@
             pageObj.orderArray = orderArray;
             pageObj.autoAnimationArray = autoAnimationArray;
             pageObj.clickAnimationArray = clickAnimationArray;
-
+            console.log('this.pageObj', pageObj)
             return pageObj;
         };
 
@@ -433,8 +434,9 @@
                 } else {
                     clickAnimationArray[clickIndex].isInView = false;
 
-                    var node = clickAnimationArray[clickIndex].node;
+                    // var node = clickAnimationArray[clickIndex].node;
                     var animationId = clickAnimationArray[clickIndex].id;
+                    var node = $('#' + animationId).children();
 
                     var autoIndex = autoAnimationArray.findIndex(function(arrItem) {
                         return arrItem.id === $(item.target).parent('div[title="Animation"]').attr('id');
@@ -464,7 +466,7 @@
         var intersectionObserverAutoAnimation = new IntersectionObserver((entries) => {
             entries.forEach((item) => {
                 var autoIndex = autoAnimationArray.findIndex(function(arrItem) {
-                    return arrItem.node === item.target;
+                    return arrItem.id === $(item.target).parent('div[title="Animation"]').attr('id');
                 })
 
                 var animationId = autoAnimationArray[autoIndex].id;

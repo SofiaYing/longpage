@@ -97,10 +97,8 @@ window.onloadOver = function() {
         var evt = "resize";
         var isWeixin = is_weixin();
         window.addEventListener(evt, function() {
-            alert(document.documentElement.clientWidth)
-                // window.sizeAdjustor.update();
-                //alert(sizeAdjustor.clientW + "&&" + sizeAdjustor.clientH);
-                // window.sizeAdjustor.adjustContainer();
+            window.sizeAdjustor.update();
+            window.sizeAdjustor.adjustContainer();
             var scale = window.sizeAdjustor.scale;
             mySwiper.touchRatio = 1 / scale;
             var videoItems = window.fx.getItemsByCtrlName("video");
@@ -121,25 +119,25 @@ window.onloadOver = function() {
             removeAttrInSwiperDuplicate();
         })();
     } else {
-        var throttle = function(func, delay) {
-            var timer = null;
-            var startTime = Date.now();
-            return function() {
-                var curTime = Date.now();
-                var remaining = delay - (curTime - startTime);
-                var context = this;
-                var args = arguments;
-                clearTimeout(timer);
-                if (remaining <= 0) {
-                    func.apply(context, args);
-                    startTime = Date.now();
-                } else {
-                    timer = setTimeout(func, remaining);
+        if (is_ios()) {
+            var throttle = function(func, delay) {
+                var timer = null;
+                var startTime = Date.now();
+                return function() {
+                    var curTime = Date.now();
+                    var remaining = delay - (curTime - startTime);
+                    var context = this;
+                    var args = arguments;
+                    clearTimeout(timer);
+                    if (remaining <= 0) {
+                        func.apply(context, args);
+                        startTime = Date.now();
+                    } else {
+                        timer = setTimeout(func, remaining);
+                    }
                 }
             }
-        }
 
-        if (is_ios()) {
             var overscroll = function(el) {
                 el.addEventListener('touchstart', throttle(function() {
                     var top = el.scrollTop,
@@ -155,8 +153,7 @@ window.onloadOver = function() {
             overscroll(document.querySelector('#divpar'));
         }
 
-        var evt = "resize";
-        window.addEventListener(evt, function() {
+        window.addEventListener("resize", function() {
             alert(document.documentElement.clientWidth)
             window.sizeAdjustor.update();
             window.sizeAdjustor.adjustContainer();
