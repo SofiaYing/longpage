@@ -2,9 +2,23 @@
     window.sizeAdjustor = new SizeAdjustor();
     window.isPageLoad = window.isLoadingbarOver = false; 
 
-    window.onload = function() {
-        window.isPageLoad = true;
-    }
+    // window.onload = function() {
+    //     window.isPageLoad = true;
+    // }
+        
+    document.ready  =   function (callback)  {        
+        if  (document.addEventListener)  {            
+            document.addEventListener(                'DOMContentLoaded',  function ()  {                    
+                document.removeEventListener('DOMContentLoaded',  arguments.callee,  false);                    
+                callback();                
+            }            )        
+        } 
+        else  if  (document.lastChild  ==  document.body)  {             callback();         }    
+    }    
+    document.ready(        function ()  {
+        window.isPageLoad = true;            
+        console.log('ready')        
+    }    )
 
     var isLongPage = window.sizeAdjustor.jsonData.adjustType === "longPageAdjust";
 
@@ -348,6 +362,7 @@
                             if (percent === 95) {
                                 clearInterval(slowestTimer);
                                 finalTimer = setInterval(function() {
+                                    console.log('1', window.isPageLoad)
                                     if (window.isPageLoad) {
                                         clearInterval(finalTimer);
                                         goStraightToEnd();
