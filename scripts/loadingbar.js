@@ -71,16 +71,16 @@
             'align-items': 'center',
         })
 
-        // $(loadingBoxImg).css({
-        //     // 'display': 'flex',
-        //     "position":'absolute',
-        //     "top":'0',
-        //     "bottom":'0',
-        //     "left":'0',
-        //     "right":'0',
-        //     // 'height': clientH + 'px',
-        //     // 'width': clientW + 'px',
-        // })
+        $(loadingBoxImg).css({
+            // 'display': 'flex',
+            "position": 'absolute',
+            "top": '0',
+            "bottom": '0',
+            "left": '0',
+            "right": '0',
+            // 'height': clientH + 'px',
+            // 'width': clientW + 'px',
+        })
     }
 
     //要操作的进度条
@@ -344,6 +344,7 @@
 
     function startLoading() {
         firstTimer = setInterval(function() {
+            alert('1')
             process(percent);
             // if (window.isPageLoad) {
             //     clearInterval(firstTimer);
