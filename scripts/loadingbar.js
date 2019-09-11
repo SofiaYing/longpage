@@ -76,6 +76,13 @@
 
         loadingBox.style.background = jsondata.loadingbar.bgtype === "color" ? bgColor : "url(" + bgPic + ") no-repeat"; //背景图
         loadingBox.style.backgroundSize = "100% 100%";
+        var bgImg = new Image();
+        bgImg.src = bgPic;
+        bgImg.onload = function() {
+            var src = $('.p1image5').attr('data-src');
+            console.log('src', src)
+            $('.p1image5').attr('src', src)
+        }
 
         //设置背景图/颜色
 
