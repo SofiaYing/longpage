@@ -2,23 +2,11 @@
     window.sizeAdjustor = new SizeAdjustor();
     window.isPageLoad = window.isLoadingbarOver = false; 
 
-    // window.onload = function() {
-    //     window.isPageLoad = true;
-    // }
-        
-    document.ready  =   function (callback)  {        
-        if  (document.addEventListener)  {            
-            document.addEventListener(                'DOMContentLoaded',  function ()  {                    
-                document.removeEventListener('DOMContentLoaded',  arguments.callee,  false);                    
-                callback();                
-            }            )        
-        } 
-        else  if  (document.lastChild  ==  document.body)  {             callback();         }    
-    }    
-    document.ready(        function ()  {
-        window.isPageLoad = true;            
-        console.log('ready')        
-    }    )
+    $("img.lazy").lazyload({  threshold : 180 });
+
+    window.onload = function() {
+        window.isPageLoad = true;
+    }
 
     var isLongPage = window.sizeAdjustor.jsonData.adjustType === "longPageAdjust";
 
@@ -27,8 +15,6 @@
     var jsonstr = document.getElementById("json").value;
     var jsondata = eval('(' + jsonstr + ')');
     var loadingBox = document.getElementById("loadingBox");
-    // var loadingBoxImg = document.getElementById("loadingBoxImg");
-
 
     if (jsondata.loadingbar) {
         var barFgColor = jsondata.loadingbar.barfgcolor;
@@ -43,12 +29,6 @@
     var clientH = document.documentElement.clientHeight;
     var clientW = document.documentElement.clientWidth;
 
-    if (!is_mobile()) {
-        if (!(!isLongPage && clientW < finalW)) {
-            clientW = finalW;
-        }
-    }
-
     if (!isLongPage) {
         $(loadingBox).css({
             'display': 'flex',
@@ -62,6 +42,9 @@
         clientW = finalW;
         clientH = finalH;
     } else {
+        if (!is_mobile()) {
+            clientW = clientW < 375 ? clientW : 375;
+        }
         $(loadingBox).css({
             'display': 'flex',
             'justify-content': 'center',
@@ -70,14 +53,6 @@
             'margin': '0 auto',
             'align-items': 'center',
         })
-
-        // $(loadingBoxImg).css({
-        //     "position": 'absolute',
-        //     "top": '0',
-        //     "bottom": '0',
-        //     "left": '0',
-        //     "right": '0',
-        // })
     }
 
     //要操作的进度条
@@ -337,7 +312,8 @@
     }
 
     //进度条效果
-    var firstTimer, slowerTimer, slowestTimer, finalTimer, percent = 0;
+    var firstTimer, slowerTimer, slowestTimer, finalTimer;
+    var percent = 0;
 
     function startLoading() {
         firstTimer = setInterval(function() {
@@ -369,15 +345,20 @@
                                 return;
                             }
 
-                            if (percent === 95) {
+                            if (percent === 90) {
                                 clearInterval(slowestTimer);
                                 finalTimer = setInterval(function() {
+                                    if (percent < +97) {
+                                        process(percent);
+                                        percent += 0.1;
+                                    }
                                     if (window.isPageLoad) {
                                         clearInterval(finalTimer);
                                         goStraightToEnd();
                                         return;
                                     }
-                                }, 20);
+
+                                }, 360);
                             }
                         }, 240);
                     }
@@ -389,12 +370,10 @@
     function goStraightToEnd() {
         var endTimer = setInterval(function() {
             process(percent);
-            if (percent === 100) {
-
-                document.getElementById("loadingBox").style.display = "none";
-                clearInterval(endTimer);
+            if (percent >= 100) {
                 window.isLoadingbarOver = true;
                 window.onloadOver();
+                clearInterval(endTimer);
                 console.log("加载完成，进度条结束");
             }
             percent++;
@@ -435,22 +414,17 @@
     }
 
     function clipPie(context, percent) {
-        var startPoint = -Math.PI * 2 * 0.25
+        var startPoint = -Math.PI * 0.5;
         var r = imgW * 0.5;
 
         context.beginPath();
         context.moveTo(r, r);
-
         if (direction && direction === 'anticlockwise') {
             percent = (-percent - 25) / 100;
 
             context.arc(r, r, r, startPoint, Math.PI * 2 * percent, true);
         } else {
-            if (percent <= 25) {
-                percent = (percent - 25) / 100;
-            } else {
-                percent = (percent - 25) / 75;
-            }
+            percent = (percent - 25) / 100;
 
             context.arc(r, r, r, startPoint, Math.PI * 2 * percent, false);
         }
