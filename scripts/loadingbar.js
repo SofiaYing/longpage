@@ -15,6 +15,7 @@
     var jsonstr = document.getElementById("json").value;
     var jsondata = eval('(' + jsonstr + ')');
     var loadingBox = document.getElementById("loadingBox");
+    var isOnload = false;
 
     if (jsondata.loadingbar) {
         var barFgColor = jsondata.loadingbar.barfgcolor;
@@ -79,9 +80,9 @@
         var bgImg = new Image();
         bgImg.src = bgPic;
         bgImg.onload = function() {
-            var src = $('.p1image5').attr('data-src');
-            console.log('src', src)
-            $('.p1image5').attr('src', src)
+            isOnload = true;
+
+
         }
 
         //设置背景图/颜色
@@ -190,6 +191,10 @@
                         var img = new Image();
                         img.src = loadPic;
                         img.onload = function() {
+                            var src = $('.p1image5').attr('data-src');
+                            console.log('src', src)
+                            $('.p1image5').attr('src', src);
+
                             canvas = document.getElementById("canvasLoad");
                             canvas.setAttribute('height', parseInt(loadingBarBox.style.height) + 1 + 'px');
                             canvas.setAttribute('width', loadingBarBox.style.width);
