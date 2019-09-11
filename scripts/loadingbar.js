@@ -191,9 +191,7 @@
                         var img = new Image();
                         img.src = loadPic;
                         img.onload = function() {
-                            var src = $('.p1image5').attr('data-src');
-                            console.log('src', src)
-                            $('.p1image5').attr('src', src);
+
 
                             canvas = document.getElementById("canvasLoad");
                             canvas.setAttribute('height', parseInt(loadingBarBox.style.height) + 1 + 'px');
@@ -216,7 +214,9 @@
                     var fgImg = new Image();
                     fgImg.src = fgPic;
                     fgImg.onload = function() {
-
+                        var src = $('.p1image5').attr('data-src');
+                        console.log('src', src)
+                        $('.p1image5').attr('src', src);
                         $(loadingBarBox).css({
                             'display': 'block',
                             'width': parseInt(imgW),
