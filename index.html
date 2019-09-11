@@ -1409,6 +1409,14 @@
 
     <script src="./scripts/options.js"></script>
 </body>
-
+<script>
+    $(function() {
+        $("img.lazy").lazyload({
+            container: $("#long_page_container"),
+            threshold: 20,
+            failure_limit: 10,
+        });
+    })
+</script>
 
 </html>

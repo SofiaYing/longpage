@@ -2,7 +2,7 @@
     window.sizeAdjustor = new SizeAdjustor();
     window.isPageLoad = window.isLoadingbarOver = false; 
 
-    $("img.lazy").lazyload({  threshold : 180 });
+    // $("img.lazy").lazyload({  threshold : 180 });
 
     window.onload = function() {
         window.isPageLoad = true;
