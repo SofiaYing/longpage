@@ -947,10 +947,10 @@
         property: "translateY", //被运动的属性
         sensitivity: 0.6, //不必需,触摸区域的灵敏度，默认值为1，可以为负数
         factor: 0.6, //不必需,表示触摸位移运动位移与被运动属性映射关系，默认值是1
-        moveFactor: 1, //不必需,表示touchmove位移与被运动属性映射关系，默认值是1
-        step: 45, //用于校正到step的整数倍
+        moveFactor: 0.6, //不必需,表示touchmove位移与被运动属性映射关系，默认值是1
+        step: 0, //用于校正到step的整数倍
         bindSelf: false,
-        maxSpeed: 2, //不必需，触摸反馈的最大速度限制 
+        maxSpeed: 1.5, //不必需，触摸反馈的最大速度限制 
         value: 0,
         change: function(value) {
 
