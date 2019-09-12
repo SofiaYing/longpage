@@ -232,7 +232,8 @@
                                         startLoading();
                                     }
                                 }
-                                $.each($("#wrapper").children('img'), function(index, item) {
+                                console.log('123', $("#wrapper").find('img'))
+                                $.each($("#wrapper").find('img'), function(index, item) {
                                     $(item).attr('src', $(item).attr('_src'));
                                 })
                             }
