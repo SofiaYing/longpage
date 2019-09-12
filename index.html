@@ -7,9 +7,9 @@
     <title>中秋节H5</title>
     <script src="scripts/base.js" type="text/javascript"></script>
     <script src="scripts/jquery.js" type="text/javascript"></script>
-    <script src="http://lib.h-ui.net/lazyload/1.9.3/lazyload.js"></script>
-
-    <script src="scripts/observe.polyfill.min.js" type="text/javascript"></script>
+    <!-- <script src="http://lib.h-ui.net/lazyload/1.9.3/lazyload.js"></script> -->
+    <script src="https://unpkg.com/alloytouch@0.2.6/index.js"></script>
+    <script src="scripts/transform.js"></script>
 
     <style>
         input[type=checkbox]:checked:after {
@@ -166,26 +166,15 @@
             width: 360px;
             height: 6650px;
         }
-        /* #divpar {
-            overflow: hidden;
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-            position: relative; 
-            overflow-x: hidden;
-            overflow-y: scroll; 
-            -webkit-overflow-scrolling: touch; 
-            height: 100vh;
-        } */
         
-        #long_page_container {
-            margin-left: auto;
-            margin-right: auto;
+        #divpar {
+            /* margin-left: auto;
+            margin-right: auto; */
             position: relative;
-            overflow-x: hidden;
+            /* overflow-x: hidden;
             overflow-y: scroll;
             -webkit-overflow-scrolling: touch;
-            height: 100vh;
+            height: 100vh; */
         }
         
         @keyframes arrowmove {
@@ -229,49 +218,50 @@
         <img id="floatArrow" class="floatArrow" src="Media/arrow.png"></img>
         <audio id="au1" src=""></audio>
         <div id="loadingBox" class="loadingBox">
-            <!-- <img id="loadingBoxImg" src="Media/loadpage3.png"> -->
             <div id="loadingBarBox" style="opacity:1.0;">
                 <canvas id="canvasLoad"></canvas>
             </div>
         </div>
-        <input type="hidden" id="json" value="{'layout':'fixed','lastfile':'chapter-1.html','pageturning':[{'pageresult':'Traslation','pagedir':'UpAndDown','pagecircle':'true','pagetime':'1500','pageicon':'false','pagenoslide':'false'}],'adjustType':'longPageAdjust','bgmhideicon':'false','bgmarea':[{'src':'Media/bgmusic0.mp3','loop':true,'autoplay':'true','start':1,'end':1},],'collect':'http://h5.founderfx.cn/external/h5/collectFormData','submitted':'http://h5.founderfx.cn/external/h5/findFormOne','loadingbar':{'bartype':'pie','barpos':'30','showPercent':'false','barfgcolor':'rgba(247,99,23,1.0)','barbgcolor':'rgba(34,34,34,1.0)','promptText':'','promptSize':'21.0','promptColor':'#ffffff','fgpic':'Media/loadpage1.png','loadpic':'Media/loadpage2.png','bgpic':'Media/loadpage3.png','bgcolor':'#333333','bgtype':'image','direction':'clockwise'}}"
+        <input type="hidden" id="json" value="{'layout':'fixed','lastfile':'chapter-1.html','pageturning':[{'pageresult':'Traslation','pagedir':'UpAndDown','pagecircle':'true','pagetime':'1500','pageicon':'false','pagenoslide':'false'}],'adjustType':'longPageAdjust','bgmhideicon':'false','bgmarea':[{'src':'Media/bgmusic0.mp3','loop':true,'autoplay':'true','start':1,'end':1},],'collect':'http://h5.founderfx.cn/external/h5/collectFormData','submitted':'http://h5.founderfx.cn/external/h5/findFormOne','loadingbar':{'bartype':'pie','barpos':'30','showPercent':'false','barfgcolor':'rgba(247,99,23,1.0)','barbgcolor':'rgba(34,34,34,1.0)','promptText':'','promptSize':'21.0','promptColor':'#ffffff','fgpic':'Media/loadpage1.png','loadpic':'Media/loadpage2.png','bgpic':'Media/loadpage3.png','bgcolor':'#0000a0','bgtype':'image','direction':'clockwise'}}"
         />
         <script src="scripts/sizeAdjustor.js" type="text/javascript"></script>
         <script src="scripts/index_modify.js" type="text/javascript"></script>
         <script src="scripts/loadingbar.js" type="text/javascript"></script>
+
+        <script src="scripts/bgmController.js"></script>
+        <script src="scripts/observe.polyfill.min.js" type="text/javascript"></script>
         <div id="divbgm" class="divbgm">
             <img id="bgmPlay" class="imgbgm" src="Media/bgmplay.png"></img>
             <img id="bgmPause" class="imgbgm" src="Media/bgmpause.png"></img>
             <audio id="aubgm" src="Media/bgmusic0.mp3" preload="auto"></audio>
         </div>
-        <script src="scripts/bgmController.js"></script>
-        <div id="long_page_container">
-            <div class="swiper-container" id="swiper_container" style="position:absolute;display:none;" data-width="360" data-height="6650">
+        <div id="wrapper" style="width: 100%;transform:translateY(0);">
+            <div class="swiper-container" id="swiper_container" style="position:absolute;overflow:hidden;display:none;" data-width="360" data-height="6650">
                 <div class="swiper-wrapper">
                     <div id="page1" class="divshow swiper-slide">
                         <div class="p1para1 p1textdiv0">
 
-                            <div id="pGrp-8" class="p1pGrpDiv-FxLi2">
+                            <div id="pGrp-3" class="p1pGrpDiv-FxLi2">
 
                                 <div class="">
 
                                     <div class="p1imagediv4">
 
-                                        <img class="p1image5" data-src="Media/chapter-1image1.png" id="imageItem-118" alt="Media/chapter-1image1.png"></img>
+                                        <img class="p1image5" src="Media/chapter-1image1.png" id="imageItem-37" alt="Media/chapter-1image1.png"></img>
 
                                     </div>
 
                                 </div>
 
-                                <div title="Animation" id="si_80000233" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
+                                <div title="Animation" id="si_8000029A" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
 
-                                    <div style="left:58.5px;top:389.631px;height:171.65px;width:299.907px;position:absolute;opacity:0.0;">
+                                    <div style="left:15.347px;top:398.632px;height:199.878px;width:346.153px;position:absolute;opacity:0.0;">
 
                                         <div title="groupItem" style="width:100%;height:100%;">
 
                                             <div style="width:100%;height:100%;overflow:hidden;">
 
-                                                <img src="Media/chapter-1image2.png" id="imageItem-119" alt="Media/chapter-1image2.png" style="width:297px;height:172px;"></img>
+                                                <img src="Media/chapter-1image2.png" id="imageItem-38" alt="Media/chapter-1image2.png" style="width:343px;height:200px;"></img>
 
                                             </div>
 
@@ -279,27 +269,7 @@
 
                                     </div>
 
-                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;1-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;2&quot;,&quot;playTime&quot;:&quot;2&quot;}]}]}"></input>
-
-                                </div>
-
-                                <div title="Animation" id="si_800000F1" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
-
-                                    <div style="left:-1.5px;top:161.998px;height:296.289px;width:363px;position:absolute;opacity:0.0;">
-
-                                        <div title="groupItem" style="width:100%;height:100%;">
-
-                                            <div style="width:100%;height:100%;overflow:hidden;">
-
-                                                <img src="Media/chapter-1image3.png" id="imageItem-120" alt="Media/chapter-1image3.png" style="width:600px;height:458px;margin-left:0%;margin-top:0%;transform-origin: 0.00% 0.00%;transform:rotate(0.000000deg)skewX(0.000000deg)scale(0.600000,0.642552);"></img>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;0-0&quot;,&quot;effect&quot;:&quot;slideInLeft&quot;,&quot;direction&quot;:&quot;left&quot;,&quot;playDelay&quot;:&quot;1&quot;,&quot;playTime&quot;:&quot;2&quot;}]}]}"></input>
+                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;0-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
 
                                 </div>
 
@@ -307,13 +277,23 @@
 
                                     <div class="p1imagediv6">
 
-                                        <img class="lazy" class="p1image7" src="Media/chapter-1image4.png" id="imageItem-121" alt="Media/chapter-1image4.png"></img>
+                                        <img class="p1image7" src="Media/chapter-1image3.png" id="imageItem-39" alt="Media/chapter-1image3.png"></img>
 
                                     </div>
 
                                 </div>
 
-                                <div title="Animation" id="si_80000238" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
+                                <div class="">
+
+                                    <div class="p1imagediv8">
+
+                                        <img class="p1image9" src="Media/chapter-1image4.png" id="imageItem-40" alt="Media/chapter-1image4.png"></img>
+
+                                    </div>
+
+                                </div>
+
+                                <div title="Animation" id="si_800002CA" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
 
                                     <div style="left:137.034px;top:833.046px;height:187.51px;width:204.11px;position:absolute;opacity:0.0;">
 
@@ -321,7 +301,67 @@
 
                                             <div style="width:100%;height:100%;overflow:hidden;">
 
-                                                <img class="lazy" data-original="Media/chapter-1image5.png" id="imageItem-122" alt="Media/chapter-1image5.png" style="width:201px;height:188px;"></img>
+                                                <img src="Media/chapter-1image5.png" id="imageItem-41" alt="Media/chapter-1image5.png" style="width:201px;height:188px;"></img>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;1-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
+
+                                </div>
+
+                                <div class="">
+
+                                    <div class="p1imagediv10">
+
+                                        <img class="p1image11" src="Media/chapter-1image6.png" id="imageItem-42" alt="Media/chapter-1image6.png"></img>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="">
+
+                                    <div class="p1imagediv12">
+
+                                        <img class="p1image13" src="Media/chapter-1image7.png" id="imageItem-43" alt="Media/chapter-1image7.png"></img>
+
+                                    </div>
+
+                                </div>
+
+                                <div title="Animation" id="si_800002A7" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
+
+                                    <div style="left:34.81px;top:1382.679px;height:99.947px;width:143.403px;position:absolute;opacity:0.0;">
+
+                                        <div title="groupItem" style="width:100%;height:100%;">
+
+                                            <div style="width:100%;height:100%;overflow:hidden;">
+
+                                                <img src="Media/chapter-1image8.png" id="imageItem-44" alt="Media/chapter-1image8.png" style="width:143px;height:100px;"></img>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;2-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
+
+                                </div>
+
+                                <div title="Animation" id="si_800002FB" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
+
+                                    <div style="left:112.781px;top:1587.822px;height:166.408px;width:228.549px;position:absolute;opacity:0.0;">
+
+                                        <div title="groupItem" style="width:100%;height:100%;">
+
+                                            <div style="width:100%;height:100%;overflow:hidden;">
+
+                                                <img src="Media/chapter-1image9.png" id="imageItem-45" alt="Media/chapter-1image9.png" style="width:226px;height:166px;"></img>
 
                                             </div>
 
@@ -335,23 +375,23 @@
 
                                 <div class="">
 
-                                    <div class="p1imagediv8">
+                                    <div class="p1imagediv14">
 
-                                        <img class="lazy" class="p1image9" src="Media/chapter-1image6.png" id="imageItem-123" alt="Media/chapter-1image6.png"></img>
+                                        <img class="p1image15" src="Media/chapter-1image10.png" id="imageItem-46" alt="Media/chapter-1image10.png"></img>
 
                                     </div>
 
                                 </div>
 
-                                <div title="Animation" id="si_80000140" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
+                                <div title="Animation" id="si_8000011D" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
 
-                                    <div style="left:24.54px;top:966.301px;height:283.535px;width:239.086px;position:absolute;opacity:0.0;">
+                                    <div style="left:7.31px;top:1862.592px;height:227.32px;width:282.032px;position:absolute;opacity:0.0;">
 
                                         <div title="groupItem" style="width:100%;height:100%;">
 
                                             <div style="width:100%;height:100%;overflow:hidden;">
 
-                                                <img class="lazy" data-original="Media/chapter-1image7.png" id="imageItem-124" alt="Media/chapter-1image7.png" style="width:600px;height:702px;margin-left:0%;margin-top:0%;transform-origin: 0.00% 0.00%;transform:rotate(0.000000deg)skewX(0.000000deg)scale(0.393476,0.401047);"></img>
+                                                <img src="Media/chapter-1image11.png" id="imageItem-47" alt="Media/chapter-1image11.png" style="width:279px;height:225px;"></img>
 
                                             </div>
 
@@ -359,55 +399,15 @@
 
                                     </div>
 
-                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;2-0&quot;,&quot;effect&quot;:&quot;slideInLeft&quot;,&quot;direction&quot;:&quot;left&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
-
-                                </div>
-
-                                <div title="Animation" id="si_8000024D" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
-
-                                    <div style="left:34.81px;top:1382.679px;height:99.947px;width:143.403px;position:absolute;opacity:0.0;">
-
-                                        <div title="groupItem" style="width:100%;height:100%;">
-
-                                            <div style="width:100%;height:100%;overflow:hidden;">
-
-                                                <img class="lazy" data-original="Media/chapter-1image8.png" id="imageItem-125" alt="Media/chapter-1image8.png" style="width:143px;height:100px;"></img>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;4-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;2&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
-
-                                </div>
-
-                                <div title="Animation" id="si_80000240" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
-
-                                    <div style="left:130.859px;top:1587.822px;height:137.645px;width:193.923px;position:absolute;opacity:0.0;">
-
-                                        <div title="groupItem" style="width:100%;height:100%;">
-
-                                            <div style="width:100%;height:100%;overflow:hidden;">
-
-                                                <img class="lazy" data-original="Media/chapter-1image9.png" id="imageItem-126" alt="Media/chapter-1image9.png" style="width:194px;height:138px;"></img>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;5-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;3&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
+                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;4-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;1&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
 
                                 </div>
 
                                 <div class="">
 
-                                    <div class="p1imagediv10">
+                                    <div class="p1imagediv16">
 
-                                        <img class="lazy" class="p1image11" src="Media/chapter-1image10.png" id="imageItem-127" alt="Media/chapter-1image10.png"></img>
+                                        <img class="p1image17" src="Media/chapter-1image12.png" id="imageItem-48" alt="Media/chapter-1image12.png"></img>
 
                                     </div>
 
@@ -415,131 +415,13 @@
 
                                 <div class="">
 
-                                    <div class="p1imagediv12">
+                                    <div class="p1InAdiv18">
 
-                                        <img class="lazy" class="p1image13" src="Media/chapter-1image11.png" id="imageItem-128" alt="Media/chapter-1image11.png"></img>
+                                        <img style="top:0px;left:0px;width:100%;height:100%;display:inline;position:absolute;" src="Media/chapter-1image27.png"></img>
 
-                                    </div>
+                                        <img style="top:0px;left:0px;width:100%;height:100%;display:none;position:absolute;" src="Media/chapter-1image28.png"></img>
 
-                                </div>
-
-                                <div class="">
-
-                                    <div class="p1textdiv14">
-
-                                        <article class="p1para15">
-
-                                            <div id="pGrp-6" class="p1pGrpDiv-FxLi16">
-
-                                                <div class="">
-
-                                                    <div id="rGrp-99" class="p1para17">
-
-                                                        <div id="rGrp-100" class="p1para17">
-
-                                                            <span class="p1span3">中秋节的月夜</span>
-
-                                                        </div>
-
-                                                        <div id="rGrp-101" class="p1para18">
-
-                                                            <span class="p1span3">，</span>
-
-                                                        </div>
-
-                                                        <div id="rGrp-102" class="p1para19">
-
-                                                            <span class="p1span3">真是万家</span>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div id="rGrp-104" class="p1para21">
-
-                                                        <div id="rGrp-105" class="p1para17">
-
-                                                            <span class="p1span3">灯火</span>
-
-                                                        </div>
-
-                                                        <div id="rGrp-106" class="p1para22">
-
-                                                            <span class="p1span3">，</span>
-
-                                                        </div>
-
-                                                        <div id="rGrp-107" class="p1para23">
-
-                                                            <span class="p1span3">一派团圆景象啊</span>
-
-                                                        </div>
-
-                                                        <div id="rGrp-108" class="p1para24">
-
-                                                            <span class="p1span3">。</span>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div id="rGrp-110" class="p1para25">
-
-                                                        <div id="rGrp-111" class="p1para17">
-
-                                                            <span class="p1span3">咦</span>
-
-                                                        </div>
-
-                                                        <div id="rGrp-112" class="p1para26">
-
-                                                            <span class="p1span3">，</span>
-
-                                                        </div>
-
-                                                        <div id="rGrp-113" class="p1para27">
-
-                                                            <span class="p1span3">怎么好像还有人没回</span>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div id="rGrp-115" class="p1para28">
-
-                                                        <div id="rGrp-116" class="p1para17">
-
-                                                            <span class="p1span3">家团圆啊…</span>
-
-                                                        </div>
-
-                                                        <div id="rGrp-117" class="p1para29">
-
-                                                            <span class="p1span3">…</span>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                        </article>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="">
-
-                                    <div class="p1InAdiv30">
-
-                                        <img class="lazy" style="top:0px;left:0px;width:100%;height:100%;display:inline;position:absolute;" src="Media/chapter-1image25.png"></img>
-
-                                        <img class="lazy" style="top:0px;left:0px;width:100%;height:100%;display:none;position:absolute;" src="Media/chapter-1image26.png"></img>
-
-                                        <audio src="Media/chapter-1Audio1.mp3" id="audioItem-142">Your browser does not support the audio element.	  
+                                        <audio src="Media/chapter-1Audio1.mp3" id="audioItem-63">Your browser does not support the audio element.	  
 
 		</audio>
 
@@ -549,15 +431,15 @@
 
                                 </div>
 
-                                <div title="Animation" id="si_80000243" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
+                                <div title="Animation" id="si_80000304" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
 
-                                    <div style="left:60.096px;top:2579.357px;height:183.259px;width:225.819px;position:absolute;opacity:0.0;">
+                                    <div style="left:24.583px;top:2559.995px;height:194.823px;width:330.84px;position:absolute;opacity:0.0;">
 
                                         <div title="groupItem" style="width:100%;height:100%;">
 
                                             <div style="width:100%;height:100%;overflow:hidden;">
 
-                                                <img class="lazy" data-original="Media/chapter-1image12.png" id="imageItem-129" alt="Media/chapter-1image12.png" style="width:223px;height:183px;"></img>
+                                                <img src="Media/chapter-1image13.png" id="imageItem-49" alt="Media/chapter-1image13.png" style="width:328px;height:195px;"></img>
 
                                             </div>
 
@@ -565,39 +447,29 @@
 
                                     </div>
 
-                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;6-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;2&quot;,&quot;playTime&quot;:&quot;2&quot;}]}]}"></input>
+                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;5-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
 
                                 </div>
 
-                                <div title="Animation" id="si_800001CF" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
+                                <div class="">
 
-                                    <div style="left:1.45px;top:2861.3px;height:223.302px;width:171.33px;position:absolute;opacity:0.0;">
+                                    <div class="p1imagediv19">
 
-                                        <div title="groupItem" style="width:100%;height:100%;">
-
-                                            <div style="width:100%;height:100%;overflow:hidden;">
-
-                                                <img class="lazy" data-original="Media/chapter-1image13.png" id="imageItem-130" alt="Media/chapter-1image13.png" style="width:600px;height:775px;margin-left:0%;margin-top:0%;transform-origin: 0.00% 0.00%;transform:rotate(0.000000deg)skewX(0.000000deg)scale(0.230383,0.241423);"></img>
-
-                                            </div>
-
-                                        </div>
+                                        <img class="p1image20" src="Media/chapter-1image14.png" id="imageItem-50" alt="Media/chapter-1image14.png"></img>
 
                                     </div>
-
-                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;7-0&quot;,&quot;effect&quot;:&quot;fadeInLeft&quot;,&quot;direction&quot;:&quot;left&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;2&quot;}]}]}"></input>
 
                                 </div>
 
-                                <div title="Animation" id="si_80000255" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
+                                <div title="Animation" id="si_800002E3" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
 
-                                    <div style="left:-1.5px;top:3066.503px;height:150.547px;width:263.406px;position:absolute;opacity:0.0;">
+                                    <div style="left:-1.5px;top:3066.503px;height:177.81px;width:285.881px;position:absolute;opacity:0.0;">
 
                                         <div title="groupItem" style="width:100%;height:100%;">
 
                                             <div style="width:100%;height:100%;overflow:hidden;">
 
-                                                <img class="lazy" data-original="Media/chapter-1image14.png" id="imageItem-131" alt="Media/chapter-1image14.png" style="width:260px;height:151px;"></img>
+                                                <img src="Media/chapter-1image15.png" id="imageItem-51" alt="Media/chapter-1image15.png" style="width:283px;height:178px;"></img>
 
                                             </div>
 
@@ -605,7 +477,17 @@
 
                                     </div>
 
-                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;8-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;1&quot;,&quot;playTime&quot;:&quot;2&quot;}]}]}"></input>
+                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;6-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
+
+                                </div>
+
+                                <div class="">
+
+                                    <div class="p1imagediv21">
+
+                                        <img class="p1image22" src="Media/chapter-1image16.png" id="imageItem-52" alt="Media/chapter-1image16.png"></img>
+
+                                    </div>
 
                                 </div>
 
@@ -617,7 +499,7 @@
 
                                             <div style="width:100%;height:100%;overflow:hidden;">
 
-                                                <img class="lazy" data-original="Media/chapter-1image15.png" id="imageItem-132" alt="Media/chapter-1image15.png" style="width:600px;height:438px;margin-left:0%;margin-top:0%;transform-origin: 0.00% 0.00%;transform:rotate(0.000000deg)skewX(0.000000deg)scale(0.297606,0.314259);"></img>
+                                                <img src="Media/chapter-1image17.png" id="imageItem-53" alt="Media/chapter-1image17.png" style="width:600px;height:438px;margin-left:0%;margin-top:0%;transform-origin: 0.00% 0.00%;transform:rotate(0.000000deg)skewX(0.000000deg)scale(0.297606,0.314259);"></img>
 
                                             </div>
 
@@ -625,19 +507,19 @@
 
                                     </div>
 
-                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;9-0&quot;,&quot;effect&quot;:&quot;slideInLeft&quot;,&quot;direction&quot;:&quot;left&quot;,&quot;playDelay&quot;:&quot;1&quot;,&quot;playTime&quot;:&quot;2&quot;}]}]}"></input>
+                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;7-0&quot;,&quot;effect&quot;:&quot;slideInLeft&quot;,&quot;direction&quot;:&quot;left&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
 
                                 </div>
 
                                 <div class="">
 
-                                    <div class="p1InAdiv31">
+                                    <div class="p1InAdiv23">
 
-                                        <img class="lazy" style="top:0px;left:0px;width:100%;height:100%;display:inline;position:absolute;" src="Media/chapter-1image27.png"></img>
+                                        <img style="top:0px;left:0px;width:100%;height:100%;display:inline;position:absolute;" src="Media/chapter-1image29.png"></img>
 
-                                        <img class="lazy" style="top:0px;left:0px;width:100%;height:100%;display:none;position:absolute;" src="Media/chapter-1image28.png"></img>
+                                        <img style="top:0px;left:0px;width:100%;height:100%;display:none;position:absolute;" src="Media/chapter-1image30.png"></img>
 
-                                        <audio src="Media/chapter-1Audio2.mp3" id="audioItem-143">Your browser does not support the audio element.	  
+                                        <audio src="Media/chapter-1Audio2.mp3" id="audioItem-64">Your browser does not support the audio element.	  
 
 		</audio>
 
@@ -647,15 +529,15 @@
 
                                 </div>
 
-                                <div title="Animation" id="si_80000186" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
+                                <div title="Animation" id="si_80000271" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
 
-                                    <div style="left:227.821px;top:3530.448px;height:213.826px;width:132.179px;position:absolute;opacity:0.0;">
+                                    <div style="left:36.58px;top:3622.46px;height:136.487px;width:239.086px;position:absolute;opacity:0.0;">
 
                                         <div title="groupItem" style="width:100%;height:100%;">
 
                                             <div style="width:100%;height:100%;overflow:hidden;">
 
-                                                <img class="lazy" data-original="Media/chapter-1image16.png" id="imageItem-133" alt="Media/chapter-1image16.png" style="width:600px;height:788px;margin-left:0%;margin-top:0%;transform-origin: 0.00% 0.00%;transform:rotate(0.000000deg)skewX(0.000000deg)scale(0.220299,0.268814);"></img>
+                                                <img src="Media/chapter-1image18.png" id="imageItem-54" alt="Media/chapter-1image18.png" style="width:236px;height:136px;"></img>
 
                                             </div>
 
@@ -663,109 +545,87 @@
 
                                     </div>
 
-                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;10-0&quot;,&quot;effect&quot;:&quot;slideInRight&quot;,&quot;direction&quot;:&quot;right&quot;,&quot;playDelay&quot;:&quot;1&quot;,&quot;playTime&quot;:&quot;2&quot;}]}]}"></input>
+                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;8-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
 
                                 </div>
 
                                 <div class="">
 
-                                    <div class="p1textdiv32">
+                                    <div class="p1imagediv24">
 
-                                        <article class="p1para33">
-
-                                            <div id="pGrp-3" class="p1pGrpDiv-FxLi34">
-
-                                                <div class="">
-
-                                                    <div id="rGrp-47" class="p1para17">
-
-                                                        <div id="rGrp-48" class="p1para17">
-
-                                                            <span class="p1span3">中秋节饭局多</span>
-
-                                                        </div>
-
-                                                        <div id="rGrp-49" class="p1para35">
-
-                                                            <span class="p1span3">，</span>
-
-                                                        </div>
-
-                                                        <div id="rGrp-50" class="p1para36">
-
-                                                            <span class="p1span3">为了您</span>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div id="rGrp-52" class="p1para37">
-
-                                                        <div id="rGrp-53" class="p1para17">
-
-                                                            <span class="p1span3">的安全</span>
-
-                                                        </div>
-
-                                                        <div id="rGrp-54" class="p1para38">
-
-                                                            <span class="p1span3">，</span>
-
-                                                        </div>
-
-                                                        <div id="rGrp-55" class="p1para39">
-
-                                                            <span class="p1span3">可千万别酒驾</span>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div id="rGrp-57" class="p1para40">
-
-                                                        <div id="rGrp-58" class="p1para17">
-
-                                                            <span class="p1span3">呀</span>
-
-                                                        </div>
-
-                                                        <div id="rGrp-59" class="p1para41">
-
-                                                            <span class="p1span3">！</span>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                        </article>
+                                        <img class="p1image25" src="Media/chapter-1image19.png" id="imageItem-55" alt="Media/chapter-1image19.png"></img>
 
                                     </div>
 
                                 </div>
 
-                                <div class="">
+                                <div title="Animation" id="si_8000027D" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
 
-                                    <div class="p1imagediv42">
-
-                                        <img class="lazy" class="p1image43" src="Media/chapter-1image17.png" id="imageItem-134" alt="Media/chapter-1image17.png"></img>
-
-                                    </div>
-
-                                </div>
-
-                                <div title="Animation" id="si_80000331" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
-
-                                    <div style="left:127.295px;top:4387.681px;height:143.139px;width:177.262px;position:absolute;opacity:0.0;">
+                                    <div style="left:115.811px;top:4339.386px;height:154.169px;width:190.481px;position:absolute;opacity:0.0;">
 
                                         <div title="groupItem" style="width:100%;height:100%;">
 
                                             <div style="width:100%;height:100%;overflow:hidden;">
 
-                                                <img class="lazy" data-original="Media/chapter-1image18.png" id="imageItem-135" alt="Media/chapter-1image18.png" style="width:177px;height:143px;"></img>
+                                                <img src="Media/chapter-1image20.png" id="imageItem-56" alt="Media/chapter-1image20.png" style="width:190px;height:154px;"></img>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;9-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
+
+                                </div>
+
+                                <div title="Animation" id="si_800002CD" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
+
+                                    <div style="left:26.284px;top:4649.206px;height:126.318px;width:119.828px;position:absolute;opacity:0.0;">
+
+                                        <div title="groupItem" style="width:100%;height:100%;">
+
+                                            <div style="width:100%;height:100%;overflow:hidden;">
+
+                                                <img src="Media/chapter-1image21.png" id="imageItem-57" alt="Media/chapter-1image21.png" style="width:120px;height:126px;"></img>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;10-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;1&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
+
+                                </div>
+
+                                <div class="">
+
+                                    <div class="p1InAdiv26">
+
+                                        <img style="top:0px;left:0px;width:100%;height:100%;display:inline;position:absolute;" src="Media/chapter-1image31.png"></img>
+
+                                        <img style="top:0px;left:0px;width:100%;height:100%;display:none;position:absolute;" src="Media/chapter-1image32.png"></img>
+
+                                        <audio src="Media/chapter-1Audio3.mp3" id="audioItem-65">Your browser does not support the audio element.	  
+
+		</audio>
+
+                                        <input type="hidden" name="json" value="{&quot;playOnPageTurn&quot;:&quot;true&quot;,&quot;playDelay&quot;:&quot;1&quot;,&quot;loop&quot;:false}"></input>
+
+                                    </div>
+
+                                </div>
+
+                                <div title="Animation" id="si_80000318" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
+
+                                    <div style="left:9.73px;top:4872.302px;height:232.614px;width:330.84px;position:absolute;opacity:0.0;">
+
+                                        <div title="groupItem" style="width:100%;height:100%;">
+
+                                            <div style="width:100%;height:100%;overflow:hidden;">
+
+                                                <img src="Media/chapter-1image22.png" id="imageItem-58" alt="Media/chapter-1image22.png" style="width:328px;height:231px;"></img>
 
                                             </div>
 
@@ -777,39 +637,11 @@
 
                                 </div>
 
-                                <div title="Animation" id="si_80000334" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
-
-                                    <div style="left:26.284px;top:4688.207px;height:99.662px;width:94.436px;position:absolute;opacity:0.0;">
-
-                                        <div title="groupItem" style="width:100%;height:100%;">
-
-                                            <div style="width:100%;height:100%;overflow:hidden;">
-
-                                                <img class="lazy" data-original="Media/chapter-1image19.png" id="imageItem-136" alt="Media/chapter-1image19.png" style="width:94px;height:100px;"></img>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;12-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;1&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
-
-                                </div>
-
                                 <div class="">
 
-                                    <div class="p1InAdiv44">
+                                    <div class="p1imagediv27">
 
-                                        <img class="lazy" style="top:0px;left:0px;width:100%;height:100%;display:inline;position:absolute;" src="Media/chapter-1image29.png"></img>
-
-                                        <img class="lazy" style="top:0px;left:0px;width:100%;height:100%;display:none;position:absolute;" src="Media/chapter-1image30.png"></img>
-
-                                        <audio src="Media/chapter-1Audio3.mp3" id="audioItem-144">Your browser does not support the audio element.	  
-
-		</audio>
-
-                                        <input type="hidden" name="json" value="{&quot;playOnPageTurn&quot;:&quot;true&quot;,&quot;playDelay&quot;:&quot;1&quot;,&quot;loop&quot;:false}"></input>
+                                        <img class="p1image28" src="Media/chapter-1image23.png" id="imageItem-59" alt="Media/chapter-1image23.png"></img>
 
                                     </div>
 
@@ -817,203 +649,23 @@
 
                                 <div class="">
 
-                                    <div title="groupItem">
+                                    <div class="p1textdiv29">
 
-                                        <div class="p1imagediv45">
+                                        <article class="p1para30">
 
-                                            <img class="lazy" class="p1image46" src="Media/chapter-1image20.png" id="imageItem-137" alt="Media/chapter-1image20.png"></img>
+                                            <div id="pGrp-1" class="p1pGrpDiv-FxLi31">
 
-                                        </div>
+                                                <div class="p1para32">
 
-                                        <div class="p1textdiv47">
+                                                    <div id="rGrp-5" class="p1para33">
 
-                                            <article class="p1para48">
-
-                                                <div id="pGrp-4" class="p1pGrpDiv-FxLi49">
-
-                                                    <div class="">
-
-                                                        <div id="rGrp-60" class="p1para17">
-
-                                                            <div id="rGrp-61" class="p1para17">
-
-                                                                <span class="p1span3">看来</span>
-
-                                                            </div>
-
-                                                            <div id="rGrp-62" class="p1para50">
-
-                                                                <span class="p1span3">，</span>
-
-                                                            </div>
-
-                                                            <div id="rGrp-63" class="p1para51">
-
-                                                                <span class="p1span3">即使是中秋佳节</span>
-
-                                                            </div>
-
-                                                            <div id="rGrp-64" class="p1para52">
-
-                                                                <span class="p1span3">，</span>
-
-                                                            </div>
-
-                                                            <div id="rGrp-65" class="p1para53">
-
-                                                                <span class="p1span3">大家也</span>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div id="rGrp-67" class="p1para37">
-
-                                                            <div id="rGrp-68" class="p1para17">
-
-                                                                <span class="p1span3">都坚守在自己的岗位上</span>
-
-                                                            </div>
-
-                                                            <div id="rGrp-69" class="p1para54">
-
-                                                                <span class="p1span3">。</span>
-
-                                                            </div>
-
-                                                            <div id="rGrp-70" class="p1para55">
-
-                                                                <span class="p1span3">这个</span>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div id="rGrp-72" class="p1para40">
-
-                                                            <div id="rGrp-73" class="p1para17">
-
-                                                                <span class="p1span3">团圆的月夜里</span>
-
-                                                            </div>
-
-                                                            <div id="rGrp-74" class="p1para56">
-
-                                                                <span class="p1span3">，</span>
-
-                                                            </div>
-
-                                                            <div id="rGrp-75" class="p1para57">
-
-                                                                <span class="p1span3">正是有你们在守</span>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div id="rGrp-77" class="p1para58">
-
-                                                            <div id="rGrp-78" class="p1para17">
-
-                                                                <span class="p1span3">护</span>
-
-                                                            </div>
-
-                                                            <div id="rGrp-79" class="p1para59">
-
-                                                                <span class="p1span3">，</span>
-
-                                                            </div>
-
-                                                            <div id="rGrp-80" class="p1para60">
-
-                                                                <span class="p1span3">才更加欢乐和温暖</span>
-
-                                                            </div>
-
-                                                            <div id="rGrp-81" class="p1para61">
-
-                                                                <span class="p1span62">~</span>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </article>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="">
-
-                                    <div class="p1textdiv63">
-
-                                        <article class="p1para1">
-
-                                            <div id="pGrp-2" class="p1pGrpDiv-FxLi64">
-
-                                                <div class="">
-
-                                                    <div id="rGrp-42" class="p1para17">
-
-                                                        <div id="rGrp-43" class="p1para65">
-
-                                                            <span class="p1span3">需要修改的兔子</span>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="">
-
-                                                    <div id="rGrp-44" class="p1para66">
-
-                                                        <div id="rGrp-45" class="p1para65">
-
-                                                            <span class="p1span3">放在这里</span>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                        </article>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="">
-
-                                    <div class="p1textdiv68">
-
-                                        <article class="p1para69">
-
-                                            <div id="pGrp-1" class="p1pGrpDiv-FxLi70">
-
-                                                <div class="p1para71">
-
-                                                    <div id="rGrp-10" class="p1para17">
-
-                                                        <div id="rGrp-11" class="p1para72">
+                                                        <div id="rGrp-6" class="p1para34">
 
                                                             <span class="p1span3">关于中秋的所有的味道</span>
 
                                                         </div>
 
-                                                        <div id="rGrp-12" class="p1para73">
+                                                        <div id="rGrp-7" class="p1para35">
 
                                                             <span class="p1span3">，</span>
 
@@ -1023,17 +675,17 @@
 
                                                 </div>
 
-                                                <div class="p1para71">
+                                                <div class="p1para32">
 
-                                                    <div id="rGrp-13" class="p1para74">
+                                                    <div id="rGrp-8" class="p1para36">
 
-                                                        <div id="rGrp-14" class="p1para75">
+                                                        <div id="rGrp-9" class="p1para37">
 
-                                                            <span class="p1span3">都凝聚在归家的时刻</span>
+                                                            <span class="p1span3">都凝聚在回家的时刻</span>
 
                                                         </div>
 
-                                                        <div id="rGrp-15" class="p1para76">
+                                                        <div id="rGrp-10" class="p1para38">
 
                                                             <span class="p1span3">。</span>
 
@@ -1043,17 +695,17 @@
 
                                                 </div>
 
-                                                <div class="p1para71">
+                                                <div class="p1para32">
 
-                                                    <div id="rGrp-17" class="p1para78">
+                                                    <div id="rGrp-12" class="p1para40">
 
-                                                        <div id="rGrp-18" class="p1para79">
+                                                        <div id="rGrp-13" class="p1para41">
 
                                                             <span class="p1span3">明月装点了团圆</span>
 
                                                         </div>
 
-                                                        <div id="rGrp-19" class="p1para80">
+                                                        <div id="rGrp-14" class="p1para42">
 
                                                             <span class="p1span3">，</span>
 
@@ -1063,17 +715,17 @@
 
                                                 </div>
 
-                                                <div class="p1para71">
+                                                <div class="p1para32">
 
-                                                    <div id="rGrp-20" class="p1para81">
+                                                    <div id="rGrp-15" class="p1para43">
 
-                                                        <div id="rGrp-21" class="p1para82">
+                                                        <div id="rGrp-16" class="p1para44">
 
                                                             <span class="p1span3">而岁月的静好</span>
 
                                                         </div>
 
-                                                        <div id="rGrp-22" class="p1para83">
+                                                        <div id="rGrp-17" class="p1para45">
 
                                                             <span class="p1span3">，</span>
 
@@ -1083,17 +735,17 @@
 
                                                 </div>
 
-                                                <div class="p1para71">
+                                                <div class="p1para32">
 
-                                                    <div id="rGrp-23" class="p1para84">
+                                                    <div id="rGrp-18" class="p1para46">
 
-                                                        <div id="rGrp-24" class="p1para85">
+                                                        <div id="rGrp-19" class="p1para47">
 
                                                             <span class="p1span3">源自每个团圆时刻</span>
 
                                                         </div>
 
-                                                        <div id="rGrp-25" class="p1para86">
+                                                        <div id="rGrp-20" class="p1para48">
 
                                                             <span class="p1span3">，</span>
 
@@ -1103,17 +755,17 @@
 
                                                 </div>
 
-                                                <div class="p1para71">
+                                                <div class="p1para32">
 
-                                                    <div id="rGrp-26" class="p1para87">
+                                                    <div id="rGrp-21" class="p1para49">
 
-                                                        <div id="rGrp-27" class="p1para75">
+                                                        <div id="rGrp-22" class="p1para37">
 
                                                             <span class="p1span3">坚守岗位的平凡你我</span>
 
                                                         </div>
 
-                                                        <div id="rGrp-28" class="p1para76">
+                                                        <div id="rGrp-23" class="p1para38">
 
                                                             <span class="p1span3">。</span>
 
@@ -1123,39 +775,19 @@
 
                                                 </div>
 
-                                                <div class="p1para90">
+                                                <div class="p1para52">
 
-                                                    <div id="rGrp-31" class="p1para91">
+                                                    <div id="rGrp-26" class="p1para53">
 
-                                                        <div id="rGrp-32" class="p1para79">
+                                                        <div id="rGrp-27" class="p1para41">
 
-                                                            <span class="p1span92">佳节共赏天上月</span>
-
-                                                        </div>
-
-                                                        <div id="rGrp-33" class="p1para80">
-
-                                                            <span class="p1span92">，</span>
+                                                            <span class="p1span54">佳节共赏天上月</span>
 
                                                         </div>
 
-                                                    </div>
+                                                        <div id="rGrp-28" class="p1para42">
 
-                                                </div>
-
-                                                <div class="p1para90">
-
-                                                    <div id="rGrp-34" class="p1para93">
-
-                                                        <div id="rGrp-35" class="p1para94">
-
-                                                            <span class="p1span92">愿普天之下</span>
-
-                                                        </div>
-
-                                                        <div id="rGrp-36" class="p1para95">
-
-                                                            <span class="p1span92">，</span>
+                                                            <span class="p1span54">，</span>
 
                                                         </div>
 
@@ -1163,31 +795,51 @@
 
                                                 </div>
 
-                                                <div class="p1para90">
+                                                <div class="p1para52">
 
-                                                    <div id="rGrp-37" class="p1para96">
+                                                    <div id="rGrp-29" class="p1para55">
 
-                                                        <div id="rGrp-38" class="p1para97">
+                                                        <div id="rGrp-30" class="p1para56">
 
-                                                            <span class="p1span92">团团圆圆</span>
-
-                                                        </div>
-
-                                                        <div id="rGrp-39" class="p1para98">
-
-                                                            <span class="p1span92">，</span>
+                                                            <span class="p1span54">愿普天之下</span>
 
                                                         </div>
 
-                                                        <div id="rGrp-40" class="p1para99">
+                                                        <div id="rGrp-31" class="p1para57">
 
-                                                            <span class="p1span92">幸福满溢</span>
+                                                            <span class="p1span54">，</span>
 
                                                         </div>
 
-                                                        <div id="rGrp-41" class="p1para100">
+                                                    </div>
 
-                                                            <span class="p1span92">。</span>
+                                                </div>
+
+                                                <div class="p1para52">
+
+                                                    <div id="rGrp-32" class="p1para58">
+
+                                                        <div id="rGrp-33" class="p1para59">
+
+                                                            <span class="p1span54">团团圆圆</span>
+
+                                                        </div>
+
+                                                        <div id="rGrp-34" class="p1para60">
+
+                                                            <span class="p1span54">，</span>
+
+                                                        </div>
+
+                                                        <div id="rGrp-35" class="p1para61">
+
+                                                            <span class="p1span54">幸福满溢</span>
+
+                                                        </div>
+
+                                                        <div id="rGrp-36" class="p1para62">
+
+                                                            <span class="p1span54">。</span>
 
                                                         </div>
 
@@ -1205,13 +857,13 @@
 
                                 <div title="Animation" id="si_800002C5" style="left:-42.5196850393701px;top:-42.5193930708659px;height:6650px;width:360px;position:absolute;pointer-events:none;">
 
-                                    <div style="left:82.615px;top:5993.23px;height:263.682px;width:275.885px;position:absolute;opacity:0.0;">
+                                    <div style="left:86.087px;top:5990.806px;height:263.682px;width:275.885px;position:absolute;opacity:0.0;">
 
                                         <div title="groupItem" style="width:100%;height:100%;">
 
                                             <div style="width:100%;height:100%;overflow:hidden;">
 
-                                                <img class="lazy" data-original="Media/chapter-1image21.png" id="imageItem-138" alt="Media/chapter-1image21.png" style="width:341px;height:327px;margin-left:0%;margin-top:0%;transform-origin: 0.00% 0.00%;transform:rotate(0.000000deg)skewX(0.000000deg)scale(0.800249,0.800249);"></img>
+                                                <img src="Media/chapter-1image24.png" id="imageItem-60" alt="Media/chapter-1image24.png" style="width:341px;height:327px;margin-left:0%;margin-top:0%;transform-origin: 0.00% 0.00%;transform:rotate(0.000000deg)skewX(0.000000deg)scale(0.815077,0.815076);"></img>
 
                                             </div>
 
@@ -1219,143 +871,17 @@
 
                                     </div>
 
-                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;14-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;1&quot;,&quot;playTime&quot;:&quot;2&quot;}]}]}"></input>
+                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;12-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;1&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
 
                                 </div>
 
                                 <div class="">
 
-                                    <div class="p1imagediv101">
+                                    <div class="p1imagediv63">
 
-                                        <img class="lazy" class="p1image102" src="Media/chapter-1image22.png" id="imageItem-139" alt="Media/chapter-1image22.png"></img>
-
-                                    </div>
-
-                                </div>
-
-                                <div title="PopupContent" id="si_8000030F">
-
-                                    <div title="画面1" style="display:none;">
-
-                                        <div title="groupItem">
-
-                                            <div class="p1imagediv103">
-
-                                                <img class="lazy" class="p1image104" src="Media/chapter-1image23.png" id="imageItem-140" alt="Media/chapter-1image23.png"></img>
-
-                                            </div>
-
-                                            <div class="p1textdiv105">
-
-                                                <article class="p1para48">
-
-                                                    <div id="pGrp-5" class="p1pGrpDiv-FxLi106">
-
-                                                        <div class="">
-
-                                                            <div id="rGrp-82" class="p1para17">
-
-                                                                <div id="rGrp-83" class="p1para17">
-
-                                                                    <span class="p1span3">点击右上角</span>
-
-                                                                </div>
-
-                                                                <div id="rGrp-84" class="p1para107">
-
-                                                                    <span class="p1span3">“</span>
-
-                                                                </div>
-
-                                                                <div id="rGrp-85" class="p1para108">
-
-                                                                    <span class="p1span62">.</span>
-
-                                                                </div>
-
-                                                                <div id="rGrp-86" class="p1para109">
-
-                                                                    <span class="p1span62">.</span>
-
-                                                                </div>
-
-                                                                <div id="rGrp-87" class="p1para110">
-
-                                                                    <span class="p1span62">.</span>
-
-                                                                </div>
-
-                                                                <div id="rGrp-88" class="p1para111">
-
-                                                                    <span class="p1span3">”</span>
-
-                                                                </div>
-
-                                                                <div id="rGrp-89" class="p1para112">
-
-                                                                    <span class="p1span3">转发分</span>
-
-                                                                </div>
-
-                                                                <div id="rGrp-90" class="p1para20"></div>
-
-                                                            </div>
-
-                                                            <div id="rGrp-91" class="p1para37">
-
-                                                                <div id="rGrp-92" class="p1para17">
-
-                                                                    <span class="p1span3">享</span>
-
-                                                                </div>
-
-                                                                <div id="rGrp-93" class="p1para113">
-
-                                                                    <span class="p1span3">，</span>
-
-                                                                </div>
-
-                                                                <div id="rGrp-94" class="p1para114">
-
-                                                                    <span class="p1span3">将中秋祝福送给亲</span>
-
-                                                                </div>
-
-                                                                <div id="rGrp-95" class="p1para20"></div>
-
-                                                            </div>
-
-                                                            <div id="rGrp-96" class="p1para40">
-
-                                                                <div id="rGrp-97" class="p1para17">
-
-                                                                    <span class="p1span3">朋好友</span>
-
-                                                                </div>
-
-                                                                <div id="rGrp-98" class="p1para115">
-
-                                                                    <span class="p1span62">~</span>
-
-                                                                </div>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </article>
-
-                                            </div>
-
-                                        </div>
-
-                                        <img class="lazy" style="left:0px;top:0px;display:none;position:absolute;" src=""></img>
+                                        <img class="p1image64" src="Media/chapter-1image25.png" id="imageItem-61" alt="Media/chapter-1image25.png"></img>
 
                                     </div>
-
-                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[]}]}"></input>
 
                                 </div>
 
@@ -1365,17 +891,17 @@
 
                                         <div title="groupItem" style="width:100%;height:100%;">
 
-                                            <div id="buttonItem-145">
+                                            <div id="buttonItem-66">
 
                                                 <div title="Button" style="overflow:hidden;height:118px;width:112px;position:relative;z-index:1;pointer-events:auto;">
 
                                                     <div style="left:0px;top:0px;height:118px;width:112px;display:inline;position:absolute;">
 
-                                                        <img class="lazy" data-original="Media/chapter-1image24.png" style="height:118px;width:112px;"></img>
+                                                        <img src="Media/chapter-1image26.png" style="height:118px;width:112px;"></img>
 
                                                     </div>
 
-                                                    <input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;true&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;si_8000030F&quot;,&quot;statetype&quot;:&quot;1&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+                                                    <input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
 
                                                 </div>
 
@@ -1385,7 +911,7 @@
 
                                     </div>
 
-                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;13-0&quot;,&quot;effect&quot;:&quot;slideInDown&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;2&quot;,&quot;playTime&quot;:&quot;2&quot;}]}]}"></input>
+                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;13-0&quot;,&quot;effect&quot;:&quot;slideInLeft&quot;,&quot;direction&quot;:&quot;left&quot;,&quot;playDelay&quot;:&quot;1&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
 
                                 </div>
 
@@ -1406,16 +932,53 @@
         <div id="divpre" style="position:absolute;left:0%;width:10%;top:10%;height:90%;z-index:1;display:none;"></div>
         <div id="divnext" style="position:absolute;left:90%;width:10%;top:10%;height:90%;z-index:1;display:none;"></div>
     </div>
-
     <script src="./scripts/options.js"></script>
 </body>
+<!-- <script>
+    const wrap = document.getElementById('wrapper');
+    var fragment = document.createDocumentFragment()
+    for (let i = 0; i < 1000; i++) {
+        let li = document.createElement('li')
+        li.innerHTML = 'wa ta xi' + i
+        fragment.appendChild(li)
+    }
+    wrap.appendChild(fragment);
+</script> -->
 <script>
-    $(function() {
-        $("img.lazy").lazyload({
-            container: $("#long_page_container"),
-            threshold: 20,
-            failure_limit: 10,
-        });
+    const target = document.getElementById('wrapper');
+    Transform(target);
+
+    new AlloyTouch({
+        touch: "#wrapper", //反馈触摸的dom
+        vertical: true, //不必需，默认是true代表监听竖直方向touch
+        target: target, //运动的对象
+        max: 0,
+        min: -5720,
+        property: "translateY", //被运动的属性
+        sensitivity: 1, //不必需,触摸区域的灵敏度，默认值为1，可以为负数
+        factor: 1, //不必需,表示触摸位移运动位移与被运动属性映射关系，默认值是1
+        moveFactor: 1, //不必需,表示touchmove位移与被运动属性映射关系，默认值是1
+        step: 45, //用于校正到step的整数倍
+        bindSelf: false,
+        maxSpeed: 2, //不必需，触摸反馈的最大速度限制 
+        value: 0,
+        change: function(value) {
+
+        },
+        touchStart: function(evt, value) {
+            console.log(evt, value)
+        },
+        touchMove: function(evt, value) {
+            console.log(evt, value)
+
+        },
+        touchEnd: function(evt, value) {},
+        tap: function(evt, value) {},
+        pressMove: function(evt, value) {},
+        animationEnd: function(value) {
+                console.log(value)
+
+            } //运动结束
     })
 </script>
 

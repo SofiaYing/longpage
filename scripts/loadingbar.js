@@ -2,8 +2,6 @@
     window.sizeAdjustor = new SizeAdjustor();
     window.isPageLoad = window.isLoadingbarOver = false; 
 
-    // $("img.lazy").lazyload({  threshold : 180 });
-
     window.onload = function() {
         window.isPageLoad = true;
     }
@@ -15,7 +13,6 @@
     var jsonstr = document.getElementById("json").value;
     var jsondata = eval('(' + jsonstr + ')');
     var loadingBox = document.getElementById("loadingBox");
-    var isOnload = false;
 
     if (jsondata.loadingbar) {
         var barFgColor = jsondata.loadingbar.barfgcolor;
@@ -74,18 +71,9 @@
 
     //jsondata.type default:进度条 ring:环形 pie：饼形 bar:条状 rotate:旋转
     if (jsondata.loadingbar) {
-
+        //设置背景图/颜色
         loadingBox.style.background = jsondata.loadingbar.bgtype === "color" ? bgColor : "url(" + bgPic + ") no-repeat"; //背景图
         loadingBox.style.backgroundSize = "100% 100%";
-        var bgImg = new Image();
-        bgImg.src = bgPic;
-        bgImg.onload = function() {
-            isOnload = true;
-
-
-        }
-
-        //设置背景图/颜色
 
         switch (jsondata.loadingbar.bartype) {
             case 'ring':
@@ -191,8 +179,6 @@
                         var img = new Image();
                         img.src = loadPic;
                         img.onload = function() {
-
-
                             canvas = document.getElementById("canvasLoad");
                             canvas.setAttribute('height', parseInt(loadingBarBox.style.height) + 1 + 'px');
                             canvas.setAttribute('width', loadingBarBox.style.width);
@@ -214,9 +200,7 @@
                     var fgImg = new Image();
                     fgImg.src = fgPic;
                     fgImg.onload = function() {
-                        var src = $('.p1image5').attr('data-src');
-                        console.log('src', src)
-                        $('.p1image5').attr('src', src);
+
                         $(loadingBarBox).css({
                             'display': 'block',
                             'width': parseInt(imgW),
