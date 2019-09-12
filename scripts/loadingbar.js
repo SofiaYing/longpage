@@ -13,6 +13,7 @@
     var jsonstr = document.getElementById("json").value;
     var jsondata = eval('(' + jsonstr + ')');
     var loadingBox = document.getElementById("loadingBox");
+    var isBgLoad = false;
 
     if (jsondata.loadingbar) {
         var barFgColor = jsondata.loadingbar.barfgcolor;
@@ -74,6 +75,12 @@
         //设置背景图/颜色
         loadingBox.style.background = jsondata.loadingbar.bgtype === "color" ? bgColor : "url(" + bgPic + ") no-repeat"; //背景图
         loadingBox.style.backgroundSize = "100% 100%";
+
+        var bgImg = new Image();
+        bgImg.src = bgPic;
+        bgImg.onload = function() {
+            isBgLoad = true;
+        }
 
         switch (jsondata.loadingbar.bartype) {
             case 'ring':
@@ -200,28 +207,38 @@
                     var fgImg = new Image();
                     fgImg.src = fgPic;
                     fgImg.onload = function() {
+                        var timer = setInterval(function() {
+                            if (isBgLoad) {
+                                clearInterval(timer)
 
-                        $(loadingBarBox).css({
-                            'display': 'block',
-                            'width': parseInt(imgW),
-                            'height': parseInt(imgW),
-                            'border-radius': '50%',
-                            'margin-bottom': marginBottom + 'px',
-                        })
+                                $(loadingBarBox).css({
+                                    'display': 'block',
+                                    'width': parseInt(imgW),
+                                    'height': parseInt(imgW),
+                                    'border-radius': '50%',
+                                    'margin-bottom': marginBottom + 'px',
+                                })
 
-                        if (loadPic) {
-                            var img = new Image();
-                            img.src = loadPic;
-                            img.onload = function() {
-                                canvas = document.getElementById("canvasLoad");
-                                canvas.setAttribute('height', parseInt(loadingBarBox.style.height) + 1 + 'px');
-                                canvas.setAttribute('width', loadingBarBox.style.width);
+                                if (loadPic) {
+                                    var img = new Image();
+                                    img.src = loadPic;
+                                    img.onload = function() {
+                                        canvas = document.getElementById("canvasLoad");
+                                        canvas.setAttribute('height', parseInt(loadingBarBox.style.height) + 1 + 'px');
+                                        canvas.setAttribute('width', loadingBarBox.style.width);
 
-                                drawCanvas(canvas, 'pie', loadPic, 0);
+                                        drawCanvas(canvas, 'pie', loadPic, 0);
 
-                                startLoading();
+                                        startLoading();
+                                    }
+                                }
+                                $.each($("#wrapper").children('img'), function(index, item) {
+                                    $(item).attr('src', $(item).attr('_src'));
+                                })
                             }
-                        }
+
+                        }, 10)
+
                     }
                 }
                 break;
