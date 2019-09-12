@@ -934,16 +934,6 @@
     </div>
     <script src="./scripts/options.js"></script>
 </body>
-<!-- <script>
-    const wrap = document.getElementById('wrapper');
-    var fragment = document.createDocumentFragment()
-    for (let i = 0; i < 1000; i++) {
-        let li = document.createElement('li')
-        li.innerHTML = 'wa ta xi' + i
-        fragment.appendChild(li)
-    }
-    wrap.appendChild(fragment);
-</script> -->
 <script>
     const target = document.getElementById('wrapper');
     Transform(target);
@@ -955,8 +945,8 @@
         max: 0,
         min: -6320,
         property: "translateY", //被运动的属性
-        sensitivity: 0.5, //不必需,触摸区域的灵敏度，默认值为1，可以为负数
-        factor: 0.5, //不必需,表示触摸位移运动位移与被运动属性映射关系，默认值是1
+        sensitivity: 0.6, //不必需,触摸区域的灵敏度，默认值为1，可以为负数
+        factor: 0.6, //不必需,表示触摸位移运动位移与被运动属性映射关系，默认值是1
         moveFactor: 1, //不必需,表示touchmove位移与被运动属性映射关系，默认值是1
         step: 45, //用于校正到step的整数倍
         bindSelf: false,
