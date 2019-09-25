@@ -43,21 +43,20 @@ window.onloadOver = function() {
     };
 
     window.onmessage = function(event) {
-        var data = eval('(' + event.data + ')');
-        if (data.act === 'slidto') {
-            var index = parseInt(data.val);
-            //swiper在loop=true模式下,页面索引会加1
-            if (isLoop) index++;
-            mySwiper.slideTo(index, 0);
-        } else if (data.act === 'gyroscope') {
-            window.deviceOrientation = data.val;
-        } else {
+            var data = eval('(' + event.data + ')');
+            if (data.act === 'slidto') {
+                var index = parseInt(data.val);
+                //swiper在loop=true模式下,页面索引会加1
+                if (isLoop) index++;
+                mySwiper.slideTo(index, 0);
+            } else if (data.act === 'gyroscope') {
+                window.deviceOrientation = data.val;
+            } else {
 
+            }
         }
-    }
-
-    //实例化一个FXH5对象并对第一页reset
-    // window.fx = new FXH5(fx_options);
+        //实例化一个FXH5对象并对第一页reset
+        // window.fx = new FXH5(fx_options);
 
     if (jsonData.adjustType !== "longPageAdjust") {
         window.fx = new FXH5(fx_options);
@@ -99,7 +98,6 @@ window.onloadOver = function() {
         var isWeixin = is_weixin();
         window.addEventListener(evt, function() {
             window.sizeAdjustor.update();
-            //alert(sizeAdjustor.clientW + "&&" + sizeAdjustor.clientH);
             window.sizeAdjustor.adjustContainer();
             var scale = window.sizeAdjustor.scale;
             mySwiper.touchRatio = 1 / scale;
@@ -121,29 +119,39 @@ window.onloadOver = function() {
             removeAttrInSwiperDuplicate();
         })();
     } else {
-        // var overscroll = function(el) {
-        //     el.addEventListener('touchstart', function() {
-        //         var top = el.scrollTop,
-        //             totalScroll = el.scrollHeight,
-        //             currentScroll = top + el.offsetHeight;
-        //         if (top === 0) {
-        //             el.scrollTop = 1;
-        //         } else if (currentScroll === totalScroll) {
-        //             el.scrollTop = top - 1;
-        //         }
-        //     });
-        //     el.addEventListener('touchmove', function(evt) {
-        //         if (el.offsetHeight < el.scrollHeight)
-        //             evt._isScroller = true;
-        //     });
-        // }
-        // overscroll(document.querySelector('#divpar'));
-        // document.body.addEventListener('touchmove', function(evt) {
-        //     if (!evt._isScroller) {
-        //         evt.preventDefault();
-        //     }
-        // });
+        if (is_ios()) {
+            var throttle = function(func, delay) {
+                var timer = null;
+                var startTime = Date.now();
+                return function() {
+                    var curTime = Date.now();
+                    var remaining = delay - (curTime - startTime);
+                    var context = this;
+                    var args = arguments;
+                    clearTimeout(timer);
+                    if (remaining <= 0) {
+                        func.apply(context, args);
+                        startTime = Date.now();
+                    } else {
+                        timer = setTimeout(func, remaining);
+                    }
+                }
+            }
 
+            var overscroll = function(el) {
+                el.addEventListener('touchstart', throttle(function() {
+                    var top = el.scrollTop,
+                        totalScroll = el.scrollHeight,
+                        currentScroll = top + el.offsetHeight;
+                    if (top === 0) {
+                        el.scrollTop = 1;
+                    } else if (currentScroll === totalScroll) {
+                        el.scrollTop = top - 1;
+                    }
+                }, 1000));
+            }
+            overscroll(document.querySelector('#longpage_container'));
+        }
         if (fx_options['0']) {
             var longPageOptions = {}
             var longPageArray = []
@@ -178,7 +186,6 @@ window.onloadOver = function() {
     }
 };
 
-
 (function(global, undefined) {
     if (is_weixin()) {
         if (top === global) {
@@ -204,6 +211,9 @@ window.onloadOver = function() {
                         audio.src = localAudio.src;
                         audio.loop = localAudio.loop;
                         if (count < 100) audio.play();
+                        audio.ontimeupdate = function() {
+                            alert('3')
+                        }
                     }
                     count++;
                 }, 100);
@@ -227,17 +237,21 @@ window.onloadOver = function() {
                 }
             }
             global.playBgmAudio = function(bgmAudio) {
-                var count = 0;
-                var timer = setInterval(function() {
-                    if (isReady) {
-                        clearInterval(timer);
-                        if (count < 100) bgmAudio.play();
-                    }
-                    count++;
-                }, 100);
+                if (!isReady) {
+                    var count = 0;
+                    var timer = setInterval(function() {
+                        if (isReady) {
+                            clearInterval(timer);
+                            if (count < 100) bgmAudio.play();
+                        }
+                        count++;
+                    }, 100);
+                } else {
+                    bgmAudio.play();
+                }
                 return true;
             }
-            global.pauseBgmAudio = function(bgmAudio) {
+            global.pauseBgmAudio = function(bgmAudio, delay) {
                 bgmAudio.pause();
             }
 

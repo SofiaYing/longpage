@@ -851,13 +851,12 @@
             }
 
             //关闭画面 全部/指定
-            function closePictures(stateId, curState, ctState) {
+            function closePictures(stateId, curState, ctState, type) {
                 var demo = $('#' + stateId);
-                //关闭所有弹出内容的全部画面
+                //关闭全部画面
                 if (curState == ctState) {
-                    var popupContents = $('div[title="PopupContent"]');
-                    $.each(popupContents, function(index, item) {
-                        $.each($(item).children(), function(index, item) {
+                    if (type === 0) {
+                        $.each(demo.children(), function(index, item) {
                             if ($(item).attr('title') && $(item).attr('title').substring(0, 2) === '画面') {
                                 if ($(item).css('display') !== 'none') {
                                     UnTopPopupContent($(item), 0);
@@ -867,12 +866,73 @@
                                 }
                             }
                         })
-                    })
+                    } else if (type === 1) {
+                        var popupContents = $('div[title="PopupContent"]');
+                        $.each(popupContents, function(index, item) {
+                            $.each($(item).children(), function(index, item) {
+                                if ($(item).attr('title') && $(item).attr('title').substring(0, 2) === '画面') {
+                                    if ($(item).css('display') !== 'none') {
+                                        UnTopPopupContent($(item), 0);
+                                        $(item).css({ 'display': 'none' });
+                                        ResetInteractiveInPopupContent($(item), 0);
+                                        // ShowUpButton();
+                                    }
+                                }
+                            })
+                        })
+                    }
                 }
                 //关闭指定画面 
                 else {
                     closeIMGButton(demo.children()[parseInt(curState) - 1]);
                 }
+            }
+
+            //关闭画面 全部/指定
+            function SaveImage(imgBg, imgUserParent) {
+                console.log('img', imgBg, imgUser)
+                $('.show-image-container').css('display', 'flex')
+
+                function getRelativeDisttance(subElement, container) {
+                    var distX = 0,
+                        distY = 0,
+                        tempEl = subElement;
+                    while (tempEl && !tempEl.classList.contains(container)) {
+
+                        distX += tempEl.offsetLeft;
+                        distY += tempEl.offsetTop;
+                        tempEl = tempEl.parentNode;
+                    }
+                    return {
+                        x: distX,
+                        y: distY
+                    }
+                }
+
+
+
+                var imgBg = document.getElementById(imgBg);
+                var imgUser = $('#' + imgUserParent).children('img')[0];
+                var imgShow = document.getElementById('showImage');
+                var imgUserOffsetArray = getRelativeDisttance($('#' + imgUserParent)[0], 'divshow');
+
+                var canvas = document.createElement("canvas");
+                var context = canvas.getContext("2d");
+
+                var canvasWidth = imgBg.width * window.sizeAdjustor.scaleX;
+                var canvasHeight = imgBg.height * window.sizeAdjustor.scaleY;
+                var imgUserLeft = imgUserOffsetArray.x * window.sizeAdjustor.scaleX;
+                var imgUserTop = imgUserOffsetArray.y * window.sizeAdjustor.scaleY;
+                var imgUserWidth = imgUser.width * window.sizeAdjustor.scaleX;
+                var imgUserHeight = imgUser.height * window.sizeAdjustor.scaleY;
+
+                canvas.width = canvasWidth;
+                canvas.height = canvasHeight;
+
+                context.drawImage(imgUser, 0, 0, imgUser.naturalWidth, imgUser.naturalHeight, imgUserLeft, imgUserTop - 1, imgUserWidth + 2, imgUserHeight + 2);
+                context.drawImage(imgBg, 0, 0, imgBg.naturalWidth, imgBg.naturalHeight, 0, 0, canvasWidth, canvasHeight);
+
+                imgShow.src = canvas.toDataURL();
             }
 
             function GotPage(btID) {
@@ -1003,7 +1063,7 @@
                     ShowDownButton();
                 event.stopPropagation();
             });
-
+            console.log('demo', demo)
             demo.on(goToPageEvent, function(e) {
                 e.preventDefault();
                 var demoButton = $(e.target.parentNode.parentNode);
@@ -1028,11 +1088,17 @@
                 dynamicComponentId = data.timeLineSlideId;
                 operation = data.operation; //按钮对动态组件的具体操作
 
+                var imgBg = data.imgBg;
+                var imgUser = data.imgUser;
+                var saveImage = data.saveImage;
+
                 if (dynamicControl === "false") {
                     var ctState = (stateuid === '') ? 0 : document.getElementById(stateuid).children.length;
                 }
 
                 var parentIndex = $(this).css('z-index');
+
+
 
                 if ((gotoNextStateAction === "true") || (gotoPrevStateAction === "true"))
                     ShowUpButton();
@@ -1040,9 +1106,9 @@
                 if (gotoStateAction === "true" && statetype == ctState) //打开全部画面
                     openAllPictures(stateuid);
                 else if (closeStateAction === "true") //关闭画面
-                    closePictures(stateuid, statetype, ctState);
+                    closePictures(stateuid, statetype, ctState, 0);
                 else if (closeAllStateAction === "true")
-                    closePictures(stateuid, ctState, ctState);
+                    closePictures(stateuid, ctState, ctState, 1);
                 else if ((gotoStateAction === "true") || (gotoNextStateAction === "true") || (gotoPrevStateAction === "true"))
                     GoTo(btID, parentIndex, statetype);
                 else if (gotoPageAction === "true")
@@ -1057,6 +1123,8 @@
                     }
                 } else if (dynamicControl === "true") { //控制动态组件
                     controlDynamicObject(dynamicComponentId, operation);
+                } else if (saveImage === "true") {
+                    SaveImage(imgBg, imgUser);
                 }
 
                 return false

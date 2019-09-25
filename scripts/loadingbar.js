@@ -1,20 +1,15 @@
 (function(window, undefined) {
     window.sizeAdjustor = new SizeAdjustor();
-    window.isPageLoad = window.isLoadingbarOver = false; 
-
+    window.isPageLoad = window.isLoadingbarOver = false;
     window.onload = function() {
         window.isPageLoad = true;
     }
-
     var isLongPage = window.sizeAdjustor.jsonData.adjustType === "longPageAdjust";
 
     var finalH = window.sizeAdjustor.finalSize.height;
     var finalW = window.sizeAdjustor.finalSize.width;
     var jsonstr = document.getElementById("json").value;
     var jsondata = eval('(' + jsonstr + ')');
-    var loadingBox = document.getElementById("loadingBox");
-    var isBgLoad = false;
-
     if (jsondata.loadingbar) {
         var barFgColor = jsondata.loadingbar.barfgcolor;
         var barBgColor = jsondata.loadingbar.barbgcolor;
@@ -24,9 +19,16 @@
         var loadPic = jsondata.loadingbar.loadpic || '';
         var direction = jsondata.loadingbar.direction || '';
     }
+    var loadingBox = document.getElementById("loadingBox");
 
     var clientH = document.documentElement.clientHeight;
     var clientW = document.documentElement.clientWidth;
+
+    if (!is_mobile()) {
+        if (!(!isLongPage && clientW < finalW)) {
+            clientW = finalW;
+        }
+    }
 
     if (!isLongPage) {
         $(loadingBox).css({
@@ -41,9 +43,6 @@
         clientW = finalW;
         clientH = finalH;
     } else {
-        if (!is_mobile()) {
-            clientW = clientW < 375 ? clientW : 375;
-        }
         $(loadingBox).css({
             'display': 'flex',
             'justify-content': 'center',
@@ -72,15 +71,10 @@
 
     //jsondata.type default:进度条 ring:环形 pie：饼形 bar:条状 rotate:旋转
     if (jsondata.loadingbar) {
+
         //设置背景图/颜色
         loadingBox.style.background = jsondata.loadingbar.bgtype === "color" ? bgColor : "url(" + bgPic + ") no-repeat"; //背景图
         loadingBox.style.backgroundSize = "100% 100%";
-
-        var bgImg = new Image();
-        bgImg.src = bgPic;
-        bgImg.onload = function() {
-            isBgLoad = true;
-        }
 
         switch (jsondata.loadingbar.bartype) {
             case 'ring':
@@ -187,8 +181,8 @@
                         img.src = loadPic;
                         img.onload = function() {
                             canvas = document.getElementById("canvasLoad");
-                            canvas.setAttribute('height', parseInt(loadingBarBox.style.height) + 1 + 'px');
-                            canvas.setAttribute('width', loadingBarBox.style.width);
+                            canvas.setAttribute('height', parseInt(imgW) + 1 + 'px');
+                            canvas.setAttribute('width', parseInt(imgW));
 
                             drawCanvas(canvas, 'pie', loadPic, 0);
 
@@ -207,38 +201,28 @@
                     var fgImg = new Image();
                     fgImg.src = fgPic;
                     fgImg.onload = function() {
-                        var timer = setInterval(function() {
-                            if (isBgLoad) {
-                                clearInterval(timer)
 
-                                $(loadingBarBox).css({
-                                    'display': 'block',
-                                    'width': parseInt(imgW),
-                                    'height': parseInt(imgW),
-                                    'border-radius': '50%',
-                                    'margin-bottom': marginBottom + 'px',
-                                })
+                        $(loadingBarBox).css({
+                            'display': 'block',
+                            'width': parseInt(imgW),
+                            'height': parseInt(imgW),
+                            'border-radius': '50%',
+                            'margin-bottom': marginBottom + 'px',
+                        })
 
-                                if (loadPic) {
-                                    var img = new Image();
-                                    img.src = loadPic;
-                                    img.onload = function() {
-                                        canvas = document.getElementById("canvasLoad");
-                                        canvas.setAttribute('height', parseInt(loadingBarBox.style.height) + 1 + 'px');
-                                        canvas.setAttribute('width', loadingBarBox.style.width);
+                        if (loadPic) {
+                            var img = new Image();
+                            img.src = loadPic;
+                            img.onload = function() {
+                                canvas = document.getElementById("canvasLoad");
+                                canvas.setAttribute('height', parseInt(loadingBarBox.style.height) + 1 + 'px');
+                                canvas.setAttribute('width', loadingBarBox.style.width);
 
-                                        drawCanvas(canvas, 'pie', loadPic, 0);
+                                drawCanvas(canvas, 'pie', loadPic, 0);
 
-                                        startLoading();
-                                    }
-                                }
-                                $.each($("#wrapper").find('img'), function(index, item) {
-                                    $(item).attr('src', $(item).attr('_src'));
-                                })
+                                startLoading();
                             }
-
-                        }, 10)
-
+                        }
                     }
                 }
                 break;
@@ -325,17 +309,16 @@
     }
 
     //进度条效果
-    var firstTimer, slowerTimer, slowestTimer, finalTimer;
-    var percent = 0;
+    var firstTimer, slowerTimer, slowestTimer, finalTimer, percent = 0;
 
     function startLoading() {
         firstTimer = setInterval(function() {
             process(percent);
-            // if (window.isPageLoad) {
-            //     clearInterval(firstTimer);
-            //     goStraightToEnd();
-            //     return;
-            // }
+            if (window.isPageLoad) {
+                clearInterval(firstTimer);
+                goStraightToEnd();
+                return;
+            }
             percent++;
             if (percent === 50) {
                 clearInterval(firstTimer);
@@ -358,35 +341,31 @@
                                 return;
                             }
 
-                            if (percent === 90) {
+                            if (percent === 95) {
                                 clearInterval(slowestTimer);
                                 finalTimer = setInterval(function() {
-                                    if (percent < +97) {
-                                        process(percent);
-                                        percent += 0.1;
-                                    }
                                     if (window.isPageLoad) {
                                         clearInterval(finalTimer);
                                         goStraightToEnd();
                                         return;
                                     }
-
-                                }, 360);
+                                }, 20);
                             }
                         }, 240);
                     }
                 }, 160);
             }
-        }, 60);
+        }, 80);
     }
 
     function goStraightToEnd() {
         var endTimer = setInterval(function() {
             process(percent);
-            if (percent >= 100) {
+            if (percent === 100) {
+                clearInterval(endTimer);
                 window.isLoadingbarOver = true;
                 window.onloadOver();
-                clearInterval(endTimer);
+                document.getElementById("loadingBox").style.display = "none";
                 console.log("加载完成，进度条结束");
             }
             percent++;
@@ -427,17 +406,22 @@
     }
 
     function clipPie(context, percent) {
-        var startPoint = -Math.PI * 0.5;
+        var startPoint = -Math.PI * 2 * 0.25
         var r = imgW * 0.5;
 
         context.beginPath();
         context.moveTo(r, r);
+
         if (direction && direction === 'anticlockwise') {
             percent = (-percent - 25) / 100;
 
             context.arc(r, r, r, startPoint, Math.PI * 2 * percent, true);
         } else {
-            percent = (percent - 25) / 100;
+            if (percent <= 25) {
+                percent = (percent - 25) / 100;
+            } else {
+                percent = (percent - 25) / 75;
+            }
 
             context.arc(r, r, r, startPoint, Math.PI * 2 * percent, false);
         }
