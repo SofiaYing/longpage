@@ -930,8 +930,9 @@
                 var imgUserWidth = imgUser.width * window.sizeAdjustor.scaleX;
                 var imgUserHeight = imgUser.height * window.sizeAdjustor.scaleY;
 
-                canvas.width = canvasWidth;
-                canvas.height = canvasHeight;
+                canvas.width = canvasWidth * 2;
+                canvas.height = canvasHeight * 2;
+                $(canvas).css({ 'width': canvasWidth + 'px', 'height': canvasHeight + 'px' })
 
                 context.drawImage(imgUser, 0, 0, imgUser.naturalWidth, imgUser.naturalHeight, imgUserLeft, imgUserTop - 1, imgUserWidth + 2, imgUserHeight + 2);
                 context.drawImage(imgBg, 0, 0, imgBg.naturalWidth, imgBg.naturalHeight, 0, 0, canvasWidth, canvasHeight);
