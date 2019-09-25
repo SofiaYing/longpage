@@ -890,8 +890,13 @@
 
             //关闭画面 全部/指定
             function SaveImage(imgBg, imgUserParent) {
-                console.log('img', imgBg, imgUser)
-                $('.show-image-container').css('display', 'flex')
+                $('.show-image-container').css('display', 'flex');
+                $('.show-image-container').on('click', function(e) {
+                    e.stopPropagation;
+                    alert('1')
+                    $('.show-image-container').css('display', 'none');
+                    return false
+                })
 
                 function getRelativeDisttance(subElement, container) {
                     var distX = 0,
@@ -1063,7 +1068,6 @@
                     ShowDownButton();
                 event.stopPropagation();
             });
-            console.log('demo', demo)
             demo.on(goToPageEvent, function(e) {
                 e.preventDefault();
                 var demoButton = $(e.target.parentNode.parentNode);
