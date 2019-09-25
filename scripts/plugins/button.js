@@ -934,8 +934,8 @@
                 canvas.height = canvasHeight * 2;
                 $(canvas).css({ 'width': canvasWidth + 'px', 'height': canvasHeight + 'px' })
 
-                context.drawImage(imgUser, 0, 0, imgUser.naturalWidth, imgUser.naturalHeight, imgUserLeft, imgUserTop - 1, imgUserWidth + 2, imgUserHeight + 2);
-                context.drawImage(imgBg, 0, 0, imgBg.naturalWidth, imgBg.naturalHeight, 0, 0, canvasWidth, canvasHeight);
+                context.drawImage(imgUser, 0, 0, imgUser.naturalWidth * 2, imgUser.naturalHeight * 2, imgUserLeft * 2, (imgUserTop - 1) * 2, (imgUserWidth + 2) * 2, (imgUserHeight + 2) * 2);
+                context.drawImage(imgBg, 0, 0, imgBg.naturalWidth * 2, imgBg.naturalHeight * 2, 0, 0, canvasWidth * 2, canvasHeight * 2);
 
                 imgShow.src = canvas.toDataURL();
             }
