@@ -893,7 +893,6 @@
                 $('.show-image-container').css('display', 'flex');
                 $('.show-image-container').on('click', function(e) {
                     e.stopPropagation;
-                    alert('1')
                     $('.show-image-container').css('display', 'none');
                     return false
                 })
