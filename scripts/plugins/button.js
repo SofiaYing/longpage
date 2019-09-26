@@ -892,10 +892,7 @@
             function SaveImage(imgBg, imgUserParent) {
                 $('.show-image-container').css('display', 'flex');
                 $('#showImageBackButton').css('right', parseInt($('.swiper-container').css('left')) + 20 + 'px');
-                $('#showImageBackButton').one('click', function(e) {
-                    $('.show-image-container').css('display', 'none');
-                    return false
-                })
+
 
                 function getRelativeDisttance(subElement, container) {
                     var distX = 0,
@@ -930,19 +927,37 @@
                 var imgUserWidth = imgUser.width * window.sizeAdjustor.scaleX;
                 var imgUserHeight = imgUser.height * window.sizeAdjustor.scaleY;
 
-
-
-                $(canvas).css({ 'width': canvasWidth + 'px', 'height': canvasHeight + 'px' })
+                $(canvas).css({ 'width': canvasWidth + 'px', 'height': canvasHeight + 'px' });
                 canvas.width = canvasWidth * 3;
                 canvas.height = canvasHeight * 3;
 
-                context.scale(3, 3)
+                context.scale(3, 3);
                 context.drawImage(imgUser, 0, 0, imgUser.naturalWidth, imgUser.naturalHeight, imgUserLeft, (imgUserTop - 1), (imgUserWidth + 2), (imgUserHeight + 2));
                 context.drawImage(imgBg, 0, 0, imgBg.naturalWidth, imgBg.naturalHeight, 0, 0, canvasWidth, canvasHeight);
 
 
                 $(imgShow).css({ 'width': canvasWidth + 'px', 'height': canvasHeight + 'px' });
                 imgShow.src = canvas.toDataURL();
+
+                var src = canvas.toDataURL();
+
+                $('#showImageBackButton').one('click', function(e) {
+                    // $('.show-image-container').css('display', 'none');
+
+                    // 生成一个a元素
+                    var a = document.createElement('a')
+                        // 创建一个单击事件
+                        // var event = new MouseEvent('click')
+
+                    // 将a的download属性设置为我们想要下载的图片名称，若name不存在则使用‘下载图片名称’作为默认名称
+                    a.download = name || '下载图片名称'
+                        // 将生成的URL设置为a.href属性
+                    a.href = src
+
+                    // 触发a的单击事件
+                    a.dispatchEvent(event)
+                    return false
+                })
             }
 
             function GotPage(btID) {
