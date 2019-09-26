@@ -947,7 +947,7 @@
                     // 生成一个a元素
                     var a = document.createElement('a')
                         // 创建一个单击事件
-                    var event = new MouseEvent('click')
+                    var event = new TounchEvent('click')
 
                     // 将a的download属性设置为我们想要下载的图片名称，若name不存在则使用‘下载图片名称’作为默认名称
                     a.download = name || '下载图片名称'
