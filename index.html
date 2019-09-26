@@ -2,698 +2,817 @@
 <html xmlns="http://www.w3.org/1999/html">
 
 <head>
-    <meta name="viewport" id="webviewport" content="width=768, height=3024" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <title>长页面画廊测试</title>
-    <script src="scripts/base.js" type="text/javascript"></script>
-    <script src="scripts/jquery.js" type="text/javascript"></script>
-    <script src="scripts/bgmController.js"></script>
-    <script>
-        window.IntersectionObserver || document.write('<script src="scripts/observe.polyfill.min.js"><\/script>');
-    </script>
-    <style>
-        * { touch-action: pan-y; } 
-        input[type=checkbox]:checked:after {
-            content: '\2714';
-            color: #555555;
-            text-align: center;
-            position: absolute;
-            width: 21px;
-            height: 21px;
-            line-height: 100%;
-            font-size: inherit;
-            left: 0;
-            top: 0;
-        }
-        
-        input[type=radio]:checked:after {
-            content: '';
-            color: #555555;
-            position: absolute;
-            width: 70%;
-            height: 70%;
-            background-color: #555555;
-            border-radius: 100%;
-            line-height: 100%;
-            left: 15%;
-            top: 15%;
-        }
-        
-        div[title=Button] {
-            backface-visibility: hidden;
-        }
-        
-        ruby>span {
-            display: block;
-        }
-        
-        .loadingBox {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            border-radius: 4px;
-            background: #333333;
-            z-index: 300;
-            display: none;
-        }
-        
-        .loadingBarBox {
-            height: 10px;
-            width: 50%;
-            position: absolute;
-            bottom: calc(50% - 5px);
-            left: 25%;
-            background: #222222;
-            padding: 2px;
-            overflow: visible;
-            border-radius: 8px;
-        }
-        
-        .loadingBar {
-            width: 0;
-            animation: progress-bar-stripes reverse 0.50s linear infinite;
-            border-radius: 20px;
-            position: relative;
-            background-color: #f76317;
-            background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-            background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-            background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-            -webkit-background-size: 40px 40px;
-            background-size: 40px 40px;
-            height: 100%;
-            background-position: 40px 0;
-        }
-        
-        @keyframes progress-bar-stripes {
-            from {
-                background-position: 40px 0
-            }
-            to {
-                background-position: 0 0
-            }
-        }
-        
-        .logo_fx_white {
-            width: 40%;
-            position: absolute;
-            bottom: calc(50% + 20px);
-            left: 30%;
-            display: block;
-        }
-        
-        .ifr {
-            z-index: 1;
-            width: 100%;
-            height: 100%;
-            border: solid 0px;
-        }
-        
-        @keyframes bgmrotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg)
-            }
-        }
-        
-        .divbgm {
-            width: 50px;
-            height: 50px;
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 20;
-        }
-        
-        .animate {
-            animation: bgmrotate 8s linear infinite;
-        }
-        
-        .imgbgm {
-            top: 0px;
-            left: 0px;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            display: none;
-        }
-        
-        .divshow {
-            position: absolute;
-            overflow: hidden;
-            z-index: 1;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .divnoshow {
-            position: absolute;
-            z-index: 1;
-            width: 384px;
-            height: 1512px;
-            display: none;
-        }
-        
-        .swiper-container {
-            width: 768px;
-            height: 3024px;
-        }
-        
-        #divpar {
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
-            overflow-y: scroll;
-            -webkit-overflow-scrolling: touch;
-            height: 100vh;
-        }
-        
-        @keyframes arrowmove {
-            0% {
-                opacity: 0.3
-            }
-            50% {
-                opacity: 1
-            }
-            100% {
-                transform: translateY(-35px);
-                opacity: 0.3
-            }
-        }
-        
-        .floatArrow {
-            width: 36px;
-            height: 28px;
-            position: fixed;
-            align: center;
-            left: 50%;
-            margin-left: -18px;
-            bottom: 5%;
-            display: none;
-            animation: arrowmove 1.5s infinite;
-            z-index: 20;
-        }
-    </style>
-    <link rel="stylesheet" type="text/css" href="CSS/animate.css"></link>
-    <link rel="stylesheet" type="text/css" href="CSS/book_textstyle1.css"></link>
-    <link rel="stylesheet" type="text/css" href="CSS/book_Chapter1.css"></link>
+	<meta name="viewport" id="webviewport" content="width=640, height=1260" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>我和祖国表个白(副本)</title>
+	<script src="scripts/base.js" type="text/javascript"></script>
+	<script src="scripts/jquery.js" type="text/javascript"></script>
+	<script src="scripts/bgmController.js"></script>
+	<script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.js"></script>
+	<script>document.write("<script type='text/javascript' src='https://h5.founderfx.cn/ExtetnalApi/H5/front/common/h5wxfx.js?time=" + Math.random() + "'></" + "script" + ">")</script>
+	<style>
+		input[type=checkbox]:checked:after {
+			content: '\2714';
+			color: #555555;
+			text-align: center;
+			position: absolute;
+			width: 21px;
+			height: 21px;
+			line-height: 100%;
+			font-size: inherit;
+			left: 0;
+			top: 0;
+		}
+
+		input[type=radio]:checked:after {
+			content: '';
+			color: #555555;
+			position: absolute;
+			width: 70%;
+			height: 70%;
+			background-color: #555555;
+			border-radius: 100%;
+			line-height: 100%;
+			left: 15%;
+			top: 15%;
+		}
+
+		div[title=Button] {
+			backface-visibility: hidden;
+		}
+
+		ruby>span {
+			display: block;
+		}
+
+		.loadingBox {
+			width: 100%;
+			height: 100%;
+			border-radius: 4px;
+			background: #333333;
+			z-index: 300;
+			display: none;
+		}
+
+		.loadingBarBox {
+			height: 10px;
+			width: 50%;
+			background: #222222;
+			padding: 2px;
+			overflow: visible;
+			border-radius: 8px;
+		}
+
+		.loadingBar {
+			width: 0;
+			animation: progress-bar-stripes reverse 0.50s linear infinite;
+			border-radius: 20px;
+			position: relative;
+			background-color: #f76317;
+			background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+			background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+			background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+			-webkit-background-size: 40px 40px;
+			background-size: 40px 40px;
+			height: 100%;
+			background-position: 40px 0;
+		}
+
+		@keyframes progress-bar-stripes {
+			from {
+				background-position: 40px 0
+			}
+
+			to {
+				background-position: 0 0
+			}
+		}
+
+		.ifr {
+			z-index: 1;
+			width: 100%;
+			height: 100%;
+			border: solid 0px;
+		}
+
+		@keyframes bgmrotate {
+			from {
+				transform: rotate(0deg);
+			}
+
+			to {
+				transform: rotate(360deg)
+			}
+		}
+
+		.divbgm {
+			width: 50px;
+			height: 50px;
+			position: absolute;
+			top: 0;
+			right: 0;
+			z-index: 20;
+		}
+
+		.animate {
+			animation: bgmrotate 8s linear infinite;
+		}
+
+		.imgbgm {
+			top: 0px;
+			left: 0px;
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			display: none;
+		}
+
+		.uiImage-btn {
+			position: absolute;
+			bottom: 0;
+			width: 70px;
+			height: 40px;
+			background-color: #6C67EF;
+			padding: 0;
+			border-width: 0;
+			border-radius: 6px;
+			color: white;
+			outline: none;
+			cursor: pointer;
+			display: none;
+			font-family: sans-serif, Roboto, Noto, Arial, PingFang SC, Hiragino Sans GB, Droidsansfallback, Heiti SC;
+		}
+
+		.uiImage-btn:hover {
+			background-color: #818FF6;
+		}
+
+		.divshow {
+			position: absolute;
+			overflow: hidden;
+			z-index: 1;
+			width: 320px;
+			height: 630px;
+		}
+
+		.divnoshow {
+			position: absolute;
+			z-index: 1;
+			width: 320px;
+			height: 630px;
+			display: none;
+		}
+
+		.swiper-container {
+			width: 640px;
+			height: 1260px;
+		}
+
+		#divpar {
+			margin-left: auto;
+			margin-right: auto;
+			position: relative;
+			overflow: hidden;
+			height: 100vh;
+		}
+
+		@keyframes arrowmove {
+			0% {
+				opacity: 0.3
+			}
+
+			50% {
+				opacity: 1
+			}
+
+			100% {
+				transform: translateY(-35px);
+				opacity: 0.3
+			}
+		}
+
+		.floatArrow {
+			width: 36px;
+			height: 28px;
+			position: fixed;
+			align: center;
+			left: 50%;
+			margin-left: -18px;
+			bottom: 5%;
+			display: none;
+			animation: arrowmove 1.5s infinite;
+			z-index: 20;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="CSS/swiper.min.css">
+	</link>
+	<link rel="stylesheet" type="text/css" href="CSS/book_textstyle1.css">
+	</link>
+	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter1.css">
+	</link>
+	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter2.css">
+	</link>
+	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter3.css">
+	</link>
+	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter4.css">
+	</link>
+	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter5.css">
+	</link>
+	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter6.css">
+	</link>
 </head>
 
 <body style="margin:0px;position: fixed; width: 100%; height: 100%">
-    <div id="divpar">
-        <div id="cropper_container" style="width: 100%; height: 100%;z-index: 100000; display: none;position: relative;">
-            <img src="" alt="" style="max-width: 100%">
-            <button class="uiImage-btn" id="apply" type="button" style="left: 0">应用</button>
-            <button class="uiImage-btn" id="cancel" type="button" style="right: 0;">取消</button>
-            <style>
-                .uiImage-btn {
-                    position: absolute;
-                    bottom: 0;
-                    width: 70px;
-                    height: 40px;
-                    background-color: #6C67EF;
-                    padding: 0;
-                    border-width: 0;
-                    border-radius: 6px;
-                    color: white;
-                    outline: none;
-                    cursor: pointer;
-                    display: none;
-                    font-family: sans-serif, Roboto, Noto, Arial, PingFang SC, Hiragino Sans GB, Droidsansfallback, Heiti SC;
-                }
-                
-                .uiImage-btn:hover {
-                    background-color: #818FF6;
-                }
-            </style>
-        </div>
-        <img id="floatArrow" class="floatArrow" src="Media/arrow.png"></img>
-        <video id="video" src="" style="height: 0;width: 0;position: absolute;top: -1000px"></video>
-        <audio id="au1" src=""></audio>
-        <div id="loadingBox" class="loadingBox">
-            <img id="logo" class="logo_fx_white" width="40%">
-            <div id="loadingBarBox" class="loadingBarBox">
-                <div id="loadingBar" class="loadingBar"></div>
-            </div>
-        </div>
-        <input type="hidden" id="json" value="{'layout':'fixed','lastfile':'chapter-001.html','pageturning':[{'pageresult':'Traslation','pagedir':'UpAndDown','pagecircle':'true','pagetime':'1500','pageicon':'false','pagenoslide':'false'}],'adjustType':'longPageAdjust','bgmhideicon':'false','bgmarea':[],'collect':'http://h5.founderfx.cn/external/h5/collectFormData','submitted':'http://h5.founderfx.cn/external/h5/findFormOne','loadingbar':{'bartype':'default','barpos':'30','showPercent':'false','barfgcolor':'rgba(247,99,23,1.0)','barbgcolor':'rgba(34,34,34,1.0)','promptText':'','promptSize':'21.0','promptColor':'#ffffff','fgpic':'Media/loadpage1.png','bgpic':'','bgcolor':'#333333','bgtype':'color'}}"
-        />
-        <script src="scripts/sizeAdjustor.js" type="text/javascript"></script>
-        <script src="scripts/loadingbar.js" type="text/javascript"></script>
-        <script src="scripts/index_modify.js" type="text/javascript"></script>
-        <div id="divbgm" class="divbgm">
-            <img id="bgmPlay" class="imgbgm" src=""></img>
-            <img id="bgmPause" class="imgbgm" src=""></img>
-            <audio id="aubgm" src="" preload="none"></audio>
-        </div>
-        <div class="swiper-container" id="swiper_container" style="position:absolute;overflow:hidden;display:none;" data-width="768" data-height="3024">
-            <div class="swiper-wrapper">
-                <div id="page1" class="divshow swiper-slide">
-                    <div class="p1para1 p1textdiv0">
+	<div id="divpar">
+		<div id="cropper_container" style="width: 100%; height: 100%;z-index: 100000; display: none;position: absolute;">
+			<img src="" alt="" style="max-width: 100%">
+			<button class="uiImage-btn" id="apply" type="button" style="left: 0">应用</button>
+			<button class="uiImage-btn" id="cancel" type="button" style="right: 0;">取消</button>
+		</div>
+		<div class="show-image-container"
+			style="display: none;justify-content: center;align-items: center;position: fixed;top:0;left:0;right:0;bottom:0;z-index:1000;">
+			<div id="showImageBackButton"
+				style="background-image: url('Media/back.png');background-size:100% 100%;width: 40px;height: 40px;position: absolute;top: 60px;right: 50px;">
+			</div>
+			<div id="saveMessageButton"
+				style="background-image: url('Media/saveImage.png');background-size:100% 100%;width: 190px;height: 50px;position: absolute;bottom: 3%;">
+			</div>
+			<img id="showImage" src=""></img>
+		</div>
+		<img id="floatArrow" class="floatArrow" src="Media/arrow.png"></img>
+		<audio id="au1" src=""></audio>
+		<div id="loadingBox" class="loadingBox">
+			<img id="logo" width="40%" style="opacity:1.0;">
+		</div>
+		<input type="hidden" id="json"
+			value="{'layout':'fixed','lastfile':'chapter-6.html','pageturning':[{'pageresult':'Traslation','pagedir':'UpAndDown','pagecircle':'true','pagetime':'1500','pageicon':'false','pagenoslide':'true'}],'adjustType':'widthAdjust','bgmhideicon':'false','bgmarea':[{'src':'Media/bgmusic0.mp3','loop':true,'autoplay':'true','start':1,'end':6},],'collect':'http://h5.founderfx.cn/external/h5/collectFormData','submitted':'http://h5.founderfx.cn/external/h5/findFormOne','loadingbar':{'bartype':'rotate','barpos':'30','showPercent':'false','barfgcolor':'rgba(247,99,23,1.0)','barbgcolor':'rgba(34,34,34,1.0)','promptText':'','promptSize':'21.0','promptColor':'#ffffff','fgpic':'Media/loadpage1.png','loadpic':'','bgpic':'Media/loadpage2.png','bgcolor':'#333333','bgtype':'image','direction':'clockwise'}}" />
+		<script src="scripts/sizeAdjustor.js" type="text/javascript"></script>
+		<script src="scripts/index_modify.js" type="text/javascript"></script>
+		<script src="scripts/loadingbar.js" type="text/javascript"></script>
+		<div id="divbgm" class="divbgm">
+			<img id="bgmPlay" class="imgbgm" src="Media/bgmplay.png"></img>
+			<img id="bgmPause" class="imgbgm" src="Media/bgmpause.png"></img>
+			<audio id="aubgm" src="Media/bgmusic0.mp3" preload="auto"></audio>
+		</div>
+		<div class="swiper-container" id="swiper_container" style="position:absolute;overflow:hidden;display:none;"
+			data-width="640" data-height="1260">
+			<div class="swiper-wrapper">
+				<div id="page1" class="divshow swiper-slide">
+					<div class="p1para1 p1textdiv0">
 
-                        <div id="pGrp-2" class="p1pGrpDiv-FxLi2">
+						<div id="pGrp-2" class="p1pGrpDiv-FxLi2">
 
-                            <div class="p1InAdiv4" id="multiStateItem-17">
+							<div class="">
 
-                                <div title="SlideShow" class="InteractiveComponent" id="si_80000155" style="overflow:hidden;height:647px;width:570px;position:relative;">
+								<div class="p1imagediv4">
 
-                                    <div style="left:0px;top:0px;height:647px;width:570px;position:absolute;">
+									<img class="p1image5" src="Media/chapter-1image1.png" id="imageItem-9"
+										alt="Media/chapter-1image1.png"></img>
 
-                                        <img src="Media/chapter-001image1.jpg" style="height:647px;width:570px;"></img>
+								</div>
 
-                                    </div>
+							</div>
 
-                                    <div style="left:570px;top:0px;height:647px;width:570px;position:absolute;">
+							<div title="Animation" id="si_800001C2"
+								style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
 
-                                        <img src="Media/chapter-001image2.jpg" style="height:647px;width:570px;"></img>
+								<div style="left:47.5px;top:165.582px;height:137px;width:545px;position:absolute;opacity:0.0;">
 
-                                    </div>
+									<div title="groupItem" style="width:100%;height:100%;">
 
-                                    <div style="left:1140px;top:0px;height:647px;width:570px;position:absolute;">
+										<div style="width:100%;height:100%;overflow:hidden;">
 
-                                        <img src="Media/chapter-001image3.jpg" style="height:647px;width:570px;"></img>
+											<img src="Media/chapter-1image2.png" id="imageItem-10" alt="Media/chapter-1image2.png"
+												style="width:545px;height:137px;"></img>
 
-                                    </div>
+										</div>
 
-                                    <div style="left:1710px;top:0px;height:647px;width:570px;position:absolute;">
+									</div>
 
-                                        <img src="Media/chapter-001image4.jpg" style="height:647px;width:570px;"></img>
+								</div>
 
-                                    </div>
+								<input type="hidden" name="json"
+									value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;0-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;0.5&quot;}]}]}"></input>
 
-                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;&quot;,&quot;displayCloseButton&quot;:&quot;&quot;,&quot;displayFirstImage&quot;:&quot;&quot;,&quot;iconFlicker&quot;:&quot;&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;false&quot;,&quot;playDelay&quot;:&quot;5&quot;,&quot;playInterval&quot;:&quot;3&quot;,&quot;effect&quot;:&quot;fade&quot;,&quot;slideSpeed&quot;:&quot;normal&quot;,&quot;slideDirection&quot;:&quot;rightToLeft&quot;,&quot;wipeEnable&quot;:&quot;true&quot;,&quot;fullScreen&quot;:&quot;false&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[]},{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[]},{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[]},{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[]}]}"></input>
+							</div>
 
-                                </div>
+							<div title="Animation" id="si_800001CE"
+								style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
 
-                            </div>
+								<div style="left:0px;top:338.366px;height:270px;width:640px;position:absolute;opacity:0.0;">
 
-                            <div class="p1InAdiv9" id="multiStateItem-18">
+									<div title="groupItem" style="width:100%;height:100%;">
 
-                                <div title="SlideShow" class="InteractiveComponent" id="si_80000172" style="overflow:hidden;height:556px;width:570px;position:relative;">
+										<div style="width:100%;height:100%;overflow:hidden;">
 
-                                    <div style="left:0px;top:0px;height:556px;width:570px;position:absolute;">
+											<img src="Media/chapter-1image3.png" id="imageItem-11" alt="Media/chapter-1image3.png"
+												style="width:640px;height:270px;"></img>
 
-                                        <img src="Media/chapter-001image2.jpg" style="height:556px;width:570px;"></img>
+										</div>
 
-                                    </div>
+									</div>
 
-                                    <div style="left:570px;top:0px;height:556px;width:570px;position:absolute;">
+								</div>
 
-                                        <img src="Media/chapter-001image4.jpg" style="height:556px;width:570px;"></img>
+								<input type="hidden" name="json"
+									value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;1-0&quot;,&quot;effect&quot;:&quot;slideInUp&quot;,&quot;direction&quot;:&quot;bottom&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
 
-                                    </div>
+							</div>
 
-                                    <div style="left:1140px;top:0px;height:556px;width:570px;position:absolute;">
+							<div class="">
 
-                                        <img src="Media/chapter-001image5.jpg" style="height:556px;width:570px;"></img>
+								<div class="p1imagediv6">
 
-                                    </div>
+									<img class="p1image7" src="Media/chapter-1image4.png" id="imageItem-12"
+										alt="Media/chapter-1image4.png"></img>
 
-                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;&quot;,&quot;displayCloseButton&quot;:&quot;&quot;,&quot;displayFirstImage&quot;:&quot;&quot;,&quot;iconFlicker&quot;:&quot;&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;true&quot;,&quot;playDelay&quot;:&quot;5&quot;,&quot;playInterval&quot;:&quot;3&quot;,&quot;effect&quot;:&quot;slide&quot;,&quot;slideSpeed&quot;:&quot;normal&quot;,&quot;slideDirection&quot;:&quot;rightToLeft&quot;,&quot;wipeEnable&quot;:&quot;true&quot;,&quot;fullScreen&quot;:&quot;false&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[]},{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[]},{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[]}]}"></input>
+								</div>
 
-                                </div>
+							</div>
 
-                            </div>
+							<div class="">
 
-                            <div class="p1InAdiv13" id="buttonItem-15">
+								<div title="uiTextBox" id="si_80000116" class="p1InAdiv8" name="文本1" style="pointer-events:auto;">
 
-                                <div title="Button" style="overflow:hidden;height:180px;width:144px;position:relative;">
+									<input type="text"
+										style="width:100%; height:100%; left:0; top:0; position:absolute; box-sizing:border-box; font-family:sans-serif;font-size:42.0px;color:#ffffff;border:solid 1px #666666;"
+										placeholder="跟祖国表个白" maxlength="18446744073709551615" data-name="文本1"></input>
 
-                                    <div style="left:0px;top:0px;height:180px;width:144px;display:inline;position:absolute;">
+									<input name="json" type="hidden"
+										value="{&quot;inputType&quot;:&quot;any&quot;,&quot;maxLength&quot;:18446744073709551615,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;none&quot;,&quot;relatedUIControl&quot;:&quot;si_0&quot;}"></input>
 
-                                        <img src="Media/chapter-001image6.jpg" style="height:180px;width:144px;"></img>
+								</div>
 
-                                    </div>
+							</div>
 
-                                    <input type="hidden" name="json" value="{&quot;gotoStateAction&quot;:&quot;true&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;si_800000FB&quot;,&quot;statetype&quot;:&quot;1&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+							<div class="">
 
-                                </div>
+								<div class="p1textdiv9">
 
-                            </div>
+									<article class="p1para10">
 
-                            <div class="p1InAdiv14" id="buttonItem-16">
+										<div id="pGrp-4" class="p1pGrpDiv-FxLi11">
 
-                                <div title="Button" style="overflow:hidden;height:180px;width:144px;position:relative;">
+											<div class="">
 
-                                    <div style="left:0px;top:0px;height:180px;width:144px;display:inline;position:absolute;">
+												<div id="rGrp-5" class="p1para12">
 
-                                        <img src="Media/chapter-001image7.jpg" style="height:180px;width:144px;"></img>
+													<div id="rGrp-6" class="p1para12">
 
-                                    </div>
+														<span class="p1span13">↑</span>
 
-                                    <input type="hidden" name="json" value="{&quot;gotoStateAction&quot;:&quot;true&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;si_800000FB&quot;,&quot;statetype&quot;:&quot;2&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+													</div>
 
-                                </div>
+													<div id="rGrp-7" class="p1para14">
 
-                            </div>
+														<span class="p1span15">点击上传照片</span>
 
-                            <div class="p1InAdiv15" id="multiStateItem-19">
+													</div>
 
-                                <div title="SlideShow" class="InteractiveComponent" id="si_800000FB" style="overflow:hidden;height:818px;width:513px;position:relative;">
+													<div id="rGrp-8" class="p1para16">
 
-                                    <div style="left:0px;top:0px;height:818px;width:513px;position:absolute;">
+														<span class="p1span13">↑</span>
 
-                                        <img src="Media/chapter-001image6.jpg" style="height:818px;width:513px;"></img>
+													</div>
 
-                                    </div>
+												</div>
 
-                                    <div style="left:513px;top:0px;height:818px;width:513px;position:absolute;">
+											</div>
 
-                                        <img src="Media/chapter-001image7.jpg" style="height:818px;width:513px;"></img>
+										</div>
 
-                                    </div>
+									</article>
 
-                                    <input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;&quot;,&quot;displayCloseButton&quot;:&quot;&quot;,&quot;displayFirstImage&quot;:&quot;&quot;,&quot;iconFlicker&quot;:&quot;&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;false&quot;,&quot;playDelay&quot;:&quot;5&quot;,&quot;playInterval&quot;:&quot;3&quot;,&quot;effect&quot;:&quot;slide&quot;,&quot;slideSpeed&quot;:&quot;normal&quot;,&quot;slideDirection&quot;:&quot;rightToLeft&quot;,&quot;wipeEnable&quot;:&quot;true&quot;,&quot;fullScreen&quot;:&quot;false&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[]},{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[]}]}"></input>
+								</div>
 
-                                </div>
+							</div>
 
-                            </div>
+							<div class="p1InAdiv17" id="buttonItem-14">
 
-                        </div>
+								<div title="Button" style="overflow:hidden;height:62px;width:290px;position:relative;">
 
-                    </div>
+									<div style="left:0px;top:0px;height:62px;width:290px;display:inline;position:absolute;">
 
-                </div>
-            </div>
-        </div>
+										<img src="Media/chapter-1image5.png" style="height:62px;width:290px;"></img>
 
+									</div>
 
-        <div id="wx_pic" style="margin:0 auto;overflow:hidden;width:0;height:0;">
-            <img src="Media/cover.jpg" />
-        </div><button id="prepage" style="display:none;">上一页</button>
-        <button id="nextpage" style="display:none;">下一页</button>
-        <div id="divpre" style="position:absolute;left:0%;width:10%;top:10%;height:90%;z-index:1;display:none;"></div>
-        <div id="divnext" style="position:absolute;left:90%;width:10%;top:10%;height:90%;z-index:1;display:none;"></div>
-    </div>
-    <script src="./scripts/options.js"></script>
-    <script src="scripts/observe.polyfill.min.js" type="text/javascript"></script>
+									<input type="hidden" name="json"
+										value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;2&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+				<div id="page2" class="divshow swiper-slide">
+					<div class="p2para1 p2textdiv0">
+
+						<div id="pGrp-26" class="p2pGrpDiv-FxLi2">
+
+							<div class="">
+
+								<div class="p2imagediv4">
+
+									<img class="p2image5" src="Media/chapter-1image1.png" id="imageItem-31"
+										alt="Media/chapter-1image1.png"></img>
+
+								</div>
+
+							</div>
+
+							<div class="">
+
+								<div class="p2imagediv6">
+
+									<img class="p2image7" src="Media/chapter-1image4.png" id="imageItem-32"
+										alt="Media/chapter-1image4.png"></img>
+
+								</div>
+
+							</div>
+
+							<div class="">
+
+								<div class="p2imagediv8">
+
+									<img class="p2image5" src="Media/chapter-2image6.png" id="imageItem-33"
+										alt="Media/chapter-2image6.png"></img>
+
+								</div>
+
+							</div>
+
+							<div class="">
+
+								<div class="p2textdiv9">
+
+									<article class="p2para10">
+
+										<div id="pGrp-28" class="p2pGrpDiv-FxLi11">
+
+											<div class="">
+
+												<div id="rGrp-29" class="p2para12">
+
+													<div id="rGrp-30" class="p2para13">
+
+														<span class="p2span14">请选择场景</span>
+
+													</div>
+
+												</div>
+
+											</div>
+
+										</div>
+
+									</article>
+
+								</div>
+
+							</div>
+
+							<div class="">
+
+								<div class="p2imagediv15">
+
+									<img class="p2image16" src="Media/chapter-2image7.png" id="imageItem-34"
+										alt="Media/chapter-2image7.png"></img>
+
+								</div>
+
+							</div>
+
+							<div class="p2InAdiv17" id="buttonItem-43">
+
+								<div title="Button" style="overflow:hidden;height:265px;width:243px;position:relative;">
+
+									<div style="left:0px;top:0px;height:265px;width:243px;display:inline;position:absolute;">
+
+										<img src="Media/chapter-2image8.png" style="height:265px;width:243px;"></img>
+
+									</div>
+
+									<input type="hidden" name="json"
+										value="{&quot;saveImage&quot;:&quot;true&quot;,&quot;imgBg&quot;:&quot;imageItem-54&quot;,&quot;imgUser&quot;:&quot;si_800001F5&quot;,&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;3&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+
+								</div>
+
+							</div>
+
+							<div class="">
+
+								<div class="p2imagediv18">
+
+									<img class="p2image19" src="Media/chapter-2image9.png" id="imageItem-36"
+										alt="Media/chapter-2image9.png"></img>
+
+								</div>
+
+							</div>
+
+							<div class="p2InAdiv20" id="buttonItem-44">
+
+								<div title="Button" style="overflow:hidden;height:265px;width:243px;position:relative;">
+
+									<div style="left:0px;top:0px;height:265px;width:243px;display:inline;position:absolute;">
+
+										<img src="Media/chapter-2image8.png" style="height:265px;width:243px;"></img>
+
+									</div>
+
+									<input type="hidden" name="json"
+										value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;6&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+
+								</div>
+
+							</div>
+
+							<div class="">
+
+								<div class="p2imagediv21">
+
+									<img class="p2image22" src="Media/chapter-2image10.png" id="imageItem-38"
+										alt="Media/chapter-2image10.png"></img>
+
+								</div>
+
+							</div>
+
+							<div class="p2InAdiv23" id="buttonItem-45">
+
+								<div title="Button" style="overflow:hidden;height:249px;width:243px;position:relative;">
+
+									<div style="left:0px;top:0px;height:249px;width:243px;display:inline;position:absolute;">
+
+										<img src="Media/chapter-2image8.png" style="height:249px;width:243px;"></img>
+
+									</div>
+
+									<input type="hidden" name="json"
+										value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+
+								</div>
+
+							</div>
+
+							<div class="">
+
+								<div class="p2imagediv24">
+
+									<img class="p2image25" src="Media/chapter-2image11.png" id="imageItem-40"
+										alt="Media/chapter-2image11.png"></img>
+
+								</div>
+
+							</div>
+
+							<div class="p2InAdiv26" id="buttonItem-46">
+
+								<div title="Button" style="overflow:hidden;height:249px;width:243px;position:relative;">
+
+									<div style="left:0px;top:0px;height:249px;width:243px;display:inline;position:absolute;">
+
+										<img src="Media/chapter-2image8.png" style="height:249px;width:243px;"></img>
+
+									</div>
+
+									<input type="hidden" name="json"
+										value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;5&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+
+								</div>
+
+							</div>
+
+							<div class="p2InAdiv27" id="buttonItem-47">
+
+								<div title="Button" style="overflow:hidden;height:62px;width:290px;position:relative;">
+
+									<div style="left:0px;top:0px;height:62px;width:290px;display:inline;position:absolute;">
+
+										<img src="Media/chapter-2image12.png" style="height:62px;width:290px;"></img>
+
+									</div>
+
+									<input type="hidden" name="json"
+										value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;1&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+				<div id="page3" class="divshow swiper-slide">
+					<div class="p3para1 p3textdiv0">
+
+						<div id="pGrp-56" class="p3pGrpDiv-FxLi2">
+
+							<div class="">
+
+								<div class="p3imagediv4">
+
+									<img class="p3image5" src="Media/chapter-3image13.png" id="imageItem-58"
+										alt="Media/chapter-3image13.png"></img>
+
+								</div>
+
+							</div>
+
+							<div class="">
+
+								<div title="uiTextBox" id="si_8000012D" class="p3InAdiv6" name="文本2" style="pointer-events:auto;">
+
+									<textarea
+										style="width:100%; height:100%; left:0; top:0; position:absolute; box-sizing:border-box; font-family:sans-serif;font-size:36.0px;color:#000000;border:solid 1px #666666;"
+										data-name="文本2"></textarea>
+
+									<input name="json" type="hidden"
+										value="{&quot;inputType&quot;:&quot;area&quot;,&quot;maxLength&quot;:18446744073709551615,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000116&quot;}"></input>
+
+								</div>
+
+							</div>
+
+							<div class="">
+
+								<div class="p3imagediv7">
+
+									<img class="p3image8" src="Media/chapter-3image14.png" id="imageItem-59"
+										alt="Media/chapter-3image14.png"></img>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+				<div id="page4" class="divshow swiper-slide">
+					<div class="p4para1 p4textdiv0">
+
+						<div id="pGrp-68" class="p4pGrpDiv-FxLi2">
+
+							<div class="">
+
+								<div class="p4imagediv4">
+
+									<img class="p4image5" src="Media/chapter-4image15.png" id="imageItem-70"
+										alt="Media/chapter-4image15.png"></img>
+
+								</div>
+
+							</div>
+
+							<div class="">
+
+								<div title="uiTextBox" id="si_80000145" class="p4InAdiv6" name="文本3" style="pointer-events:auto;">
+
+									<textarea
+										style="width:100%; height:100%; left:0; top:0; position:absolute; box-sizing:border-box; font-family:sans-serif;font-size:36.0px;color:#000000;border:solid 1px #666666;"
+										data-name="文本3"></textarea>
+
+									<input name="json" type="hidden"
+										value="{&quot;inputType&quot;:&quot;area&quot;,&quot;maxLength&quot;:18446744073709551615,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000116&quot;}"></input>
+
+								</div>
+
+							</div>
+
+							<div class="">
+
+								<div class="p4imagediv7">
+
+									<img class="p4image8" src="Media/chapter-3image14.png" id="imageItem-71"
+										alt="Media/chapter-3image14.png"></img>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+				<div id="page5" class="divshow swiper-slide">
+					<div class="p5para1 p5textdiv0">
+
+						<div id="pGrp-80" class="p5pGrpDiv-FxLi2">
+
+							<div class="">
+
+								<div class="p5imagediv4">
+
+									<img class="p5image5" src="Media/chapter-5image16.png" id="imageItem-82"
+										alt="Media/chapter-5image16.png"></img>
+
+								</div>
+
+							</div>
+
+							<div class="">
+
+								<div title="uiTextBox" id="si_800000D4" class="p5InAdiv6" name="文本4" style="pointer-events:auto;">
+
+									<textarea
+										style="width:100%; height:100%; left:0; top:0; position:absolute; box-sizing:border-box; font-family:sans-serif;font-size:36.0px;color:#000000;border:solid 1px #666666;"
+										data-name="文本4"></textarea>
+
+									<input name="json" type="hidden"
+										value="{&quot;inputType&quot;:&quot;area&quot;,&quot;maxLength&quot;:18446744073709551615,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000116&quot;}"></input>
+
+								</div>
+
+							</div>
+
+							<div class="">
+
+								<div class="p5imagediv7">
+
+									<img class="p5image8" src="Media/chapter-3image14.png" id="imageItem-83"
+										alt="Media/chapter-3image14.png"></img>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+				<div id="page6" class="divshow swiper-slide">
+					<div class="p6para1 p6textdiv0">
+
+						<div id="pGrp-92" class="p6pGrpDiv-FxLi2">
+
+							<div class="">
+
+								<div class="p6imagediv4">
+
+									<img class="p6image5" src="Media/chapter-6image17.png" id="imageItem-94"
+										alt="Media/chapter-6image17.png"></img>
+
+								</div>
+
+							</div>
+
+							<div class="">
+
+								<div title="uiTextBox" id="si_8000009C" class="p6InAdiv6" name="文本5" style="pointer-events:auto;">
+
+									<textarea
+										style="width:100%; height:100%; left:0; top:0; position:absolute; box-sizing:border-box; font-family:sans-serif;font-size:36.0px;color:#000000;border:solid 1px #666666;"
+										data-name="文本5"></textarea>
+
+									<input name="json" type="hidden"
+										value="{&quot;inputType&quot;:&quot;area&quot;,&quot;maxLength&quot;:18446744073709551615,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000116&quot;}"></input>
+
+								</div>
+
+							</div>
+
+							<div class="">
+
+								<div class="p6imagediv7">
+
+									<img class="p6image8" src="Media/chapter-3image14.png" id="imageItem-95"
+										alt="Media/chapter-3image14.png"></img>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="wx_pic" style="margin:0 auto;overflow:hidden;width:0;height:0;">
+		<img src="Media/cover.jpg" />
+	</div><button id="prepage" style="display:none;">上一页</button>
+	<button id="nextpage" style="display:none;">下一页</button>
+	<div id="divpre" style="position:absolute;left:0%;width:10%;top:10%;height:90%;z-index:1;display:none;"></div>
+	<div id="divnext" style="position:absolute;left:90%;width:10%;top:10%;height:90%;z-index:1;display:none;"></div>
+	</div>
+	<script src="./scripts/options.js"></script>
+	<script src="scripts/swiper.min.js" type="text/javascript"></script>
 </body>
 
 </html>
-
-<!-- <html>
-
-<head>
-    <meta name="viewport" id="webviewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>长页面画廊测试</title>
-    <style type="text/css">
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            margin-left: 0px;
-            margin-top: 0px;
-            margin-right: 0px;
-            margin-bottom: 0px;
-            overflow: hidden;
-        }
-        
-        #iframeBox {
-            width: 100%;
-            height: 100%;
-        }
-        
-        .divbgm {
-            display: none;
-        }
-        
-        #tips {
-            position: fixed;
-            top: 0px;
-            width: 100%;
-            height: 1.5rem;
-            text-align: center;
-            font-size: 15px;
-            background-color: #545457;
-            padding: 0px;
-            margin: 0px;
-            color: white;
-            padding-top: 2px;
-            filter: alpha(opacity=7);
-            -moz-opacity: 0.7;
-            -khtml-opacity: 0.7;
-            opacity: 0.7;
-        }
-    </style>
-</head>
-
-<body>
-    <!-- <div class="tips" id="tips" style="">此为预览链接，将于2019-06-25 17:43:36失效</div> -->
-<div id="iframeBox">
-    <iframe id="mainFrame" name="mainFrame" scrolling="no" allowfullscreen="true" src="http://47.93.36.77:5080/TQMS/resourceDir/20190624/16e1b66788aa463480c1222a2257a5ae/index.html" frameborder="0" style="padding: 0px; width: 100%; height: 100%;"></iframe>
-    <iframe style="display:none" src="http://47.93.36.77:5080/TQMS//resourceDir/common/cross_domain_processing.html?operate=0&amp;aimId=mainFrame" name="exec_frame" id="exec_frame"></iframe>
-</div>
-<div id="divbgm" class="divbgm">
-    <audio id="au1" src=""></audio>
-    <audio id="aubgm" src="" preload="none"></audio>
-</div>
-
-<script type="text/javascript" src="http://h5.founderfx.cn:/ExtetnalApi/H5/front/js/jquery.min.js"></script>
-<script type="text/javascript">
-    $(function() {
-        //如果在移动端预览则显示提示
-        if (!IsPC()) {
-            $("#tips").show();
-        }
-        //如果是在微信中，将使用顶层audio代理内部audio
-        document.addEventListener("WeixinJSBridgeReady", initAudio, false);
-        $(document).one('touchstart', initAudio); //针对safari浏览器
-
-        var iframe = document.getElementById("mainFrame");
-        if (iframe.attachEvent) {
-            iframe.attachEvent("onload", function() {
-                $("#exec_frame").attr("src", "http://47.93.36.77:5080/TQMS//resourceDir/common/cross_domain_processing.html?operate=0&aimId=mainFrame");
-            });
-        } else {
-            iframe.onload = function() {
-                $("#exec_frame").attr("src", "http://47.93.36.77:5080/TQMS//resourceDir/common/cross_domain_processing.html?operate=0&aimId=mainFrame");
-            };
-        }
-
-        window.addEventListener('message', function(rs) {
-            var pointdata = rs.data;
-            console.log("===接收作品消息为===" + pointdata);
-            if (pointdata == 1) {
-                //获取iframe的id
-                var ifr = document.getElementById('mainFrame');
-                //iframe的路径
-                var url = 'http://47.93.36.77:5080/TQMS/resourceDir/20190624/16e1b66788aa463480c1222a2257a5ae/index.html';
-                //要发送的数据
-                var data = "";
-                var val = {
-                    "act": "test",
-                    "val": data
-                };
-                console.log("====" + JSON.stringify(val));
-                //页面加载完后，执行发送方法
-                //setTimeout(function(){
-                ifr.contentWindow.postMessage(JSON.stringify(val), url);
-                //},2000);
-            }
-
-            if (pointdata == "fullscreen") {
-                toggleFullScreen();
-            }
-            if (pointdata == "scrollTo") {
-                myscrollTo();
-            }
-        });
-
-    });
-
-    function toggleFullScreen() {
-        var isFull = window.fullScreen || document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement || false;
-        var de = document.documentElement;
-        if (isFull === false) {
-            if (de.requestFullscreen) {
-                de.requestFullscreen();
-            } else if (de.mozRequestFullScreen) {
-                de.mozRequestFullScreen();
-            } else if (de.webkitRequestFullScreen) {
-                de.webkitRequestFullScreen();
-            } else if (de.msRequestFullscreen) {
-                de.msRequestFullscreen();
-            }
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.webkitCancelFullScreen) {
-                document.webkitCancelFullScreen();
-            } else if (document.msExitFullscreen) {
-                document.msExitFullscreen();
-            }
-        }
-    }
-
-    function myscrollTo() {
-        setTimeout(function() {
-            var scrollHeight = document.documentElement.scrollTop || document.body.scrollTop || 0;
-            window.scrollTo(0, Math.max(scrollHeight - 1, 0));
-        }, 100);
-    }
-
-    //初始化音频组件
-    function initAudio() {
-        var audios = $("audio");
-        $(audios).each(function(index, elem) {
-            elem.load();
-            if ($(elem).attr("src") && $(elem).attr("src").length > 0) {
-                elem.play();
-            }
-            elem.onended = function() {
-                console.log($(elem).attr("src") + "music ended!");
-                $("#exec_frame").attr("src", "http://47.93.36.77:5080/TQMS//resourceDir/common/cross_domain_processing.html?operate=2&aimId=mainFrame&elemId=" + $(elem).attr('id') + "&src=" + $(elem).attr("src"));
-            };
-
-
-        });
-    }
-
-    //判断是否PC端
-    function IsPC() {
-        var userAgentInfo = navigator.userAgent;
-        var Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
-        var flag = true;
-        for (var v = 0; v < Agents.length; v++) {
-            if (userAgentInfo.indexOf(Agents[v]) > 0) {
-                flag = false;
-                break;
-            }
-        }
-        return flag;
-    }
-</script>
-
-<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<script type="text/javascript">
-    var workId = 'd29ya0lkPTEwNDc5MCZ0eXBlPTAmdGltZXN0YW1wcz0xNTYxMzY5NDE2NzMx';
-    var formData = '';
-    var imgUrl = 'http://47.93.36.77:5080/TQMS/resourceDir/20190624/16e1b66788aa463480c1222a2257a5ae/Media/cover.jpg'; // 分享后展示的一张图片
-    var openid = '';
-    if (openid == null || openid == undefined) {
-        openid = '';
-    }
-    var currentUrl = window.location.href;
-    var lineLink = currentUrl.substring(0, currentUrl.lastIndexOf("/")) + "/h5WorkPreview?param=" + workId + "&oldOpenid=" + openid; // 点击分享后跳转的页面地址
-    var descContent = '',
-        isTemp = 'true';
-    if (isTemp && 'true' == isTemp) { //如果是临时链接，则固定描述
-        descContent = "当前为预览链接，正式发布前请在PC端的自定义分享描述、分享标题或缩略图"; // 分享后的描述信息
-    } else {
-        descContent = ""; // 分享后的描述信息
-    }
-    var shareTitle = '长页面画廊测试'; // 分享后的标题
-    $(function() {
-        wx.config({
-            debug: false, ////生产环境需要关闭debug模式
-            appId: 'wx6ba4def6d4aa0565', //appId通过微信服务号后台查看
-            timestamp: '1561373175', //生成签名的时间戳
-            nonceStr: '57d3c54f-6b59-4894-ba60-150f8dc29413', //生成签名的随机字符串
-            signature: '4428ed70f9b90104e60c819a4a1e8ee8bd99cbee', //签名
-            jsApiList: [ //需要调用的JS接口列表
-                'checkJsApi', //判断当前客户端版本是否支持指定JS接口
-                'onMenuShareTimeline', //分享给好友
-                'onMenuShareAppMessage', //分享到朋友圈
-                'onMenuShareQQ', //分享到qq
-                'onMenuShareWeibo', //分享到腾讯微博
-                'onMenuShareQZone' //分享到qq空间
-            ]
-        });
-
-        wx.ready(function() {
-            console.log("wx config ready!");
-            //分享朋友圈
-            wx.onMenuShareTimeline({
-                title: shareTitle,
-                link: lineLink,
-                imgUrl: imgUrl, // 自定义图标
-                trigger: function(res) {
-                    console.log('click shared');
-                },
-                success: function(res) {
-                    console.log('shared success');
-                    //some thing you should do
-                },
-                cancel: function(res) {
-                    console.log('shared cancle');
-                },
-                fail: function(res) {
-                    console.log(JSON.stringify(res));
-                }
-            });
-            //分享给好友
-            wx.onMenuShareAppMessage({
-                title: shareTitle, // 分享标题
-                desc: descContent, // 分享描述
-                link: lineLink, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                imgUrl: imgUrl, // 自定义图标
-                type: 'link', // 分享类型,music、video或link，不填默认为link
-                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-                success: function() {
-                    // 用户确认分享后执行的回调函数
-                    console.log('shared success');
-                },
-                cancel: function() {
-                    console.log('shared cancle');
-                    // 用户取消分享后执行的回调函数
-                }
-            });
-            //分享到qq
-            wx.onMenuShareQQ({
-                title: shareTitle, // 分享标题
-                desc: descContent, // 分享描述
-                link: lineLink, // 分享链接
-                imgUrl: imgUrl, // 分享图标
-                success: function() {
-                    console.log('shared success');
-                    // 用户确认分享后执行的回调函数
-                },
-                cancel: function() {
-                    console.log('shared cancle');
-                    // 用户取消分享后执行的回调函数
-                }
-            });
-            //分享到腾讯微博
-            wx.onMenuShareWeibo({
-                title: shareTitle, // 分享标题
-                desc: descContent, // 分享描述
-                link: lineLink, // 分享链接
-                imgUrl: imgUrl, // 分享图标
-                success: function() {
-                    // 用户确认分享后执行的回调函数
-                    console.log('shared success');
-                },
-                cancel: function() {
-                    // 用户取消分享后执行的回调函数
-                    console.log('shared cancle');
-                }
-            });
-            //分享到QQ空间
-            wx.onMenuShareQZone({
-                title: shareTitle, // 分享标题
-                desc: descContent, // 分享描述
-                link: lineLink, // 分享链接
-                imgUrl: imgUrl, // 分享图标
-                success: function() {
-                    // 用户确认分享后执行的回调函数
-                    console.log('shared success');
-                },
-                cancel: function() {
-                    // 用户取消分享后执行的回调函数
-                    console.log('shared cancle');
-                }
-            });
-        });
-        wx.error(function(res) {
-            console.log("error==" + res.errMsg);
-        });
-    });
-</script>
-
-</body>
-
-</html> -->

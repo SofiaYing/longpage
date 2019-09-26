@@ -395,15 +395,15 @@ function UnTopPopupContent(showNode) {
         var dataAni = eval('(' + jsonAniNode.value + ')');
         var dataAnis0 = dataAni.states[0].animations[0];
         var triggerEvent = dataAnis0.type.charAt(dataAnis0.type.length - 1);
-        if (dataAnis0.effect === 'fade' && dataAnis0.type.indexOf('toAppearance-') >= 0) {
+        if (dataAnis0.effect.indexOf("fade") >= 0 && dataAnis0.type.indexOf('toAppearance-') >= 0) {
             divchild.css("opacity", "0.0");
         }
         else if (triggerEvent !== '1' && dataAnis0.type.indexOf('toAppearance') >= 0) {
-        	if (dataAnis0.effect === 'fade' ||
-				dataAnis0.effect === 'slide' ||
-				dataAnis0.effect === 'back' ||
-				dataAnis0.effect === 'fly' ||
-				dataAnis0.effect === 'pop'
+        	if (dataAnis0.effect.indexOf("fade") >= 0 ||
+				dataAnis0.effect.indexOf("slide") >= 0 ||
+				dataAnis0.effect.indexOf("back") >= 0 ||
+				dataAnis0.effect.indexOf("fly") >= 0 ||
+				dataAnis0.effect.indexOf("pop") >= 0
                 ) {
                 divchild.css('display', 'none');
             }

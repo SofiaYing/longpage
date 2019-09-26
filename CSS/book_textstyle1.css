@@ -1,4 +1,4 @@
-@font-face {font-family:"FZHTTest-FX";src: url("../fonts/FZHTTest.ttf"); }.ui-mobile .ui-page-active{display:block;overflow:hidden;}
+@font-face {font-family:"FZDiHouTiS Bold-FX";src: url("../fonts/FZDiHouTiSBold.ttf"); }@font-face {font-family:"FZDiHouTiS-FX";src: url("../fonts/FZDiHouTiS.ttf"); }@font-face {font-family:"FZHTTest-FX";src: url("../fonts/FZHTTest.ttf"); }@font-face {font-family:"NEU-BZ-FX";src: url("../fonts/NEU-BZ.ttf"); }.ui-mobile .ui-page-active{display:block;overflow:hidden;}
 .ui-overlay-a, .ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper{background-color:transparent;}
 a{text-decoration:none;}
 body{line-height:1;overflow:hidden;white-space:normal;word-break:break-all;word-wrap:break-word;}
