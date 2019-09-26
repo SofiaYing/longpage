@@ -913,10 +913,32 @@
                     }
                 }
 
+                function drawtext(ctx,t,x,y,w){
+                    console.log('w',w)
+                    //参数说明
+                    //ctx：canvas的 2d 对象，t：绘制的文字，x,y:文字坐标，w：文字最大宽度
+                    let chr = t.split("")
+                    let temp = ""
+                    let row = []
+                
+                    for (let a = 0; a<chr.length;a++){
+                        if( ctx.measureText(temp).width < w && ctx.measureText(temp+(chr[a])).width <= w){
+                            temp += chr[a];
+                        }else{
+                            row.push(temp);
+                            temp = chr[a];
+                        }
+                    }
+                    row.push(temp)
+                    for(let b=0;b<row.length;b++){
+                        ctx.fillText(row[b],x,y+(b+1)*20);//每行字体y坐标间隔20
+                    }
+                
+                }
+
                 var imgBg = document.getElementById(imgBg);
                 var imgUser = $('#' + imgUserParent).children('textarea')[0];
                 var value = $('#si_80000116').children('input').val();
-                console.log('12',value)
                 // imgUser.src = $('#si_80000173').children('img').attr('src');
 
                 var imgShow = document.getElementById('showImage');
@@ -929,7 +951,8 @@
                 var canvasHeight = imgBg.height * window.sizeAdjustor.scaleY;
                 var imgUserLeft = imgUserOffsetArray.x * window.sizeAdjustor.scaleX;
                 var imgUserTop = imgUserOffsetArray.y * window.sizeAdjustor.scaleY;
-                var imgUserWidth = imgUser.width * window.sizeAdjustor.scaleX;
+                // var imgUserWidth = imgUser.width * window.sizeAdjustor.scaleX;
+                var imgUserWidth = parseInt($('#' + imgUserParent).css('width'))* window.sizeAdjustor.scaleX;
                 var imgUserHeight = imgUser.height * window.sizeAdjustor.scaleY;
 
                 $(canvas).css({ 'width': canvasWidth + 'px', 'height': canvasHeight + 'px' });
@@ -941,7 +964,8 @@
                 context.fillRect(0,0,canvasWidth, canvasHeight);
                 context.font = "20px Times New Roman"   
                 context.fillStyle = "black";   
-                context.fillText(value, imgUserLeft, imgUserTop+10);
+                // context.fillText(value, imgUserLeft, imgUserTop+10);
+                drawtext(context,value,imgUserLeft,imgUserTop+10,imgUserWidth)
 
                 // context.drawImage(imgUser, 0, 0, imgUser.naturalWidth, imgUser.naturalHeight, imgUserLeft, (imgUserTop - 1), (imgUserWidth + 2), (imgUserHeight + 2));
                 context.drawImage(imgBg, 0, 0, imgBg.naturalWidth, imgBg.naturalHeight, 0, 0, canvasWidth, canvasHeight);
