@@ -954,8 +954,6 @@
                         // 将生成的URL设置为a.href属性
                     a.href = src
 
-                    // 触发a的单击事件
-                    a.dispatchEvent(event)
                     return false
                 })
             }
