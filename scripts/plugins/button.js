@@ -915,6 +915,8 @@
 
                 var imgBg = document.getElementById(imgBg);
                 var imgUser = $('#' + imgUserParent).children('img')[0];
+                imgUser.src = $('#si_80000173').children('img').attr('src');
+                console.log(imgUser.src)
                 var imgShow = document.getElementById('showImage');
                 var imgUserOffsetArray = getRelativeDisttance($('#' + imgUserParent)[0], 'divshow');
 
