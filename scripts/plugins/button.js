@@ -892,7 +892,10 @@
             function SaveImage(imgBg, imgUserParent) {
                 $('.show-image-container').css('display', 'flex');
                 $('#showImageBackButton').css('right', parseInt($('.swiper-container').css('left')) + 20 + 'px');
-
+                $('#showImageBackButton').one('click', function(e) {
+                    $('.show-image-container').css('display', 'none');
+                    return false
+                })
 
                 function getRelativeDisttance(subElement, container) {
                     var distX = 0,
@@ -940,23 +943,6 @@
                 imgShow.src = canvas.toDataURL();
 
                 var src = canvas.toDataURL();
-
-                $('#showImageBackButton').one('click', function(e) {
-                    // $('.show-image-container').css('display', 'none');
-
-                    // 生成一个a元素
-                    var a = document.createElement('a')
-                        // 创建一个单击事件
-                    var event = new TounchEvent('click')
-
-                    // 将a的download属性设置为我们想要下载的图片名称，若name不存在则使用‘下载图片名称’作为默认名称
-                    a.download = name || '下载图片名称'
-                        // 将生成的URL设置为a.href属性
-                    a.href = src
-                    a.dispatchEvent(event)
-
-                    return false
-                })
             }
 
             function GotPage(btID) {
