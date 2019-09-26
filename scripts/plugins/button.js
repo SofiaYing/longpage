@@ -891,7 +891,7 @@
             //关闭画面 全部/指定
             function SaveImage(imgBg, imgUserParent) {
                 $('.show-image-container').css('display', 'flex');
-                $('#showImageBackButton').css('right', $('.swiper-container').css('left') + 'px');
+                $('#showImageBackButton').css('right', parseInt($('.swiper-container').css('left')) + 20 + 'px');
                 $('#showImageBackButton').one('click', function(e) {
                     $('.show-image-container').css('display', 'none');
                     return false
@@ -941,7 +941,6 @@
 
                 $(imgShow).css({ 'width': canvasWidth + 'px', 'height': canvasHeight + 'px' });
                 imgShow.src = canvas.toDataURL();
-                console.log('123', $(imgShow).position().right())
             }
 
             function GotPage(btID) {
