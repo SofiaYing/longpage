@@ -916,7 +916,7 @@
                 var imgBg = document.getElementById(imgBg);
                 var imgUser = $('#' + imgUserParent).children('img')[0];
                 imgUser.src = $('#si_80000173').children('img').attr('src');
-                console.log(imgUser.src)
+
                 var imgShow = document.getElementById('showImage');
                 var imgUserOffsetArray = getRelativeDisttance($('#' + imgUserParent)[0], 'divshow');
 
@@ -933,10 +933,10 @@
 
 
                 $(canvas).css({ 'width': canvasWidth + 'px', 'height': canvasHeight + 'px' })
-                canvas.width = canvasWidth * 2;
-                canvas.height = canvasHeight * 2;
+                canvas.width = canvasWidth * 3;
+                canvas.height = canvasHeight * 3;
 
-                context.scale(2, 2)
+                context.scale(3, 3)
                 context.drawImage(imgUser, 0, 0, imgUser.naturalWidth, imgUser.naturalHeight, imgUserLeft, (imgUserTop - 1), (imgUserWidth + 2), (imgUserHeight + 2));
                 context.drawImage(imgBg, 0, 0, imgBg.naturalWidth, imgBg.naturalHeight, 0, 0, canvasWidth, canvasHeight);
 
