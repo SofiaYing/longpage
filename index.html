@@ -8,6 +8,9 @@
     <script src="scripts/base.js" type="text/javascript"></script>
     <script src="scripts/jquery.js" type="text/javascript"></script>
     <script src="scripts/bgmController.js"></script>
+    <script>
+        document.write("<script type='text/javascript' src='https://h5.founderfx.cn/ExtetnalApi/H5/front/common/h5wxfx.js?time=" + Math.random() + "'></" + "script" + ">")
+    </script>
     <style>
         input[type=checkbox]:checked:after {
             content: '\2714';
@@ -217,30 +220,27 @@
         </div>
         <div class="show-image-container" style="display: none;justify-content: center;align-items: center;position: fixed;top:0;left:0;right:0;bottom:0;z-index:1000;">
             <div id="showImageBackButton" style="background-image: url('Media/back.png');background-size:100% 100%;width: 40px;height: 40px;position: absolute;top: 60px;right: 50px;"></div>
+            <div id="saveMessageButton" style="background-image: url('Media/saveImage.png');background-size:100% 100%;width: 140px;height: 40px;position: absolute;bottom: 140px;"></div>
             <img id="showImage" src=""></img>
         </div>
         <img id="floatArrow" class="floatArrow" src="Media/arrow.png"></img>
         <audio id="au1" src=""></audio>
         <div id="loadingBox" class="loadingBox">
-            <img id="logo" width="40%">
-            <div id="loadingBarBox" class="loadingBarBox">
-                <div id="loadingBar" class="loadingBar"></div>
-            </div>
+            <img id="logo" width="40%" style="opacity:1.0;">
         </div>
-        <input type="hidden" id="json" value="{'layout':'fixed','lastfile':'chapter-6.html','pageturning':[{'pageresult':'Traslation','pagedir':'UpAndDown','pagecircle':'true','pagetime':'1500','pageicon':'false','pagenoslide':'false'}],'adjustType':'heightAdjust','bgmhideicon':'false','bgmarea':[],'collect':'http://h5.founderfx.cn/external/h5/collectFormData','submitted':'http://h5.founderfx.cn/external/h5/findFormOne','loadingbar':{'bartype':'default','barpos':'30','showPercent':'false','barfgcolor':'rgba(247,99,23,1.0)','barbgcolor':'rgba(34,34,34,1.0)','promptText':'','promptSize':'21.0','promptColor':'#ffffff','fgpic':'Media/loadpage1.png','loadpic':'','bgpic':'','bgcolor':'#333333','bgtype':'color','direction':'leftToRight'}}"
+        <input type="hidden" id="json" value="{'layout':'fixed','lastfile':'chapter-6.html','pageturning':[{'pageresult':'Traslation','pagedir':'UpAndDown','pagecircle':'true','pagetime':'1500','pageicon':'false','pagenoslide':'true'}],'adjustType':'widthAdjust','bgmhideicon':'false','bgmarea':[{'src':'Media/bgmusic0.mp3','loop':true,'autoplay':'true','start':1,'end':6},],'collect':'http://h5.founderfx.cn/external/h5/collectFormData','submitted':'http://h5.founderfx.cn/external/h5/findFormOne','loadingbar':{'bartype':'rotate','barpos':'30','showPercent':'false','barfgcolor':'rgba(247,99,23,1.0)','barbgcolor':'rgba(34,34,34,1.0)','promptText':'','promptSize':'21.0','promptColor':'#ffffff','fgpic':'Media/loadpage1.png','loadpic':'','bgpic':'Media/loadpage2.png','bgcolor':'#333333','bgtype':'image','direction':'clockwise'}}"
         />
         <script src="scripts/sizeAdjustor.js" type="text/javascript"></script>
         <script src="scripts/index_modify.js" type="text/javascript"></script>
         <script src="scripts/loadingbar.js" type="text/javascript"></script>
         <div id="divbgm" class="divbgm">
-            <img id="bgmPlay" class="imgbgm" src=""></img>
-            <img id="bgmPause" class="imgbgm" src=""></img>
-            <audio id="aubgm" src="" preload="none"></audio>
+            <img id="bgmPlay" class="imgbgm" src="Media/bgmplay.png"></img>
+            <img id="bgmPause" class="imgbgm" src="Media/bgmpause.png"></img>
+            <audio id="aubgm" src="Media/bgmusic0.mp3" preload="auto"></audio>
         </div>
         <div class="swiper-container" id="swiper_container" style="position:absolute;overflow:hidden;display:none;" data-width="640" data-height="1260">
             <div class="swiper-wrapper">
                 <div id="page1" class="divshow swiper-slide">
-                    <object type="image/svg+xml" class="p1graphic18" data="Media/chapter-1_graphItem2svg0.svg" id="graphicsItem-17"></object>
                     <div class="p1para1 p1textdiv0">
 
                         <div id="pGrp-2" class="p1pGrpDiv-FxLi2">
@@ -311,7 +311,7 @@
 
                                     <input type="file" accept="image/jpeg, image/gif, image/png, image/jpg" style="width: 100%; height: 100%; position: absolute;opacity: 0;cursor:pointer">
 
-                                    <img alt="" style="width:100%;height:100%;" src="Media/uiimagebox5.png"></img>
+                                    <img alt="" style="width:100%;height:100%;" src="Media/uiimagebox6.png"></img>
 
                                     <input type="hidden" name="json" value="{&quot;display&quot;:true,&quot;required&quot;:true,&quot;relatedMode&quot;:&quot;none&quot;,&quot;relatedUIControl&quot;:&quot;si_0&quot;}"></input>
 
@@ -363,17 +363,17 @@
 
                             </div>
 
-                            <div class="">
+                            <div class="p1InAdiv17" id="buttonItem-14">
 
-                                <div title="uiButton" class="p1InAdiv17" id="si_800001CF" data-name="提交按钮1">
+                                <div title="Button" style="overflow:hidden;height:62px;width:290px;position:relative;">
 
-                                    <div style="width:100%;height:100%;">
+                                    <div style="left:0px;top:0px;height:62px;width:290px;display:inline;position:absolute;">
 
-                                        <image style="width:100%;height:100%;" src="Media/uibutton6.png"></image>
+                                        <img src="Media/chapter-1image5.png" style="height:62px;width:290px;"></img>
 
                                     </div>
 
-                                    <input type="hidden" name="json" value="{&quot;repeatSubmit&quot;:true, &quot;ctrlNames&quot;:['照片'],  &quot;ctrlIds&quot;:['si_80000173'], &quot;event&quot;:&quot;gotoPageAction&quot;, &quot;pageIndex&quot;:2}"></input>
+                                    <input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;2&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
 
                                 </div>
 
@@ -385,7 +385,6 @@
 
                 </div>
                 <div id="page2" class="divshow swiper-slide">
-                    <object type="image/svg+xml" class="p2graphic24" data="Media/chapter-2_graphItem2svg0.svg" id="graphicsItem-44"></object>
                     <div class="p2para1 p2textdiv0">
 
                         <div id="pGrp-26" class="p2pGrpDiv-FxLi2">
@@ -420,7 +419,7 @@
 
                                     </div>
 
-                                    <input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;saveImage&quot;:&quot;true&quot;,&quot;imgBg&quot;:&quot;imageItem-55&quot;,&quot;imgUser&quot;:&quot;si_800001F5&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;3&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+                                    <input type="hidden" name="json" value="{&quot;saveImage&quot;:&quot;true&quot;,&quot;imgBg&quot;:&quot;imageItem-54&quot;,&quot;imgUser&quot;:&quot;si_800001F5&quot;,&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;3&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
 
                                 </div>
 
@@ -446,7 +445,7 @@
 
                                     </div>
 
-                                    <input type="hidden" name="json" value="{&quot;saveImage&quot;:&quot;true&quot;,&quot;imgBg&quot;:&quot;imageItem-69&quot;,&quot;imgUser&quot;:&quot;si_8000014B&quot;,&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;4&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+                                    <input type="hidden" name="json" value="{&quot;saveImage&quot;:&quot;true&quot;,&quot;imgBg&quot;:&quot;imageItem-65&quot;,&quot;imgUser&quot;:&quot;si_8000014B&quot;,&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;4&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
 
                                 </div>
 
@@ -472,7 +471,7 @@
 
                                     </div>
 
-                                    <input type="hidden" name="json" value="{&quot;saveImage&quot;:&quot;true&quot;,&quot;imgBg&quot;:&quot;imageItem-83&quot;,&quot;imgUser&quot;:&quot;si_80000157&quot;,&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;6&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+                                    <input type="hidden" name="json" value="{&quot;saveImage&quot;:&quot;true&quot;,&quot;imgBg&quot;:&quot;imageItem-76&quot;,&quot;imgUser&quot;:&quot;si_80000157&quot;,&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;6&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
 
                                 </div>
 
@@ -498,7 +497,7 @@
 
                                     </div>
 
-                                    <input type="hidden" name="json" value="{&quot;saveImage&quot;:&quot;true&quot;,&quot;imgBg&quot;:&quot;imageItem-97&quot;,&quot;imgUser&quot;:&quot;si_800000FA&quot;,&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;5&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+                                    <input type="hidden" name="json" value="{&quot;saveImage&quot;:&quot;true&quot;,&quot;imgBg&quot;:&quot;imageItem-87&quot;,&quot;imgUser&quot;:&quot;si_800000FA&quot;,&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;5&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
 
                                 </div>
 
@@ -540,10 +539,9 @@
 
                 </div>
                 <div id="page3" class="divshow swiper-slide">
-                    <object type="image/svg+xml" class="p3graphic8" data="Media/chapter-3_graphItem2svg0.svg" id="graphicsItem-59"></object>
                     <div class="p3para1 p3textdiv0">
 
-                        <div id="pGrp-53" class="p3pGrpDiv-FxLi2">
+                        <div id="pGrp-52" class="p3pGrpDiv-FxLi2">
 
                             <div class="">
 
@@ -551,7 +549,7 @@
 
                                     <input type="file" accept="image/jpeg, image/gif, image/png, image/jpg" style="width: 100%; height: 100%; position: absolute;opacity: 0;cursor:pointer">
 
-                                    <img alt="" style="width:100%;height:100%;" src="Media/uiimagebox5.png"></img>
+                                    <img alt="" style="width:100%;height:100%;" src="Media/uiimagebox6.png"></img>
 
                                     <input type="hidden" name="json" value="{&quot;display&quot;:true,&quot;required&quot;:true,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000173&quot;}"></input>
 
@@ -565,23 +563,7 @@
 
                                 <div class="p3imagediv5">
 
-                                    <img class="p3image6" src="Media/chapter-3image13.png" id="imageItem-55" alt="Media/chapter-3image13.png"></img>
-
-                                </div>
-
-                            </div>
-
-                            <div class="p3InAdiv7" id="buttonItem-57">
-
-                                <div title="Button" style="overflow:hidden;height:62px;width:290px;position:relative;">
-
-                                    <div style="left:0px;top:0px;height:62px;width:290px;display:inline;position:absolute;">
-
-                                        <img src="Media/chapter-3image14.png" style="height:62px;width:290px;"></img>
-
-                                    </div>
-
-                                    <input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;&quot;,&quot;saveImage&quot;:&quot;true&quot;,&quot;imgBg&quot;:&quot;imageItem-55&quot;,&quot;imgUser&quot;:&quot;si_800001F5&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+                                    <img class="p3image6" src="Media/chapter-3image13.png" id="imageItem-54" alt="Media/chapter-3image13.png"></img>
 
                                 </div>
 
@@ -593,10 +575,9 @@
 
                 </div>
                 <div id="page4" class="divshow swiper-slide">
-                    <object type="image/svg+xml" class="p4graphic8" data="Media/chapter-4_graphItem2svg0.svg" id="graphicsItem-73"></object>
                     <div class="p4para1 p4textdiv0">
 
-                        <div id="pGrp-67" class="p4pGrpDiv-FxLi2">
+                        <div id="pGrp-63" class="p4pGrpDiv-FxLi2">
 
                             <div class="">
 
@@ -604,7 +585,7 @@
 
                                     <input type="file" accept="image/jpeg, image/gif, image/png, image/jpg" style="width: 100%; height: 100%; position: absolute;opacity: 0;cursor:pointer">
 
-                                    <img alt="" style="width:100%;height:100%;" src="Media/uiimagebox5.png"></img>
+                                    <img alt="" style="width:100%;height:100%;" src="Media/uiimagebox6.png"></img>
 
                                     <input type="hidden" name="json" value="{&quot;display&quot;:true,&quot;required&quot;:true,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000173&quot;}"></input>
 
@@ -618,23 +599,7 @@
 
                                 <div class="p4imagediv5">
 
-                                    <img class="p4image6" src="Media/chapter-3image13.png" id="imageItem-69" alt="Media/chapter-3image13.png"></img>
-
-                                </div>
-
-                            </div>
-
-                            <div class="p4InAdiv7" id="buttonItem-71">
-
-                                <div title="Button" style="overflow:hidden;height:62px;width:290px;position:relative;">
-
-                                    <div style="left:0px;top:0px;height:62px;width:290px;display:inline;position:absolute;">
-
-                                        <img src="Media/chapter-3image14.png" style="height:62px;width:290px;"></img>
-
-                                    </div>
-
-                                    <input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;&quot;,&quot;saveImage&quot;:&quot;true&quot;,&quot;imgBg&quot;:&quot;imageItem-69&quot;,&quot;imgUser&quot;:&quot;si_8000014B&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+                                    <img class="p4image6" src="Media/chapter-4image14.png" id="imageItem-65" alt="Media/chapter-4image14.png"></img>
 
                                 </div>
 
@@ -646,10 +611,9 @@
 
                 </div>
                 <div id="page5" class="divshow swiper-slide">
-                    <object type="image/svg+xml" class="p5graphic8" data="Media/chapter-5_graphItem2svg0.svg" id="graphicsItem-87"></object>
                     <div class="p5para1 p5textdiv0">
 
-                        <div id="pGrp-81" class="p5pGrpDiv-FxLi2">
+                        <div id="pGrp-74" class="p5pGrpDiv-FxLi2">
 
                             <div class="">
 
@@ -657,7 +621,7 @@
 
                                     <input type="file" accept="image/jpeg, image/gif, image/png, image/jpg" style="width: 100%; height: 100%; position: absolute;opacity: 0;cursor:pointer">
 
-                                    <img alt="" style="width:100%;height:100%;" src="Media/uiimagebox5.png"></img>
+                                    <img alt="" style="width:100%;height:100%;" src="Media/uiimagebox6.png"></img>
 
                                     <input type="hidden" name="json" value="{&quot;display&quot;:true,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000173&quot;}"></input>
 
@@ -671,23 +635,7 @@
 
                                 <div class="p5imagediv5">
 
-                                    <img class="p5image6" src="Media/chapter-5image15.png" id="imageItem-83" alt="Media/chapter-5image15.png"></img>
-
-                                </div>
-
-                            </div>
-
-                            <div class="p5InAdiv7" id="buttonItem-85">
-
-                                <div title="Button" style="overflow:hidden;height:52px;width:290px;position:relative;">
-
-                                    <div style="left:0px;top:0px;height:52px;width:290px;display:inline;position:absolute;">
-
-                                        <img src="Media/chapter-3image14.png" style="height:52px;width:290px;"></img>
-
-                                    </div>
-
-                                    <input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;&quot;,&quot;saveImage&quot;:&quot;true&quot;,&quot;imgBg&quot;:&quot;imageItem-83&quot;,&quot;imgUser&quot;:&quot;si_80000157&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;http://&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+                                    <img class="p5image6" src="Media/chapter-5image15.png" id="imageItem-76" alt="Media/chapter-5image15.png"></img>
 
                                 </div>
 
@@ -699,10 +647,9 @@
 
                 </div>
                 <div id="page6" class="divshow swiper-slide">
-                    <object type="image/svg+xml" class="p6graphic8" data="Media/chapter-6_graphItem2svg0.svg" id="graphicsItem-101"></object>
                     <div class="p6para1 p6textdiv0">
 
-                        <div id="pGrp-95" class="p6pGrpDiv-FxLi2">
+                        <div id="pGrp-85" class="p6pGrpDiv-FxLi2">
 
                             <div class="">
 
@@ -710,7 +657,7 @@
 
                                     <input type="file" accept="image/jpeg, image/gif, image/png, image/jpg" style="width: 100%; height: 100%; position: absolute;opacity: 0;cursor:pointer">
 
-                                    <img alt="" style="width:100%;height:100%;" src="Media/uiimagebox5.png"></img>
+                                    <img alt="" style="width:100%;height:100%;" src="Media/uiimagebox6.png"></img>
 
                                     <input type="hidden" name="json" value="{&quot;display&quot;:true,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000173&quot;}"></input>
 
@@ -724,23 +671,7 @@
 
                                 <div class="p6imagediv5">
 
-                                    <img class="p6image6" src="Media/chapter-5image15.png" id="imageItem-97" alt="Media/chapter-5image15.png"></img>
-
-                                </div>
-
-                            </div>
-
-                            <div class="p6InAdiv7" id="buttonItem-99">
-
-                                <div title="Button" style="overflow:hidden;height:62px;width:290px;position:relative;">
-
-                                    <div style="left:0px;top:0px;height:62px;width:290px;display:inline;position:absolute;">
-
-                                        <img src="Media/chapter-3image14.png" style="height:62px;width:290px;"></img>
-
-                                    </div>
-
-                                    <input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;&quot;,&quot;saveImage&quot;:&quot;true&quot;,&quot;imgBg&quot;:&quot;imageItem-97&quot;,&quot;imgUser&quot;:&quot;si_800000FA&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+                                    <img class="p6image6" src="Media/chapter-6image16.png" id="imageItem-87" alt="Media/chapter-6image16.png"></img>
 
                                 </div>
 

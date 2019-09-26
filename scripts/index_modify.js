@@ -178,13 +178,14 @@ window.onloadOver = function() {
             window.fx = new FXH5(longPageOptions);
 
             fx_options['0'].forEach(function(item, index) {
-                if (item.plugin !== 'panorama' && item.plugin !== 'jigsaw' && item.plugin !== 'imageDrag' && item.plugin !== 'audio' && item.plugin !== 'animate' && item.plugin !== 'panorama' && item.plugin !== 'jigsaw') {
+                if (item.plugin !== 'jigsaw' && item.plugin !== 'imageDrag' && item.plugin !== 'audio' && item.plugin !== 'animate') {
                     observeOptions.observe(document.getElementById(item.container));
                 }
             })
         }
     }
 };
+
 
 (function(global, undefined) {
     if (is_weixin()) {
@@ -211,9 +212,6 @@ window.onloadOver = function() {
                         audio.src = localAudio.src;
                         audio.loop = localAudio.loop;
                         if (count < 100) audio.play();
-                        audio.ontimeupdate = function() {
-                            alert('3')
-                        }
                     }
                     count++;
                 }, 100);
@@ -237,21 +235,17 @@ window.onloadOver = function() {
                 }
             }
             global.playBgmAudio = function(bgmAudio) {
-                if (!isReady) {
-                    var count = 0;
-                    var timer = setInterval(function() {
-                        if (isReady) {
-                            clearInterval(timer);
-                            if (count < 100) bgmAudio.play();
-                        }
-                        count++;
-                    }, 100);
-                } else {
-                    bgmAudio.play();
-                }
+                var count = 0;
+                var timer = setInterval(function() {
+                    if (isReady) {
+                        clearInterval(timer);
+                        if (count < 100) bgmAudio.play();
+                    }
+                    count++;
+                }, 100);
                 return true;
             }
-            global.pauseBgmAudio = function(bgmAudio, delay) {
+            global.pauseBgmAudio = function(bgmAudio) {
                 bgmAudio.pause();
             }
 

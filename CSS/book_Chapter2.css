@@ -1,8 +1,7 @@
-@font-face {font-family:"FZHTTest-FX";src: url("../fonts/FZHTTest.ttf"); }@font-face {font-family:"NEU-BZ-FX";src: url("../fonts/NEU-BZ.ttf"); }@font-face {font-family:"SimSun-FX";src: url("../fonts/SimSun.ttf"); }.p2span23{color:RGB(255,255,255);position:absolute;}
+@font-face {font-family:"FZDiHouTiS Bold-FX";src: url("../fonts/FZDiHouTiSBold.ttf"); }@font-face {font-family:"FZDiHouTiS-FX";src: url("../fonts/FZDiHouTiS.ttf"); }@font-face {font-family:"FZHTTest-FX";src: url("../fonts/FZHTTest.ttf"); }@font-face {font-family:"NEU-BZ-FX";src: url("../fonts/NEU-BZ.ttf"); }.p2span23{color:RGB(255,255,255);position:absolute;}
 .p2span3{position:absolute;}
 .p2para1{font-size:21.00px;line-height:108%;}
 .p2image5{height:1260.00px;position:absolute;width:640.00px;}
-.p2graphic24{left:-0.75px;pointer-events:none;position:absolute;top:-0.75px;}
 .p2para21{display:inline;left:0.00px;letter-spacing:0.00px;position:absolute;top:0.00px;}
 .p2para22{display:inline;left:32.06px;letter-spacing:0.00px;position:absolute;top:0.00px;}
 .p2textdiv0{height:1174.96px;left:42.52px;position:absolute;top:42.52px;width:554.96px;}
@@ -11,7 +10,7 @@
 .p2InAdiv8{height:264.75px;left:11.63px;position:absolute;top:455.47px;width:243.47px;}
 .p2InAdiv11{height:264.75px;left:292.81px;position:absolute;top:455.47px;width:243.47px;}
 .p2textdiv18{height:42.00px;left:140.41px;position:absolute;top:1021.67px;width:274.13px;}
-.p2para19{color:RGB(255,255,255);font-family:'FZDiHouTiS-FX','FZDiHouTiS-FX';font-size:42.00px;font-weight:bold;text-align:center;text-indent:0px;}
+.p2para19{color:RGB(255,255,255);font-family:'FZDiHouTiS Bold-FX','FZDiHouTiS Bold-FX';font-size:42.00px;font-weight:bold;text-align:center;text-indent:0px;}
 .p2imagediv4{height:1260.00px;left:-42.52px;overflow:hidden;position:absolute;text-align:left;top:-42.52px;width:640.00px;}
 .p2imagediv12{height:42.76px;left:323.54px;overflow:hidden;position:absolute;text-align:left;top:949.63px;width:200.00px;}
 .p2imagediv9{height:42.76px;left:324.92px;overflow:hidden;position:absolute;text-align:left;top:677.46px;width:200.00px;}
