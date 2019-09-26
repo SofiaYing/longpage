@@ -891,8 +891,8 @@
             //关闭画面 全部/指定
             function SaveImage(imgBg, imgUserParent) {
                 $('.show-image-container').css('display', 'flex');
-                $('.show-image-container').on('click', function(e) {
-                    e.stopPropagation;
+                $('#showImageBackButton').css('right', $('.swiper-container').css('left') + 'px');
+                $('#showImageBackButton').one('click', function(e) {
                     $('.show-image-container').css('display', 'none');
                     return false
                 })
@@ -913,8 +913,6 @@
                     }
                 }
 
-
-
                 var imgBg = document.getElementById(imgBg);
                 var imgUser = $('#' + imgUserParent).children('img')[0];
                 var imgShow = document.getElementById('showImage');
@@ -930,6 +928,8 @@
                 var imgUserWidth = imgUser.width * window.sizeAdjustor.scaleX;
                 var imgUserHeight = imgUser.height * window.sizeAdjustor.scaleY;
 
+
+
                 $(canvas).css({ 'width': canvasWidth + 'px', 'height': canvasHeight + 'px' })
                 canvas.width = canvasWidth * 2;
                 canvas.height = canvasHeight * 2;
@@ -941,6 +941,7 @@
 
                 $(imgShow).css({ 'width': canvasWidth + 'px', 'height': canvasHeight + 'px' });
                 imgShow.src = canvas.toDataURL();
+                console.log('123', $(imgShow).position().right())
             }
 
             function GotPage(btID) {
