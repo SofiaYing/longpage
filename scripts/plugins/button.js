@@ -939,7 +939,8 @@
                 var imgBg = document.getElementById(imgBg);
                 var imgUser = $('#' + imgUserParent).children('textarea')[0];
                 var value = $('#si_80000116').children('textarea').val();
-                console.log('value',value)
+                var size = $('#si_80000116').children('textarea').css('font-size');
+                console.log('value',value,size)
                 // imgUser.src = $('#si_80000173').children('img').attr('src');
 
                 var imgShow = document.getElementById('showImage');
@@ -965,7 +966,7 @@
 
                 // context.fillStyle = "#fff";
                 // context.fillRect(0,0,canvasWidth, canvasHeight);
-                context.font = "20px sans-serif"   
+                context.font = parseInt(size)*window.sizeAdjustor.scaleX+ "px sans-serif"   
                 context.fillStyle = fontColor;   
                 // context.fillText(value, imgUserLeft, imgUserTop+10);
                 drawtext(context,value,imgUserLeft,imgUserTop+10,imgUserWidth)
