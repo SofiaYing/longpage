@@ -947,6 +947,14 @@
 
                 var imgUserOffsetArray = getRelativeDisttance($('#' + imgUserParent)[0], 'divshow');
 
+                const myFont = new FontFace('myFont', 'url("../../fonts/FZShengSKSJW_Da.ttf")')
+
+                myFont.onload = function(font){
+                document.fonts.add(font)
+                }
+
+               
+
                 var canvas = document.createElement("canvas");
                 var context = canvas.getContext("2d");
 
@@ -967,7 +975,7 @@
 
                 // context.fillStyle = "#fff";
                 // context.fillRect(0,0,canvasWidth, canvasHeight);
-                context.font = parseInt(size)*window.sizeAdjustor.scaleX+ "px sans-serif"   
+                context.font = parseInt(size)*window.sizeAdjustor.scaleX+ "px FZShengSKSJW_Da"   
                 context.fillStyle = fontColor;   
                 // context.fillText(value, imgUserLeft, imgUserTop+10);
                 drawtext(context,value,imgUserLeft,imgUserTop,imgUserWidth,parseInt(size)*window.sizeAdjustor.scaleX)
@@ -977,6 +985,8 @@
 
                 $(imgShow).css({ 'width': canvasWidth + 'px', 'height': canvasHeight + 'px' });
                 imgShow.src = canvas.toDataURL();
+
+            
             }
 
             function GotPage(btID) {
