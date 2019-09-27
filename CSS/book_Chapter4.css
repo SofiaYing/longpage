@@ -1,10 +1,8 @@
-@font-face {font-family:"FZDiHouTiS Bold-FX";src: url("../fonts/FZDiHouTiSBold.ttf"); }@font-face {font-family:"FZDiHouTiS-FX";src: url("../fonts/FZDiHouTiS.ttf"); }@font-face {font-family:"FZHTTest-FX";src: url("../fonts/FZHTTest.ttf"); }@font-face {font-family:"NEU-BZ-FX";src: url("../fonts/NEU-BZ.ttf"); }.p4span3{position:absolute;}
+@font-face {font-family:"FZDiHouTiS Bold-FX";src: url("../fonts/FZDiHouTiSBold.ttf"); }@font-face {font-family:"FZHTTest-FX";src: url("../fonts/FZHTTest.ttf"); }.p4span3{position:absolute;}
 .p4para1{font-size:21.00px;line-height:108%;}
 .p4image5{height:1260.00px;position:absolute;width:640.00px;}
-.p4image8{height:74.00px;position:absolute;width:320.00px;}
 .p4textdiv0{height:1174.96px;left:42.52px;position:absolute;top:42.52px;width:554.96px;}
-.p4InAdiv6{height:290.91px;left:96.22px;position:absolute;top:452.47px;width:358.05px;}
+.p4InAdiv6{height:320.00px;left:111.48px;position:absolute;top:280.48px;width:350.00px;}
 .p4imagediv4{height:1260.00px;left:-42.52px;overflow:hidden;position:absolute;text-align:left;top:-42.52px;width:640.00px;}
-.p4imagediv7{height:74.00px;left:117.48px;overflow:hidden;position:absolute;text-align:left;top:977.48px;width:320.00px;}
 .p4pGrpDiv-FxLi2{-moz-transform:scale;-moz-transform-origin:0% 0%;-ms-transform:scale;-ms-transform-origin:0% 0%;-o-transform:scale;-o-transform-origin:0% 0%;-webkit-transform:scale;-webkit-transform-origin:0% 0%;height:1174.96px;transform:scale;transform-origin:0% 0%;width:554.96px;}
 

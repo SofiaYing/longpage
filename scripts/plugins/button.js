@@ -889,7 +889,7 @@
             }
 
             //关闭画面 全部/指定
-            function SaveImage(imgBg, imgUserParent) {
+            function SaveImage(imgBg, imgUserParent,fontColor) {
                 $('.show-image-container').css('display', 'flex');
                 $('#showImageBackButton').css('right', parseInt($('.swiper-container').css('left')) + 20 + 'px');
                 $('#showImageBackButton').one('click', function(e) {
@@ -938,7 +938,8 @@
 
                 var imgBg = document.getElementById(imgBg);
                 var imgUser = $('#' + imgUserParent).children('textarea')[0];
-                var value = $('#si_80000116').children('input').val();
+                var value = $('#si_80000116').children('textarea').val();
+                console.log('value',value)
                 // imgUser.src = $('#si_80000173').children('img').attr('src');
 
                 var imgShow = document.getElementById('showImage');
@@ -960,15 +961,16 @@
                 canvas.height = canvasHeight * 3;
 
                 context.scale(3, 3);
+                context.drawImage(imgBg, 0, 0, imgBg.naturalWidth, imgBg.naturalHeight, 0, 0, canvasWidth, canvasHeight);
+
                 // context.fillStyle = "#fff";
                 // context.fillRect(0,0,canvasWidth, canvasHeight);
-                context.font = "20px Times New Roman"   
-                context.fillStyle = "black";   
+                context.font = "56px FZD"   
+                context.fillStyle = fontColor;   
                 // context.fillText(value, imgUserLeft, imgUserTop+10);
                 drawtext(context,value,imgUserLeft,imgUserTop+10,imgUserWidth)
 
                 // context.drawImage(imgUser, 0, 0, imgUser.naturalWidth, imgUser.naturalHeight, imgUserLeft, (imgUserTop - 1), (imgUserWidth + 2), (imgUserHeight + 2));
-                context.drawImage(imgBg, 0, 0, imgBg.naturalWidth, imgBg.naturalHeight, 0, 0, canvasWidth, canvasHeight);
 
 
                 $(imgShow).css({ 'width': canvasWidth + 'px', 'height': canvasHeight + 'px' });
@@ -1132,6 +1134,7 @@
                 var imgBg = data.imgBg;
                 var imgUser = data.imgUser;
                 var saveImage = data.saveImage;
+                var fontColor = data.fontColor;
 
                 if (dynamicControl === "false") {
                     var ctState = (stateuid === '') ? 0 : document.getElementById(stateuid).children.length;
@@ -1165,7 +1168,7 @@
                 } else if (dynamicControl === "true") { //控制动态组件
                     controlDynamicObject(dynamicComponentId, operation);
                 } else if (saveImage === "true") {
-                    SaveImage(imgBg, imgUser);
+                    SaveImage(imgBg, imgUser,fontColor);
                 }
 
                 return false

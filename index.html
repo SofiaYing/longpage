@@ -2,403 +2,363 @@
 <html xmlns="http://www.w3.org/1999/html">
 
 <head>
-	<meta name="viewport" id="webviewport" content="width=640, height=1260" />
-	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<title>我和祖国表个白(副本)</title>
-	<script src="scripts/base.js" type="text/javascript"></script>
-	<script src="scripts/jquery.js" type="text/javascript"></script>
-	<script src="scripts/bgmController.js"></script>
-	<script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.js"></script>
-	<script>document.write("<script type='text/javascript' src='https://h5.founderfx.cn/ExtetnalApi/H5/front/common/h5wxfx.js?time=" + Math.random() + "'></" + "script" + ">")</script>
-	<style>
-		input[type=checkbox]:checked:after {
-			content: '\2714';
-			color: #555555;
-			text-align: center;
-			position: absolute;
-			width: 21px;
-			height: 21px;
-			line-height: 100%;
-			font-size: inherit;
-			left: 0;
-			top: 0;
-		}
+<meta name="viewport" id="webviewport" content="width=640, height=1260"/>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>我和祖国表个白</title>
+    <script src="scripts/base.js" type="text/javascript"></script>
+    <script src="scripts/jquery.js" type="text/javascript"></script>
+    <script src="scripts/bgmController.js"></script>
+    	<script>document.write("<script type='text/javascript' src='https://h5.founderfx.cn/ExtetnalApi/H5/front/common/h5wxfx.js?time="+Math.random()+"'></"+"script"+">")</script>
+<style>
+	@font-face {font-family:"FZD";src: url("../fonts/FZShengSKSJW_Da.ttf"); }
+	body{
+		font-family: FZD,sans-serif, Roboto, Noto, Arial, PingFang SC, Hiragino Sans GB, Droidsansfallback, Heiti SC;
 
-		input[type=radio]:checked:after {
-			content: '';
-			color: #555555;
-			position: absolute;
-			width: 70%;
-			height: 70%;
-			background-color: #555555;
-			border-radius: 100%;
-			line-height: 100%;
-			left: 15%;
-			top: 15%;
-		}
-
-		div[title=Button] {
-			backface-visibility: hidden;
-		}
-
-		ruby>span {
-			display: block;
-		}
-
-		.loadingBox {
-			width: 100%;
-			height: 100%;
-			border-radius: 4px;
-			background: #333333;
-			z-index: 300;
-			display: none;
-		}
-
-		.loadingBarBox {
-			height: 10px;
-			width: 50%;
-			background: #222222;
-			padding: 2px;
-			overflow: visible;
-			border-radius: 8px;
-		}
-
-		.loadingBar {
-			width: 0;
-			animation: progress-bar-stripes reverse 0.50s linear infinite;
-			border-radius: 20px;
-			position: relative;
-			background-color: #f76317;
-			background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-			background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-			background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-			-webkit-background-size: 40px 40px;
-			background-size: 40px 40px;
-			height: 100%;
-			background-position: 40px 0;
-		}
-
-		@keyframes progress-bar-stripes {
-			from {
-				background-position: 40px 0
-			}
-
-			to {
-				background-position: 0 0
-			}
-		}
-
-		.ifr {
-			z-index: 1;
-			width: 100%;
-			height: 100%;
-			border: solid 0px;
-		}
-
-		@keyframes bgmrotate {
-			from {
-				transform: rotate(0deg);
-			}
-
-			to {
-				transform: rotate(360deg)
-			}
-		}
-
-		.divbgm {
-			width: 50px;
-			height: 50px;
-			position: absolute;
-			top: 0;
-			right: 0;
-			z-index: 20;
-		}
-
-		.animate {
-			animation: bgmrotate 8s linear infinite;
-		}
-
-		.imgbgm {
-			top: 0px;
-			left: 0px;
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			display: none;
-		}
-
-		.uiImage-btn {
-			position: absolute;
-			bottom: 0;
-			width: 70px;
-			height: 40px;
-			background-color: #6C67EF;
-			padding: 0;
-			border-width: 0;
-			border-radius: 6px;
-			color: white;
-			outline: none;
-			cursor: pointer;
-			display: none;
-			font-family: sans-serif, Roboto, Noto, Arial, PingFang SC, Hiragino Sans GB, Droidsansfallback, Heiti SC;
-		}
-
-		.uiImage-btn:hover {
-			background-color: #818FF6;
-		}
-
-		.divshow {
-			position: absolute;
-			overflow: hidden;
-			z-index: 1;
-			width: 320px;
-			height: 630px;
-		}
-
-		.divnoshow {
-			position: absolute;
-			z-index: 1;
-			width: 320px;
-			height: 630px;
-			display: none;
-		}
-
-		.swiper-container {
-			width: 640px;
-			height: 1260px;
-		}
-
-		#divpar {
-			margin-left: auto;
-			margin-right: auto;
-			position: relative;
-			overflow: hidden;
-			height: 100vh;
-		}
-
-		@keyframes arrowmove {
-			0% {
-				opacity: 0.3
-			}
-
-			50% {
-				opacity: 1
-			}
-
-			100% {
-				transform: translateY(-35px);
-				opacity: 0.3
-			}
-		}
-
-		.floatArrow {
-			width: 36px;
-			height: 28px;
-			position: fixed;
-			align: center;
-			left: 50%;
-			margin-left: -18px;
-			bottom: 5%;
-			display: none;
-			animation: arrowmove 1.5s infinite;
-			z-index: 20;
-		}
-	</style>
-	<link rel="stylesheet" type="text/css" href="CSS/swiper.min.css">
-	</link>
-	<link rel="stylesheet" type="text/css" href="CSS/book_textstyle1.css">
-	</link>
-	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter1.css">
-	</link>
-	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter2.css">
-	</link>
-	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter3.css">
-	</link>
-	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter4.css">
-	</link>
-	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter5.css">
-	</link>
-	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter6.css">
-	</link>
+	}
+        input[type=checkbox]:checked:after {
+            content: '\2714';
+            color: #555555;
+            text-align: center;
+            position: absolute;
+            width: 21px;
+            height: 21px;
+            line-height: 100%;
+            font-size: inherit;
+            left: 0;
+            top: 0;
+        }
+        
+        input[type=radio]:checked:after {
+            content: '';
+            color: #555555;
+            position: absolute;
+            width: 70%;
+            height: 70%;
+            background-color: #555555;
+            border-radius: 100%;
+            line-height: 100%;
+            left: 15%;
+            top: 15%;
+        }
+        
+        div[title=Button] {
+            backface-visibility: hidden;
+        }
+        
+        ruby>span {
+            display: block;
+        }
+        
+        .loadingBox {
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            background: #333333;
+            z-index: 300;
+            display: none;
+        }
+        
+        .loadingBarBox {
+            height: 10px;
+            width: 50%;
+            background: #222222;
+            padding: 2px;
+            overflow: visible;
+            border-radius: 8px;
+        }
+        
+        .loadingBar {
+            width: 0;
+            animation: progress-bar-stripes reverse 0.50s linear infinite;
+            border-radius: 20px;
+            position: relative;
+            background-color: #f76317;
+            background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            -webkit-background-size: 40px 40px;
+            background-size: 40px 40px;
+            height: 100%;
+            background-position: 40px 0;
+        }
+        
+        @keyframes progress-bar-stripes {
+            from {
+                background-position: 40px 0
+            }
+            to {
+                background-position: 0 0
+            }
+        }
+        
+        .ifr {
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            border: solid 0px;
+        }
+        
+        @keyframes bgmrotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg)
+            }
+        }
+        
+        .divbgm {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 20;
+        }
+        
+        .animate {
+            animation: bgmrotate 8s linear infinite;
+        }
+        
+        .imgbgm {
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: none;
+        }
+        
+        .uiImage-btn {
+            position: absolute;
+            bottom: 0;
+            width: 70px;
+            height: 40px;
+            background-color: #6C67EF;
+            padding: 0;
+            border-width: 0;
+            border-radius: 6px;
+            color: white;
+            outline: none;
+            cursor: pointer;
+            display: none;
+            font-family: FZD,sans-serif, Roboto, Noto, Arial, PingFang SC, Hiragino Sans GB, Droidsansfallback, Heiti SC;
+        }
+        
+        .uiImage-btn:hover {
+            background-color: #818FF6;
+        }
+    .divshow{position:absolute;overflow:hidden;z-index:1;width:320px;height:630px;}
+	.divnoshow{position:absolute;z-index:1;width:320px;height:630px;display:none;}
+	.swiper-container{width:640px;height:1260px;}
+	#divpar{margin-left:auto; margin-right:auto;position: relative;overflow:hidden;height:100vh;}
+@keyframes arrowmove{0% {opacity: 0.3} 50% {opacity: 1} 100% {transform:translateY(-35px);opacity: 0.3}}
+.floatArrow{width:36px;height:28px;position:fixed;align:center;left:50%;margin-left:-18px;bottom:5%;display:none;animation:arrowmove 1.5s infinite;z-index: 20;}</style>
+	<link rel="stylesheet" type="text/css" href="CSS/swiper.min.css"></link>
+	<link rel="stylesheet" type="text/css" href="CSS/book_textstyle1.css"></link>
+	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter1.css"></link>
+	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter2.css"></link>
+	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter3.css"></link>
+	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter4.css"></link>
+	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter5.css"></link>
+	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter6.css"></link>
+	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter7.css"></link>
+	<link rel="stylesheet" type="text/css" href="CSS/book_Chapter8.css"></link>
 </head>
 
 <body style="margin:0px;position: fixed; width: 100%; height: 100%">
-	<div id="divpar">
-		<div id="cropper_container" style="width: 100%; height: 100%;z-index: 100000; display: none;position: absolute;">
-			<img src="" alt="" style="max-width: 100%">
-			<button class="uiImage-btn" id="apply" type="button" style="left: 0">应用</button>
-			<button class="uiImage-btn" id="cancel" type="button" style="right: 0;">取消</button>
-		</div>
-		<div class="show-image-container"
-			style="display: none;justify-content: center;align-items: center;position: fixed;top:0;left:0;right:0;bottom:0;z-index:1000;">
-			<div id="showImageBackButton"
-				style="background-image: url('Media/back.png');background-size:100% 100%;width: 40px;height: 40px;position: absolute;top: 60px;right: 50px;">
+    <div id="divpar">
+        <div id="cropper_container" style="width: 100%; height: 100%;z-index: 100000; display: none;position: absolute;">
+            <img src="" alt="" style="max-width: 100%">
+            <button class="uiImage-btn" id="apply" type="button" style="left: 0">应用</button>
+            <button class="uiImage-btn" id="cancel" type="button" style="right: 0;">取消</button>
+				</div>
+
+				<div class="show-image-container"
+				style="display: none;justify-content: center;align-items: center;position: fixed;top:0;left:0;right:0;bottom:0;z-index:1000;">
+				<div id="showImageBackButton"
+					style="background-image: url('Media/back.png');background-size:100% 100%;width: 40px;height: 40px;position: absolute;top: 60px;right: 50px;">
+				</div>
+				<div id="saveMessageButton"
+					style="background-image: url('Media/saveImage.png');background-size:100% 100%;width: 190px;height: 50px;position: absolute;bottom: 3%;">
+				</div>
+				<img id="showImage" src=""></img>
 			</div>
-			<div id="saveMessageButton"
-				style="background-image: url('Media/saveImage.png');background-size:100% 100%;width: 190px;height: 50px;position: absolute;bottom: 3%;">
+
+        <img id="floatArrow" class="floatArrow" src="Media/arrow.png"></img>
+        <audio id="au1" src=""></audio>
+        	<div id="loadingBox" class="loadingBox">
+	<img id="logo" width="40%" style="opacity:1.0;">
+	</div>
+	<input type="hidden" id="json" value="{'layout':'fixed','lastfile':'chapter-8.html','pageturning':[{'pageresult':'Traslation','pagedir':'UpAndDown','pagecircle':'true','pagetime':'1500','pageicon':'false','pagenoslide':'true'}],'adjustType':'widthAdjust','bgmhideicon':'false','bgmarea':[{'src':'Media/bgmusic0.mp3','loop':true,'autoplay':'true','start':1,'end':8},],'collect':'http://h5.founderfx.cn/external/h5/collectFormData','submitted':'http://h5.founderfx.cn/external/h5/findFormOne','loadingbar':{'bartype':'rotate','barpos':'30','showPercent':'false','barfgcolor':'rgba(247,99,23,1.0)','barbgcolor':'rgba(34,34,34,1.0)','promptText':'','promptSize':'21.0','promptColor':'#ffffff','fgpic':'Media/loadpage1.png','loadpic':'','bgpic':'Media/loadpage2.jpg','bgcolor':'#333333','bgtype':'image','direction':'clockwise'}}"/>
+	<script src="scripts/sizeAdjustor.js" type="text/javascript"></script>
+	<script src="scripts/index_modify.js" type="text/javascript"></script>
+	<script src="scripts/loadingbar.js" type="text/javascript"></script>
+	<div id="divbgm" class="divbgm">
+	<img id="bgmPlay" class="imgbgm" src="Media/bgmplay.png"></img>
+	<img id="bgmPause" class="imgbgm" src="Media/bgmpause.png"></img>
+	<audio id="aubgm" src="Media/bgmusic0.mp3" preload="auto"></audio>
+	</div>
+	<div class="swiper-container" id="swiper_container" style="position:absolute;overflow:hidden;display:none;" data-width="640" data-height="1260">
+		<div class="swiper-wrapper">
+<div id="page1" class="divshow swiper-slide">
+<div  class="p1para1 p1textdiv0">
+
+	<div id="pGrp-2" class="p1pGrpDiv-FxLi2">
+
+		<div class="">
+
+			<div class="p1imagediv4">
+
+				<img class="p1image5" src="Media/chapter-1image1.png" id="imageItem-4" alt="Media/chapter-1image1.png"></img>
+
 			</div>
-			<img id="showImage" src=""></img>
+
 		</div>
-		<img id="floatArrow" class="floatArrow" src="Media/arrow.png"></img>
-		<audio id="au1" src=""></audio>
-		<div id="loadingBox" class="loadingBox">
-			<img id="logo" width="40%" style="opacity:1.0;">
+
+		<div title="Animation" id="si_800001C2" style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
+
+			<div style="left:47.5px;top:165.582px;height:137px;width:545px;position:absolute;opacity:0.0;">
+
+				<div title="groupItem" style="width:100%;height:100%;">
+
+					<div style="width:100%;height:100%;overflow:hidden;">
+
+						<img src="Media/chapter-1image2.png" id="imageItem-5" alt="Media/chapter-1image2.png" style="width:545px;height:137px;"></img>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;0-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;0.5&quot;}]}]}"></input>
+
 		</div>
-		<input type="hidden" id="json"
-			value="{'layout':'fixed','lastfile':'chapter-6.html','pageturning':[{'pageresult':'Traslation','pagedir':'UpAndDown','pagecircle':'true','pagetime':'1500','pageicon':'false','pagenoslide':'true'}],'adjustType':'widthAdjust','bgmhideicon':'false','bgmarea':[{'src':'Media/bgmusic0.mp3','loop':true,'autoplay':'true','start':1,'end':6},],'collect':'http://h5.founderfx.cn/external/h5/collectFormData','submitted':'http://h5.founderfx.cn/external/h5/findFormOne','loadingbar':{'bartype':'rotate','barpos':'30','showPercent':'false','barfgcolor':'rgba(247,99,23,1.0)','barbgcolor':'rgba(34,34,34,1.0)','promptText':'','promptSize':'21.0','promptColor':'#ffffff','fgpic':'Media/loadpage1.png','loadpic':'','bgpic':'Media/loadpage2.png','bgcolor':'#333333','bgtype':'image','direction':'clockwise'}}" />
-		<script src="scripts/sizeAdjustor.js" type="text/javascript"></script>
-		<script src="scripts/index_modify.js" type="text/javascript"></script>
-		<script src="scripts/loadingbar.js" type="text/javascript"></script>
-		<div id="divbgm" class="divbgm">
-			<img id="bgmPlay" class="imgbgm" src="Media/bgmplay.png"></img>
-			<img id="bgmPause" class="imgbgm" src="Media/bgmpause.png"></img>
-			<audio id="aubgm" src="Media/bgmusic0.mp3" preload="auto"></audio>
+
+		<div title="Animation" id="si_800001CE" style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
+
+			<div style="left:0px;top:338.366px;height:270px;width:640px;position:absolute;opacity:0.0;">
+
+				<div title="groupItem" style="width:100%;height:100%;">
+
+					<div style="width:100%;height:100%;overflow:hidden;">
+
+						<img src="Media/chapter-1image3.png" id="imageItem-6" alt="Media/chapter-1image3.png" style="width:640px;height:270px;"></img>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;1-0&quot;,&quot;effect&quot;:&quot;slideInUp&quot;,&quot;direction&quot;:&quot;bottom&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
+
 		</div>
-		<div class="swiper-container" id="swiper_container" style="position:absolute;overflow:hidden;display:none;"
-			data-width="640" data-height="1260">
-			<div class="swiper-wrapper">
-				<div id="page1" class="divshow swiper-slide">
-					<div class="p1para1 p1textdiv0">
 
-						<div id="pGrp-2" class="p1pGrpDiv-FxLi2">
+		<div class="">
 
-							<div class="">
+			<div class="p1imagediv6">
 
-								<div class="p1imagediv4">
+				<img class="p1image7" src="Media/chapter-1image4.png" id="imageItem-7" alt="Media/chapter-1image4.png"></img>
 
-									<img class="p1image5" src="Media/chapter-1image1.png" id="imageItem-9"
-										alt="Media/chapter-1image1.png"></img>
+			</div>
 
-								</div>
+		</div>
 
-							</div>
+		<div class="">
 
-							<div title="Animation" id="si_800001C2"
-								style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
+			<div class="p1imagediv8">
 
-								<div style="left:47.5px;top:165.582px;height:137px;width:545px;position:absolute;opacity:0.0;">
+				<img class="p1image9" src="Media/chapter-1image5.png" id="imageItem-8" alt="Media/chapter-1image5.png"></img>
 
-									<div title="groupItem" style="width:100%;height:100%;">
+			</div>
 
-										<div style="width:100%;height:100%;overflow:hidden;">
+		</div>
 
-											<img src="Media/chapter-1image2.png" id="imageItem-10" alt="Media/chapter-1image2.png"
-												style="width:545px;height:137px;"></img>
+		<div class="">
 
-										</div>
+			<div title="uiTextBox" id="si_80000116" class="p1InAdiv10" name="文本1" style="pointer-events:auto;">
 
-									</div>
+				<textarea style="width:100%; height:100%; left:0; top:0; position:absolute; box-sizing:border-box; font-family:FZD;font-size:56.0px;color:#000000;border:none;" data-name="文本1"></textarea>
 
-								</div>
+				<input name="json" type="hidden" value="{&quot;inputType&quot;:&quot;area&quot;,&quot;maxLength&quot;:24,&quot;required&quot;:true,&quot;relatedMode&quot;:&quot;none&quot;,&quot;relatedUIControl&quot;:&quot;si_0&quot;}"></input>
 
-								<input type="hidden" name="json"
-									value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;0-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;0.5&quot;}]}]}"></input>
+			</div>
 
-							</div>
+		</div>
 
-							<div title="Animation" id="si_800001CE"
-								style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
+		<div title="Animation" id="si_80000181" style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
 
-								<div style="left:0px;top:338.366px;height:270px;width:640px;position:absolute;opacity:0.0;">
+			<div style="left:147.733px;top:734.401px;height:82.503px;width:350.535px;position:absolute;">
 
-									<div title="groupItem" style="width:100%;height:100%;">
+				<div title="groupItem" style="width:100%;height:100%;">
 
-										<div style="width:100%;height:100%;overflow:hidden;">
+					<div style="width:100%;height:100%;overflow:hidden;">
 
-											<img src="Media/chapter-1image3.png" id="imageItem-11" alt="Media/chapter-1image3.png"
-												style="width:640px;height:270px;"></img>
+						<img src="Media/chapter-1image6.png" id="imageItem-9" alt="Media/chapter-1image6.png" style="width:351px;height:83px;"></img>
 
-										</div>
+					</div>
 
-									</div>
+				</div>
 
-								</div>
+			</div>
 
-								<input type="hidden" name="json"
-									value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;1-0&quot;,&quot;effect&quot;:&quot;slideInUp&quot;,&quot;direction&quot;:&quot;bottom&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
+			<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;strongAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;2-0&quot;,&quot;effect&quot;:&quot;flash&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;3&quot;},{&quot;type&quot;:&quot;fromAppearance&quot;,&quot;event&quot;:&quot;after&quot;,&quot;uid&quot;:&quot;3-0&quot;,&quot;effect&quot;:&quot;fadeOut&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
 
-							</div>
+		</div>
 
-							<div class="">
+		<div class="p1InAdiv11" id="buttonItem-11">
 
-								<div class="p1imagediv6">
+			<div title="Button" style="overflow:hidden;height:62px;width:290px;position:relative;">
 
-									<img class="p1image7" src="Media/chapter-1image4.png" id="imageItem-12"
-										alt="Media/chapter-1image4.png"></img>
+				<div style="left:0px;top:0px;height:62px;width:290px;display:inline;position:absolute;">
 
-								</div>
+					<img src="Media/chapter-1image7.png" style="height:62px;width:290px;"></img>
 
-							</div>
+				</div>
 
-							<div class="">
+				<input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;2&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
 
-								<div title="uiTextBox" id="si_80000116" class="p1InAdiv8" name="文本1" style="pointer-events:auto;">
+			</div>
 
-									<input type="text"
-										style="width:100%; height:100%; left:0; top:0; position:absolute; box-sizing:border-box; font-family:sans-serif;font-size:42.0px;color:#ffffff;border:solid 1px #666666;"
-										placeholder="跟祖国表个白" maxlength="18446744073709551615" data-name="文本1"></input>
+		</div>
 
-									<input name="json" type="hidden"
-										value="{&quot;inputType&quot;:&quot;any&quot;,&quot;maxLength&quot;:18446744073709551615,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;none&quot;,&quot;relatedUIControl&quot;:&quot;si_0&quot;}"></input>
+	</div>
 
-								</div>
+</div>
 
-							</div>
+</div>
+<div id="page2" class="divshow swiper-slide">
+<div  class="p2para1 p2textdiv0">
 
-							<div class="">
+	<div id="pGrp-25" class="p2pGrpDiv-FxLi2">
 
-								<div class="p1textdiv9">
+		<div class="">
 
-									<article class="p1para10">
+			<div class="p2imagediv4">
 
-										<div id="pGrp-4" class="p1pGrpDiv-FxLi11">
+				<img class="p2image5" src="Media/chapter-2image8.jpg" id="imageItem-30" alt="Media/chapter-2image8.jpg"></img>
 
-											<div class="">
+			</div>
 
-												<div id="rGrp-5" class="p1para12">
+		</div>
 
-													<div id="rGrp-6" class="p1para12">
+		<div class="">
 
-														<span class="p1span13">↑</span>
+			<div class="p2textdiv6">
 
-													</div>
+				<article class="p2para7">
 
-													<div id="rGrp-7" class="p1para14">
+					<div id="pGrp-27" class="p2pGrpDiv-FxLi8">
 
-														<span class="p1span15">点击上传照片</span>
+						<div class="">
 
-													</div>
+							<div id="rGrp-28" class="p2para9">
 
-													<div id="rGrp-8" class="p1para16">
+								<div id="rGrp-29" class="p2para10">
 
-														<span class="p1span13">↑</span>
-
-													</div>
-
-												</div>
-
-											</div>
-
-										</div>
-
-									</article>
-
-								</div>
-
-							</div>
-
-							<div class="p1InAdiv17" id="buttonItem-14">
-
-								<div title="Button" style="overflow:hidden;height:62px;width:290px;position:relative;">
-
-									<div style="left:0px;top:0px;height:62px;width:290px;display:inline;position:absolute;">
-
-										<img src="Media/chapter-1image5.png" style="height:62px;width:290px;"></img>
-
-									</div>
-
-									<input type="hidden" name="json"
-										value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;2&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+									<span class="p2span11">请选择场景</span>
 
 								</div>
 
@@ -408,413 +368,335 @@
 
 					</div>
 
-				</div>
-				<div id="page2" class="divshow swiper-slide">
-					<div class="p2para1 p2textdiv0">
+				</article>
 
-						<div id="pGrp-26" class="p2pGrpDiv-FxLi2">
+			</div>
 
-							<div class="">
+		</div>
 
-								<div class="p2imagediv4">
+		<div class="p2InAdiv12" id="buttonItem-38">
 
-									<img class="p2image5" src="Media/chapter-1image1.png" id="imageItem-31"
-										alt="Media/chapter-1image1.png"></img>
+			<div title="Button" style="overflow:hidden;height:183px;width:223px;position:relative;">
 
-								</div>
+				<div style="left:0px;top:0px;height:183px;width:223px;display:inline;position:absolute;">
 
-							</div>
-
-							<div class="">
-
-								<div class="p2imagediv6">
-
-									<img class="p2image7" src="Media/chapter-1image4.png" id="imageItem-32"
-										alt="Media/chapter-1image4.png"></img>
-
-								</div>
-
-							</div>
-
-							<div class="">
-
-								<div class="p2imagediv8">
-
-									<img class="p2image5" src="Media/chapter-2image6.png" id="imageItem-33"
-										alt="Media/chapter-2image6.png"></img>
-
-								</div>
-
-							</div>
-
-							<div class="">
-
-								<div class="p2textdiv9">
-
-									<article class="p2para10">
-
-										<div id="pGrp-28" class="p2pGrpDiv-FxLi11">
-
-											<div class="">
-
-												<div id="rGrp-29" class="p2para12">
-
-													<div id="rGrp-30" class="p2para13">
-
-														<span class="p2span14">请选择场景</span>
-
-													</div>
-
-												</div>
-
-											</div>
-
-										</div>
-
-									</article>
-
-								</div>
-
-							</div>
-
-							<div class="">
-
-								<div class="p2imagediv15">
-
-									<img class="p2image16" src="Media/chapter-2image7.png" id="imageItem-34"
-										alt="Media/chapter-2image7.png"></img>
-
-								</div>
-
-							</div>
-
-							<div class="p2InAdiv17" id="buttonItem-43">
-
-								<div title="Button" style="overflow:hidden;height:265px;width:243px;position:relative;">
-
-									<div style="left:0px;top:0px;height:265px;width:243px;display:inline;position:absolute;">
-
-										<img src="Media/chapter-2image8.png" style="height:265px;width:243px;"></img>
-
-									</div>
-
-									<input type="hidden" name="json"
-										value="{&quot;saveImage&quot;:&quot;true&quot;,&quot;imgBg&quot;:&quot;imageItem-58&quot;,&quot;imgUser&quot;:&quot;si_8000012D&quot;,&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;3&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
-
-								</div>
-
-							</div>
-
-							<div class="">
-
-								<div class="p2imagediv18">
-
-									<img class="p2image19" src="Media/chapter-2image9.png" id="imageItem-36"
-										alt="Media/chapter-2image9.png"></img>
-
-								</div>
-
-							</div>
-
-							<div class="p2InAdiv20" id="buttonItem-44">
-
-								<div title="Button" style="overflow:hidden;height:265px;width:243px;position:relative;">
-
-									<div style="left:0px;top:0px;height:265px;width:243px;display:inline;position:absolute;">
-
-										<img src="Media/chapter-2image8.png" style="height:265px;width:243px;"></img>
-
-									</div>
-
-									<input type="hidden" name="json"
-										value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;6&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
-
-								</div>
-
-							</div>
-
-							<div class="">
-
-								<div class="p2imagediv21">
-
-									<img class="p2image22" src="Media/chapter-2image10.png" id="imageItem-38"
-										alt="Media/chapter-2image10.png"></img>
-
-								</div>
-
-							</div>
-
-							<div class="p2InAdiv23" id="buttonItem-45">
-
-								<div title="Button" style="overflow:hidden;height:249px;width:243px;position:relative;">
-
-									<div style="left:0px;top:0px;height:249px;width:243px;display:inline;position:absolute;">
-
-										<img src="Media/chapter-2image8.png" style="height:249px;width:243px;"></img>
-
-									</div>
-
-									<input type="hidden" name="json"
-										value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
-
-								</div>
-
-							</div>
-
-							<div class="">
-
-								<div class="p2imagediv24">
-
-									<img class="p2image25" src="Media/chapter-2image11.png" id="imageItem-40"
-										alt="Media/chapter-2image11.png"></img>
-
-								</div>
-
-							</div>
-
-							<div class="p2InAdiv26" id="buttonItem-46">
-
-								<div title="Button" style="overflow:hidden;height:249px;width:243px;position:relative;">
-
-									<div style="left:0px;top:0px;height:249px;width:243px;display:inline;position:absolute;">
-
-										<img src="Media/chapter-2image8.png" style="height:249px;width:243px;"></img>
-
-									</div>
-
-									<input type="hidden" name="json"
-										value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;5&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
-
-								</div>
-
-							</div>
-
-							<div class="p2InAdiv27" id="buttonItem-47">
-
-								<div title="Button" style="overflow:hidden;height:62px;width:290px;position:relative;">
-
-									<div style="left:0px;top:0px;height:62px;width:290px;display:inline;position:absolute;">
-
-										<img src="Media/chapter-2image12.png" style="height:62px;width:290px;"></img>
-
-									</div>
-
-									<input type="hidden" name="json"
-										value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;1&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
-
-								</div>
-
-							</div>
-
-						</div>
-
-					</div>
+					<img src="Media/chapter-2image9.png" style="height:183px;width:223px;"></img>
 
 				</div>
-				<div id="page3" class="divshow swiper-slide">
-					<div class="p3para1 p3textdiv0">
 
-						<div id="pGrp-56" class="p3pGrpDiv-FxLi2">
+				<input type="hidden" name="json" value="{&quot;saveImage&quot;:&quot;true&quot;,&quot;imgBg&quot;:&quot;imageItem-57&quot;,&quot;imgUser&quot;:&quot;si_8000012D&quot;,&quot;fontColor&quot;:&quot;#fff&quot;,&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;false&quot;,&quot;pageIndex&quot;:&quot;3&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
 
-							<div class="">
+			</div>
 
-								<div class="p3imagediv4">
+		</div>
 
-									<img class="p3image5" src="Media/chapter-3image13.png" id="imageItem-58"
-										alt="Media/chapter-3image13.png"></img>
+		<div class="p2InAdiv13" id="buttonItem-39">
 
-								</div>
+			<div title="Button" style="overflow:hidden;height:183px;width:214px;position:relative;">
 
-							</div>
+				<div style="left:0px;top:0px;height:183px;width:214px;display:inline;position:absolute;">
 
-							<div class="">
-
-								<div title="uiTextBox" id="si_8000012D" class="p3InAdiv6" name="文本2" style="pointer-events:auto;">
-
-									<textarea id="ui"
-										style="width:100%; height:100%; left:0; top:0; position:absolute; box-sizing:border-box; font-family:sans-serif;font-size:36.0px;color:#000000;border:solid 1px #666666;"
-										data-name="文本2">123</textarea>
-
-									<input name="json" type="hidden"
-										value="{&quot;inputType&quot;:&quot;area&quot;,&quot;maxLength&quot;:18446744073709551615,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000116&quot;}"></input>
-
-								</div>
-
-							</div>
-
-							<div class="">
-
-								<div class="p3imagediv7">
-
-									<img class="p3image8" src="Media/chapter-3image14.png" id="imageItem-59"
-										alt="Media/chapter-3image14.png"></img>
-
-								</div>
-
-							</div>
-
-						</div>
-
-					</div>
+					<img src="Media/chapter-2image9.png" style="height:183px;width:214px;"></img>
 
 				</div>
-				<div id="page4" class="divshow swiper-slide">
-					<div class="p4para1 p4textdiv0">
 
-						<div id="pGrp-68" class="p4pGrpDiv-FxLi2">
+				<input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;4&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
 
-							<div class="">
+			</div>
 
-								<div class="p4imagediv4">
+		</div>
 
-									<img class="p4image5" src="Media/chapter-4image15.png" id="imageItem-70"
-										alt="Media/chapter-4image15.png"></img>
+		<div class="p2InAdiv14" id="buttonItem-40">
 
-								</div>
+			<div title="Button" style="overflow:hidden;height:172px;width:223px;position:relative;">
 
-							</div>
+				<div style="left:0px;top:0px;height:172px;width:223px;display:inline;position:absolute;">
 
-							<div class="">
-
-								<div title="uiTextBox" id="si_80000145" class="p4InAdiv6" name="文本3" style="pointer-events:auto;">
-
-									<textarea
-										style="width:100%; height:100%; left:0; top:0; position:absolute; box-sizing:border-box; font-family:sans-serif;font-size:36.0px;color:#000000;border:solid 1px #666666;"
-										data-name="文本3"></textarea>
-
-									<input name="json" type="hidden"
-										value="{&quot;inputType&quot;:&quot;area&quot;,&quot;maxLength&quot;:18446744073709551615,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000116&quot;}"></input>
-
-								</div>
-
-							</div>
-
-							<div class="">
-
-								<div class="p4imagediv7">
-
-									<img class="p4image8" src="Media/chapter-3image14.png" id="imageItem-71"
-										alt="Media/chapter-3image14.png"></img>
-
-								</div>
-
-							</div>
-
-						</div>
-
-					</div>
+					<img src="Media/chapter-2image9.png" style="height:172px;width:223px;"></img>
 
 				</div>
-				<div id="page5" class="divshow swiper-slide">
-					<div class="p5para1 p5textdiv0">
 
-						<div id="pGrp-80" class="p5pGrpDiv-FxLi2">
+				<input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;5&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
 
-							<div class="">
+			</div>
 
-								<div class="p5imagediv4">
+		</div>
 
-									<img class="p5image5" src="Media/chapter-5image16.png" id="imageItem-82"
-										alt="Media/chapter-5image16.png"></img>
+		<div class="p2InAdiv15" id="buttonItem-41">
 
-								</div>
+			<div title="Button" style="overflow:hidden;height:172px;width:214px;position:relative;">
 
-							</div>
+				<div style="left:0px;top:0px;height:172px;width:214px;display:inline;position:absolute;">
 
-							<div class="">
-
-								<div title="uiTextBox" id="si_800000D4" class="p5InAdiv6" name="文本4" style="pointer-events:auto;">
-
-									<textarea
-										style="width:100%; height:100%; left:0; top:0; position:absolute; box-sizing:border-box; font-family:sans-serif;font-size:36.0px;color:#000000;border:solid 1px #666666;"
-										data-name="文本4"></textarea>
-
-									<input name="json" type="hidden"
-										value="{&quot;inputType&quot;:&quot;area&quot;,&quot;maxLength&quot;:18446744073709551615,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000116&quot;}"></input>
-
-								</div>
-
-							</div>
-
-							<div class="">
-
-								<div class="p5imagediv7">
-
-									<img class="p5image8" src="Media/chapter-3image14.png" id="imageItem-83"
-										alt="Media/chapter-3image14.png"></img>
-
-								</div>
-
-							</div>
-
-						</div>
-
-					</div>
+					<img src="Media/chapter-2image9.png" style="height:172px;width:214px;"></img>
 
 				</div>
-				<div id="page6" class="divshow swiper-slide">
-					<div class="p6para1 p6textdiv0">
 
-						<div id="pGrp-92" class="p6pGrpDiv-FxLi2">
+				<input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;6&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
 
-							<div class="">
+			</div>
 
-								<div class="p6imagediv4">
+		</div>
 
-									<img class="p6image5" src="Media/chapter-6image17.png" id="imageItem-94"
-										alt="Media/chapter-6image17.png"></img>
+		<div class="p2InAdiv16" id="buttonItem-42">
 
-								</div>
+			<div title="Button" style="overflow:hidden;height:172px;width:223px;position:relative;">
 
-							</div>
+				<div style="left:0px;top:0px;height:172px;width:223px;display:inline;position:absolute;">
 
-							<div class="">
-
-								<div title="uiTextBox" id="si_8000009C" class="p6InAdiv6" name="文本5" style="pointer-events:auto;">
-
-									<textarea
-										style="width:100%; height:100%; left:0; top:0; position:absolute; box-sizing:border-box; font-family:sans-serif;font-size:36.0px;color:#000000;border:solid 1px #666666;"
-										data-name="文本5">sheignn'</textarea>
-
-									<input name="json" type="hidden"
-										value="{&quot;inputType&quot;:&quot;area&quot;,&quot;maxLength&quot;:18446744073709551615,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000116&quot;}"></input>
-
-								</div>
-
-							</div>
-
-							<div class="">
-
-								<div class="p6imagediv7">
-
-									<img class="p6image8" src="Media/chapter-3image14.png" id="imageItem-95"
-										alt="Media/chapter-3image14.png"></img>
-
-								</div>
-
-							</div>
-
-						</div>
-
-					</div>
+					<img src="Media/chapter-2image9.png" style="height:172px;width:223px;"></img>
 
 				</div>
+
+				<input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;7&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+
+			</div>
+
+		</div>
+
+		<div class="p2InAdiv17" id="buttonItem-43">
+
+			<div title="Button" style="overflow:hidden;height:172px;width:214px;position:relative;">
+
+				<div style="left:0px;top:0px;height:172px;width:214px;display:inline;position:absolute;">
+
+					<img src="Media/chapter-2image9.png" style="height:172px;width:214px;"></img>
+
+				</div>
+
+				<input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;8&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+
+			</div>
+
+		</div>
+
+		<div class="p2InAdiv18" id="buttonItem-44">
+
+			<div title="Button" style="overflow:hidden;height:62px;width:290px;position:relative;">
+
+				<div style="left:0px;top:0px;height:62px;width:290px;display:inline;position:absolute;">
+
+					<img src="Media/chapter-2image10.png" style="height:62px;width:290px;"></img>
+
+				</div>
+
+				<input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;1&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+</div>
+<div id="page3" class="divshow swiper-slide">
+<div  class="p3para1 p3textdiv0">
+
+	<div id="pGrp-55" class="p3pGrpDiv-FxLi2">
+
+		<div class="">
+
+			<div class="p3imagediv4">
+
+				<img class="p3image5" src="Media/chapter-3image11.jpeg" id="imageItem-57" alt="Media/chapter-3image11.jpeg"></img>
+
+			</div>
+
+		</div>
+
+		<div class="">
+
+			<div title="uiTextBox" id="si_8000012D" class="p3InAdiv6" name="文本2" style="pointer-events:auto;">
+
+				<textarea style="width:100%; height:100%; left:0; top:0; position:absolute; box-sizing:border-box; font-family:sans-serif;font-size:56.0px;color:#ffffff;border:none;" data-name="文本2"></textarea>
+
+				<input name="json" type="hidden" value="{&quot;inputType&quot;:&quot;area&quot;,&quot;maxLength&quot;:18446744073709551615,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000116&quot;}"></input>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+</div>
+<div id="page4" class="divshow swiper-slide">
+<div  class="p4para1 p4textdiv0">
+
+	<div id="pGrp-68" class="p4pGrpDiv-FxLi2">
+
+		<div class="">
+
+			<div class="p4imagediv4">
+
+				<img class="p4image5" src="Media/chapter-4image12.jpeg" id="imageItem-70" alt="Media/chapter-4image12.jpeg"></img>
+
+			</div>
+
+		</div>
+
+		<div class="">
+
+			<div title="uiTextBox" id="si_80000145" class="p4InAdiv6" name="文本3" style="pointer-events:auto;">
+
+				<textarea style="width:100%; height:100%; left:0; top:0; position:absolute; box-sizing:border-box; font-family:sans-serif;font-size:56.0px;color:#dc143c;border:none;" data-name="文本3"></textarea>
+
+				<input name="json" type="hidden" value="{&quot;inputType&quot;:&quot;area&quot;,&quot;maxLength&quot;:18446744073709551615,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000116&quot;}"></input>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+</div>
+<div id="page5" class="divshow swiper-slide">
+<div  class="p5para1 p5textdiv0">
+
+	<div id="pGrp-81" class="p5pGrpDiv-FxLi2">
+
+		<div class="">
+
+			<div class="p5imagediv4">
+
+				<img class="p5image5" src="Media/chapter-5image13.jpg" id="imageItem-83" alt="Media/chapter-5image13.jpg"></img>
+
+			</div>
+
+		</div>
+
+		<div class="">
+
+			<div title="uiTextBox" id="si_800000D4" class="p5InAdiv6" name="文本4" style="pointer-events:auto;">
+
+				<textarea style="width:100%; height:100%; left:0; top:0; position:absolute; box-sizing:border-box; font-family:sans-serif;font-size:56.0px;color:#ffffff;border:none;" data-name="文本4"></textarea>
+
+				<input name="json" type="hidden" value="{&quot;inputType&quot;:&quot;area&quot;,&quot;maxLength&quot;:18446744073709551615,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000116&quot;}"></input>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+</div>
+<div id="page6" class="divshow swiper-slide">
+<div  class="p6para1 p6textdiv0">
+
+	<div id="pGrp-94" class="p6pGrpDiv-FxLi2">
+
+		<div class="">
+
+			<div class="p6imagediv4">
+
+				<img class="p6image5" src="Media/chapter-6image14.jpg" id="imageItem-96" alt="Media/chapter-6image14.jpg"></img>
+
+			</div>
+
+		</div>
+
+		<div class="">
+
+			<div title="uiTextBox" id="si_8000009C" class="p6InAdiv6" name="文本5" style="pointer-events:auto;">
+
+				<textarea style="width:100%; height:100%; left:0; top:0; position:absolute; box-sizing:border-box; font-family:sans-serif;font-size:56.0px;color:#000000;border:none;" data-name="文本5"></textarea>
+
+				<input name="json" type="hidden" value="{&quot;inputType&quot;:&quot;area&quot;,&quot;maxLength&quot;:18446744073709551615,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000116&quot;}"></input>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+</div>
+<div id="page7" class="divshow swiper-slide">
+<div  class="p7para1 p7textdiv0">
+
+	<div id="pGrp-107" class="p7pGrpDiv-FxLi2">
+
+		<div class="">
+
+			<div class="p7imagediv4">
+
+				<img class="p7image5" src="Media/chapter-7image15.jpg" id="imageItem-109" alt="Media/chapter-7image15.jpg"></img>
+
+			</div>
+
+		</div>
+
+		<div class="">
+
+			<div title="uiTextBox" id="si_80000107" class="p7InAdiv6" name="文本6" style="pointer-events:auto;">
+
+				<textarea style="width:100%; height:100%; left:0; top:0; position:absolute; box-sizing:border-box; font-family:sans-serif;font-size:56.0px;color:#dc143c;border:none;" data-name="文本6"></textarea>
+
+				<input name="json" type="hidden" value="{&quot;inputType&quot;:&quot;area&quot;,&quot;maxLength&quot;:18446744073709551615,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000116&quot;}"></input>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+</div>
+<div id="page8" class="divshow swiper-slide">
+<div  class="p8para1 p8textdiv0">
+
+	<div id="pGrp-120" class="p8pGrpDiv-FxLi2">
+
+		<div class="">
+
+			<div class="p8imagediv4">
+
+				<img class="p8image5" src="Media/chapter-8image16.jpg" id="imageItem-122" alt="Media/chapter-8image16.jpg"></img>
+
+			</div>
+
+		</div>
+
+		<div class="">
+
+			<div title="uiTextBox" id="si_80000130" class="p8InAdiv6" name="文本7" style="pointer-events:auto;">
+
+				<textarea style="width:100%; height:100%; left:0; top:0; position:absolute; box-sizing:border-box; font-family:sans-serif;font-size:56.0px;color:#dc143c;border:none;" data-name="文本7"></textarea>
+
+				<input name="json" type="hidden" value="{&quot;inputType&quot;:&quot;area&quot;,&quot;maxLength&quot;:18446744073709551615,&quot;required&quot;:false,&quot;relatedMode&quot;:&quot;current&quot;,&quot;relatedUIControl&quot;:&quot;si_80000116&quot;}"></input>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+</div>
 			</div>
 		</div>
 	</div>
 
 
-	<div id="wx_pic" style="margin:0 auto;overflow:hidden;width:0;height:0;">
-		<img src="Media/cover.jpg" />
-	</div><button id="prepage" style="display:none;">上一页</button>
-	<button id="nextpage" style="display:none;">下一页</button>
-	<div id="divpre" style="position:absolute;left:0%;width:10%;top:10%;height:90%;z-index:1;display:none;"></div>
-	<div id="divnext" style="position:absolute;left:90%;width:10%;top:10%;height:90%;z-index:1;display:none;"></div>
-	</div>
-	<script src="./scripts/options.js"></script>
+<div id="wx_pic" style="margin:0 auto;overflow:hidden;width:0;height:0;">
+<img src="Media/cover.jpg"/>
+</div><button id="prepage" style="display:none;">上一页</button>
+        <button id="nextpage" style="display:none;">下一页</button>
+        <div id="divpre" style="position:absolute;left:0%;width:10%;top:10%;height:90%;z-index:1;display:none;"></div>
+        <div id="divnext" style="position:absolute;left:90%;width:10%;top:10%;height:90%;z-index:1;display:none;"></div>
+    </div>
+    <script src="./scripts/options.js"></script>
 	<script src="scripts/swiper.min.js" type="text/javascript"></script>
-	<script>
-</script>
 </body>
 
 </html>
