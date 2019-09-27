@@ -913,7 +913,7 @@
                     }
                 }
 
-                function drawtext(ctx,t,x,y,w){
+                function drawtext(ctx,t,x,y,w,i){
                     console.log('w',w)
                     //参数说明
                     //ctx：canvas的 2d 对象，t：绘制的文字，x,y:文字坐标，w：文字最大宽度
@@ -931,7 +931,7 @@
                     }
                     row.push(temp)
                     for(let b=0;b<row.length;b++){
-                        ctx.fillText(row[b],x,y+(b+1)*20);//每行字体y坐标间隔20
+                        ctx.fillText(row[b],x,y+(b+1)*i);//每行字体y坐标间隔20
                     }
                 
                 }
@@ -940,7 +940,6 @@
                 var imgUser = $('#' + imgUserParent).children('textarea')[0];
                 var value = $('#si_80000116').children('textarea').val();
                 var size = $('#si_80000116').children('textarea').css('font-size');
-                console.log('value',value,size)
                 // imgUser.src = $('#si_80000173').children('img').attr('src');
 
                 var imgShow = document.getElementById('showImage');
@@ -969,7 +968,7 @@
                 context.font = parseInt(size)*window.sizeAdjustor.scaleX+ "px sans-serif"   
                 context.fillStyle = fontColor;   
                 // context.fillText(value, imgUserLeft, imgUserTop+10);
-                drawtext(context,value,imgUserLeft,imgUserTop+10,imgUserWidth)
+                drawtext(context,value,imgUserLeft,imgUserTop,imgUserWidth,parseInt(size)*window.sizeAdjustor.scaleX)
 
                 // context.drawImage(imgUser, 0, 0, imgUser.naturalWidth, imgUser.naturalHeight, imgUserLeft, (imgUserTop - 1), (imgUserWidth + 2), (imgUserHeight + 2));
 
