@@ -960,8 +960,8 @@
                 canvas.height = canvasHeight * 3;
 
                 context.scale(3, 3);
-                context.fillStyle = "#fff";
-                context.fillRect(0,0,canvasWidth, canvasHeight);
+                // context.fillStyle = "#fff";
+                // context.fillRect(0,0,canvasWidth, canvasHeight);
                 context.font = "20px Times New Roman"   
                 context.fillStyle = "black";   
                 // context.fillText(value, imgUserLeft, imgUserTop+10);
