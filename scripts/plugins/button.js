@@ -965,7 +965,7 @@
 
                 // context.fillStyle = "#fff";
                 // context.fillRect(0,0,canvasWidth, canvasHeight);
-                context.font = "56px FZD"   
+                context.font = "20px sans-serif"   
                 context.fillStyle = fontColor;   
                 // context.fillText(value, imgUserLeft, imgUserTop+10);
                 drawtext(context,value,imgUserLeft,imgUserTop+10,imgUserWidth)
