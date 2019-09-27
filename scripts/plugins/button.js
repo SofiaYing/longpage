@@ -890,9 +890,12 @@
 
             //关闭画面 全部/指定
             function SaveImage(imgBg, imgUserParent,fontColor) {
+                var imgShow = document.getElementById('showImage');
+
                 $('.show-image-container').css('display', 'flex');
                 $('#showImageBackButton').css('right', parseInt($('.swiper-container').css('left')) + 20 + 'px');
                 $('#showImageBackButton').one('click', function(e) {
+                    imgShow.src = ''
                     $('.show-image-container').css('display', 'none');
                     return false
                 })
@@ -942,7 +945,6 @@
                 var size = $('#si_80000116').children('textarea').css('font-size');
                 // imgUser.src = $('#si_80000173').children('img').attr('src');
 
-                var imgShow = document.getElementById('showImage');
                 var imgUserOffsetArray = getRelativeDisttance($('#' + imgUserParent)[0], 'divshow');
 
                 var canvas = document.createElement("canvas");
@@ -975,8 +977,6 @@
 
                 $(imgShow).css({ 'width': canvasWidth + 'px', 'height': canvasHeight + 'px' });
                 imgShow.src = canvas.toDataURL();
-
-                var src = canvas.toDataURL();
             }
 
             function GotPage(btID) {
