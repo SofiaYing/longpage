@@ -931,7 +931,7 @@
                     }
                     row.push(temp)
                     for(let b=0;b<row.length;b++){
-                        ctx.fillText(row[b],x,y+(b+1)*i);//每行字体y坐标间隔20
+                        ctx.fillText(row[b],x,y+(b+1)*i*1.5);//每行字体y坐标间隔20
                     }
                 
                 }
