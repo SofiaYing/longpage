@@ -21,6 +21,7 @@
         // 对象
         var Button = function(id, option) {
             this.$target = $("#" + id).children().eq(0);
+            this.openAllPicturesFlag = false;
             this.init(id, option);
         };
 
@@ -55,7 +56,7 @@
             gotoURLAction = data.gotoURLAction;
             url = data.url;
 
-            addButtonListener(demoButton, btID);
+            addButtonListener(demoButton, btID, this);
             //以下代码为了判断设置为(显示第一个弹出内容时)的情况，做特殊处理：
             //1：把z-index设置为0，为了不遮挡按钮。
             //2：对其进行标记，用jquery.data(),使得在destroy时将其display设置为inline而不是none
@@ -144,7 +145,7 @@
 
 
 
-        function addButtonListener(demo, btID) {
+        function addButtonListener(demo, btID, demoObj) {
             var xpos = demo[0].offsetLeft;
             var ypos = demo[0].offsetTop;
             var divBtnIcon0 = demo.children().eq(0);
@@ -837,17 +838,33 @@
             //打开全部画面
             function openAllPictures(stateId) {
                 var demo = $('#' + stateId);
-                $.each(demo.children(), function(index, item) {
-                    if ($(item).attr('title') && $(item).attr('title').substring(0, 2) === '画面') {
-                        if ($(item).css('display') === 'none') {
-                            TopPopupContent($(item), 0);
-                            $(item).css({ 'display': 'inline' });
-                            MoveCloseButton($(item), 0);
-                            addCloseImgListener(demo);
-                            PlayInteractiveInPopupContent($(item), 0);
+                if (!demoObj.openAllPicturesFlagflag) {
+                    $.each(demo.children(), function(index, item) {
+                        if ($(item).attr('title') && $(item).attr('title').substring(0, 2) === '画面') {
+                            if ($(item).css('display') === 'none') {
+                                TopPopupContent($(item), 0);
+                                $(item).css({ 'display': 'inline' });
+                                MoveCloseButton($(item), 0);
+                                addCloseImgListener(demo);
+                                PlayInteractiveInPopupContent($(item), 0);
+                            }
                         }
-                    }
-                })
+                    })
+                    ShowDownButton();
+                    demoObj.openAllPicturesFlagflag = true;
+                } else {
+                    $.each(demo.children(), function(index, item) {
+                        if ($(item).attr('title') && $(item).attr('title').substring(0, 2) === '画面') {
+                            if ($(item).css('display') !== 'none') {
+                                UnTopPopupContent($(item), 0);
+                                $(item).css({ 'display': 'none' });
+                                ResetInteractiveInPopupContent($(item), 0);
+                            }
+                        }
+                    })
+                    ShowUpButton();
+                    demoObj.openAllPicturesFlagflag = false;
+                }
             }
 
             //关闭画面 全部/指定
@@ -886,63 +903,6 @@
                 else {
                     closeIMGButton(demo.children()[parseInt(curState) - 1]);
                 }
-            }
-
-            //关闭画面 全部/指定
-            function SaveImage(imgBg, imgUserParent) {
-                $('.show-image-container').css('display', 'flex');
-                $('#showImageBackButton').css('right', parseInt($('.swiper-container').css('left')) + 20 + 'px');
-                $('#showImageBackButton').one('click', function(e) {
-                    $('.show-image-container').css('display', 'none');
-                    return false
-                })
-
-                function getRelativeDisttance(subElement, container) {
-                    var distX = 0,
-                        distY = 0,
-                        tempEl = subElement;
-                    while (tempEl && !tempEl.classList.contains(container)) {
-
-                        distX += tempEl.offsetLeft;
-                        distY += tempEl.offsetTop;
-                        tempEl = tempEl.parentNode;
-                    }
-                    return {
-                        x: distX,
-                        y: distY
-                    }
-                }
-
-                var imgBg = document.getElementById(imgBg);
-                var imgUser = $('#' + imgUserParent).children('img')[0];
-                imgUser.src = $('#si_80000173').children('img').attr('src');
-
-                var imgShow = document.getElementById('showImage');
-                var imgUserOffsetArray = getRelativeDisttance($('#' + imgUserParent)[0], 'divshow');
-
-                var canvas = document.createElement("canvas");
-                var context = canvas.getContext("2d");
-
-                var canvasWidth = imgBg.width * window.sizeAdjustor.scaleX;
-                var canvasHeight = imgBg.height * window.sizeAdjustor.scaleY;
-                var imgUserLeft = imgUserOffsetArray.x * window.sizeAdjustor.scaleX;
-                var imgUserTop = imgUserOffsetArray.y * window.sizeAdjustor.scaleY;
-                var imgUserWidth = imgUser.width * window.sizeAdjustor.scaleX;
-                var imgUserHeight = imgUser.height * window.sizeAdjustor.scaleY;
-
-                $(canvas).css({ 'width': canvasWidth + 'px', 'height': canvasHeight + 'px' });
-                canvas.width = canvasWidth * 3;
-                canvas.height = canvasHeight * 3;
-
-                context.scale(3, 3);
-                context.drawImage(imgUser, 0, 0, imgUser.naturalWidth, imgUser.naturalHeight, imgUserLeft, (imgUserTop - 1), (imgUserWidth + 2), (imgUserHeight + 2));
-                context.drawImage(imgBg, 0, 0, imgBg.naturalWidth, imgBg.naturalHeight, 0, 0, canvasWidth, canvasHeight);
-
-
-                $(imgShow).css({ 'width': canvasWidth + 'px', 'height': canvasHeight + 'px' });
-                imgShow.src = canvas.toDataURL();
-
-                var src = canvas.toDataURL();
             }
 
             function GotPage(btID) {
@@ -1073,6 +1033,7 @@
                     ShowDownButton();
                 event.stopPropagation();
             });
+
             demo.on(goToPageEvent, function(e) {
                 e.preventDefault();
                 var demoButton = $(e.target.parentNode.parentNode);
@@ -1097,17 +1058,11 @@
                 dynamicComponentId = data.timeLineSlideId;
                 operation = data.operation; //按钮对动态组件的具体操作
 
-                var imgBg = data.imgBg;
-                var imgUser = data.imgUser;
-                var saveImage = data.saveImage;
-
                 if (dynamicControl === "false") {
                     var ctState = (stateuid === '') ? 0 : document.getElementById(stateuid).children.length;
                 }
 
                 var parentIndex = $(this).css('z-index');
-
-
 
                 if ((gotoNextStateAction === "true") || (gotoPrevStateAction === "true"))
                     ShowUpButton();
@@ -1132,8 +1087,6 @@
                     }
                 } else if (dynamicControl === "true") { //控制动态组件
                     controlDynamicObject(dynamicComponentId, operation);
-                } else if (saveImage === "true") {
-                    SaveImage(imgBg, imgUser);
                 }
 
                 return false
@@ -1150,8 +1103,10 @@
             for (var i = 0; i < videonodes.length; i++) {
                 var video = GetChild('video', videonodes[i], 0);
                 if (video === null || video === undefined) {
-                    var curItem = window.fx.getItemById(videonodes[i].id);
-                    curItem.reset();
+                    if (window.fx !== undefined) {
+                        var curItem = window.fx.getItemById(videonodes[i].id);
+                        curItem.reset();
+                    }
                     continue;
                 }
                 var duration = video.duration;
@@ -1784,17 +1739,20 @@
             for (var i = 0; i < lenDemoSlide; i++) {
                 var slideItem = demoSlide.children('div').eq(i);
                 slideItem.unbind();
-                slideItem.on(startEvent, function(event) {
-                    //当弹出内容是非全屏动画时,调用event.preventDefault会导致不能翻页,例:生物进化第3页
-                    //当弹出内容是全屏图片时,点击右上角需阻止翻页,例:全球攻略第27页,10课热情服务第9页
-                    var animationObject = slideItem.find("div[title='Animation']");
-                    var formObject = slideItem.find("div[title='uiTextBox']") || slideItem.find("div[title='radioItem']") || slideItem.find("div[title='checkItem']") || slideItem.find("div[title='uiDropDownListBox']");
-                    if (animationObject.length === 0 && formObject.length === 0)
-                        event.preventDefault();
-                    event.stopPropagation();
+                var videoComponent = slideItem.find("div[title='video']");
+                if (videoComponent.length === 0) {
+                    slideItem.on(startEvent, function(event) {
+                        //当弹出内容是非全屏动画时,调用event.preventDefault会导致不能翻页,例:生物进化第3页
+                        //当弹出内容是全屏图片时,点击右上角需阻止翻页,例:全球攻略第27页,10课热情服务第9页
+                        var animationObject = slideItem.find("div[title='Animation']");
+                        var formObject = slideItem.find("div[title='uiTextBox']") || slideItem.find("div[title='radioItem']") || slideItem.find("div[title='checkItem']") || slideItem.find("div[title='uiDropDownListBox']");
+                        if (animationObject.length === 0 && formObject.length === 0)
+                            event.preventDefault();
+                        event.stopPropagation();
 
-                    return false;
-                });
+                        return false;
+                    });
+                }
                 //点击关闭
                 var lenSlideChildren = slideItem.children().length;
                 var closeImg = slideItem.children().eq(lenSlideChildren - 1);

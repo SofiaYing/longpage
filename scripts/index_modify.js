@@ -34,15 +34,21 @@ window.onloadOver = function() {
     window.dataController = new DataController(jsonData);
     window.bgmController = new BGMController(jsonData.bgmarea, jsonData.bgmhideicon);
     bgmController.controlAutoBgm(0, undefined);
-    var effects = {
-        "Traslation": "slide",
-        "Fad": "fade",
-        "CoverFlow": "coverflow",
-        "Overturn": "flip",
-        "3DTurn": "cube"
-    };
 
-    window.onmessage = function(event) {
+
+    //实例化一个FXH5对象并对第一页reset
+    window.fx = new FXH5(fx_options);
+
+    if (jsonData.adjustType !== "longPageAdjust") {
+        var effects = {
+            "Traslation": "slide",
+            "Fad": "fade",
+            "CoverFlow": "coverflow",
+            "Overturn": "flip",
+            "3DTurn": "cube"
+        };
+
+        window.onmessage = function(event) {
             var data = eval('(' + event.data + ')');
             if (data.act === 'slidto') {
                 var index = parseInt(data.val);
@@ -55,11 +61,7 @@ window.onloadOver = function() {
 
             }
         }
-        //实例化一个FXH5对象并对第一页reset
-        // window.fx = new FXH5(fx_options);
 
-    if (jsonData.adjustType !== "longPageAdjust") {
-        window.fx = new FXH5(fx_options);
         fx.reset("0");
         //实力化一个swiper对象并初始化
         window.mySwiper = new Swiper('.swiper-container', {
@@ -178,14 +180,13 @@ window.onloadOver = function() {
             window.fx = new FXH5(longPageOptions);
 
             fx_options['0'].forEach(function(item, index) {
-                if (item.plugin !== 'jigsaw' && item.plugin !== 'imageDrag' && item.plugin !== 'audio' && item.plugin !== 'animate') {
+                if (item.plugin !== 'panorama' && item.plugin !== 'jigsaw' && item.plugin !== 'imageDrag' && item.plugin !== 'audio' && item.plugin !== 'animate') {
                     observeOptions.observe(document.getElementById(item.container));
                 }
             })
         }
     }
 };
-
 
 (function(global, undefined) {
     if (is_weixin()) {
@@ -203,6 +204,14 @@ window.onloadOver = function() {
                 });
                 isReady = true;
             }, false);
+            global.isReady = function() {
+                var timer = setInterval(function() {
+                    if (isReady) {
+                        clearInterval(timer);
+                        return true;
+                    }
+                }, 100);
+            }
             global.playAgentAudio = function(localAudio) {
                 playAudioFlag = true;
                 var count = 0;
@@ -235,17 +244,21 @@ window.onloadOver = function() {
                 }
             }
             global.playBgmAudio = function(bgmAudio) {
-                var count = 0;
-                var timer = setInterval(function() {
-                    if (isReady) {
-                        clearInterval(timer);
-                        if (count < 100) bgmAudio.play();
-                    }
-                    count++;
-                }, 100);
+                if (!isReady) {
+                    var count = 0;
+                    var timer = setInterval(function() {
+                        if (isReady) {
+                            clearInterval(timer);
+                            if (count < 100) bgmAudio.play();
+                        }
+                        count++;
+                    }, 100);
+                } else {
+                    bgmAudio.play();
+                }
                 return true;
             }
-            global.pauseBgmAudio = function(bgmAudio) {
+            global.pauseBgmAudio = function(bgmAudio, delay) {
                 bgmAudio.pause();
             }
 
