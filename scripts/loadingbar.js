@@ -100,8 +100,8 @@
         if (jsondata.loadingbar) {
 
             //设置背景图/颜色
-            loadingBox.style.background = jsondata.loadingbar.bgtype === "color" ? bgColor : "url(" + bgPic + ") no-repeat"; //背景图
-            loadingBox.style.backgroundSize = "100% 100%";
+            // loadingBox.style.background = jsondata.loadingbar.bgtype === "color" ? bgColor : "url(" + bgPic + ") no-repeat"; //背景图
+            // loadingBox.style.backgroundSize = "100% 100%";
 
             switch (jsondata.loadingbar.bartype) {
                 case 'ring':
