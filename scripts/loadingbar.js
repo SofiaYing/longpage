@@ -396,7 +396,7 @@
             window.removeEventListener(evt, resizeLoadingStyle);
             setTimeout(function() {
                 document.getElementById("loadingBox").style.display = "none";
-            }, 400)
+            }, 800)
         }
 
         function toPoint(percent) {
