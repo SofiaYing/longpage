@@ -107,7 +107,6 @@
             // img.src = bgPic;
 
             // img.onload = function() {
-            console.log('2')
             switch (jsondata.loadingbar.bartype) {
                 case 'ring':
                     if (fgPic !== "") {
