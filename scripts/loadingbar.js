@@ -62,30 +62,32 @@
         }
 
         if (!isLongPage) {
-            $(loadingBox).css({
-                    // 'display': 'flex',
-                    // 'justify-content': 'center',
-                    'height': finalH + 'px',
-                    'width': finalW + 'px',
-                    // 'margin': '0 auto',
-                    // 'align-items': 'center',
-                })
-                // loadingBox.style.height = finalH + "px";
-                // loadingBox.style.width = finalW + "px";
+            // $(loadingBox).css({
+            //     'display': 'flex',
+            //     'justify-content': 'center',
+            //     'height': finalH + 'px',
+            //     'width': finalW + 'px',
+            //     'margin': '0 auto',
+            //     'align-items': 'center',
+            // })
+            loadingBox.style.height = finalH + "px";
+            loadingBox.style.width = finalW + "px";
             loadingBox.style.marginTop = clientH / 2 - finalH / 2 + "px";
             clientW = finalW;
             clientH = finalH;
         } else {
-            $(loadingBox).css({
-                    // 'display': 'flex',
-                    // 'justify-content': 'center',
-                    'height': clientH + 'px',
-                    'width': clientW + 'px',
-                    // 'margin': '0 auto',
-                    // 'align-items': 'center',
-                })
-                // loadingBox.style.height = finalH + "px";
-                // loadingBox.style.width = finalW + "px";
+            // $(loadingBox).css({
+            //     'display': 'flex',
+            //     'justify-content': 'center',
+            //     'height': clientH + 'px',
+            //     'width': clientW + 'px',
+            //     'margin': '0 auto',
+            //     'align-items': 'center',
+            // })
+            // loadingBox.style.height = finalH;
+            // loadingBox.style.width = finalW;
+            loadingBox.style.height = clientH + "px";
+            loadingBox.style.width = clientW + "px";
         }
 
         //要操作的进度条
@@ -94,8 +96,10 @@
         var logo = document.getElementById("logo");
         // var imgH; //imgbar加载图片高度
         var canvas; //pie/imgbar加载
-        var marginBottom = parseInt($(loadingBarBox).css('height')) / 2 + 20;
-        outerWidth = parseInt($(loadingBarBox).css('width')); //default进度条宽度
+        // var marginBottom = parseInt($(loadingBarBox).css('height')) / 2 + 20;
+        var marginBottom = parseInt(loadingBarBox.style.height) / 2 + 20;
+        outerWidth = parseInt(loadingBarBox.style.width); //default进度条宽度
+        // outerWidth = parseInt($(loadingBarBox).css('width')); //default进度条宽度
         imgW = 0.4 * clientW; //pie/imgbar加载图片宽度
         newImg; //pie/imgbar加载
         var process = typePrcess(jsondata.loadingbar.bartype);
@@ -236,20 +240,23 @@
                             loadingBarBox.style.opacity = "0.0";
                         }
                     } else {
-                        console.log('1')
-                        $(loadingBarBox).css({
-                            'display': 'none',
-                            'background-image': 'url(' + fgPic + ')',
-                            'background-size': '100% 100%',
-                        })
+                        // $(loadingBarBox).css({
+                        //     'display': 'none',
+                        //     'background-image': 'url(' + fgPic + ')',
+                        //     'background-size': '100% 100%',
+                        // })
+                        loadingBarBox.style.cssText += 'background-image: url(' + fgPic + ');background-size: 100% 100%;'
+
                         if (!isFirstLoad) {
-                            $(loadingBarBox).css({
-                                'display': 'block',
-                                'width': parseInt(imgW),
-                                'height': parseInt(imgW),
-                                'border-radius': '50%',
-                                'margin-bottom': marginBottom + 'px',
-                            })
+                            // $(loadingBarBox).css({
+                            //     'display': 'block',
+                            //     'width': parseInt(imgW),
+                            //     'height': parseInt(imgW),
+                            //     'border-radius': '50%',
+                            //     'margin-bottom': marginBottom + 'px',
+                            // })
+                            loadingBarBox.style.cssText += "display:block;width:" + parseInt(imgW) + "height: " + parseInt(imgW) +
+                                "border-radius: 50%;margin-bottom: " + marginBottom + "px"
 
                             if (loadPic) {
                                 canvas = document.getElementById("canvasLoad");
@@ -260,14 +267,15 @@
                             var fgImg = new Image();
                             fgImg.src = fgPic;
                             fgImg.onload = function() {
-
-                                $(loadingBarBox).css({
-                                    'display': 'block',
-                                    'width': parseInt(imgW),
-                                    'height': parseInt(imgW),
-                                    'border-radius': '50%',
-                                    'margin-bottom': marginBottom + 'px',
-                                })
+                                loadingBarBox.style.cssText += "display:block;width:" + parseInt(imgW) + "height: " + parseInt(imgW) +
+                                    "border-radius: 50%;margin-bottom: " + marginBottom + "px"
+                                    // $(loadingBarBox).css({
+                                    //     'display': 'block',
+                                    //     'width': parseInt(imgW),
+                                    //     'height': parseInt(imgW),
+                                    //     'border-radius': '50%',
+                                    //     'margin-bottom': marginBottom + 'px',
+                                    // })
 
                                 if (loadPic) {
                                     var img = new Image();
@@ -370,8 +378,11 @@
         }
 
         function loadImg() {
-            var imgArray = $('body').find('img');
+            console.log('1')
+                // var imgArray = $('body').find('img');
+            var imgArray = document.getElementsByTagName('img');
             var length = imgArray.length
+            console.log('1', imgArray)
             loadImgtimer = setInterval(
                 function() {
                     $.each(imgArray, function(index, item) {
@@ -379,6 +390,7 @@
                             clearInterval(loadImgtimer)
                             loadPage()
                         } else {
+                            console.log('2')
                             var src = $(item).attr('_src')
                             $(item).attr('src', src)
                         }

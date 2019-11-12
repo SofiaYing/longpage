@@ -27,8 +27,6 @@
             'core/interface.js',
             'core/fx.js',
             'core/utils.js',
-            "https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js",
-            "https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TimelineMax.min.js",
             'plugins/animate.js',
             'plugins/audio.js',
             'plugins/popupContent.js',
@@ -45,4 +43,10 @@
                 '"></script>');
         }
     }
+    document.write('<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js?timestamp=' +
+        FX.version +
+        '"></script>');
+    document.write('<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TimelineMax.min.js?timestamp=' +
+        FX.version +
+        '"></script>');
 })();

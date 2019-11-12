@@ -32,6 +32,7 @@ window.onloadOver = function() {
     var noSwiping = jsonData.pageturning[0].pagenoslide === "true";
     var showSwipIcon = jsonData.pageturning[0].pageicon === "true";
     window.dataController = new DataController(jsonData);
+    console.log('window.dataController', window.dataController)
     window.bgmController = new BGMController(jsonData.bgmarea, jsonData.bgmhideicon);
     bgmController.controlAutoBgm(0, undefined);
 
