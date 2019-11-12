@@ -103,53 +103,90 @@
             // loadingBox.style.background = jsondata.loadingbar.bgtype === "color" ? bgColor : "url(" + bgPic + ") no-repeat"; //背景图
             // loadingBox.style.backgroundSize = "100% 100%";
 
-            var img = new Image();
-            img.src = bgPic;
+            // var img = new Image();
+            // img.src = bgPic;
 
-            img.onload = function() {
-                console.log('2')
-                switch (jsondata.loadingbar.bartype) {
-                    case 'ring':
-                        if (fgPic !== "") {
-                            $('#logo').attr('xlink:href', fgPic); //前景图
+            // img.onload = function() {
+            console.log('2')
+            switch (jsondata.loadingbar.bartype) {
+                case 'ring':
+                    if (fgPic !== "") {
+                        $('#logo').attr('xlink:href', fgPic); //前景图
 
-                            var w = toPoint($('svg').attr('width')) * clientW; //svg宽度
+                        var w = toPoint($('svg').attr('width')) * clientW; //svg宽度
 
-                            var r = toPoint($(loadingBar).attr('r')) * w;
-                            var c = Math.PI * (r * 2); //周长
+                        var r = toPoint($(loadingBar).attr('r')) * w;
+                        var c = Math.PI * (r * 2); //周长
 
-                            marginBottom = clientH / 4 + 20;
-                            $('svg').css({
-                                'height': w,
-                                'width': w,
-                                'margin-bottom': marginBottom + 'px',
-                            })
+                        marginBottom = clientH / 4 + 20;
+                        $('svg').css({
+                            'height': w,
+                            'width': w,
+                            'margin-bottom': marginBottom + 'px',
+                        })
 
-                            $(loadingBarBox).css({ //环形进度条背景色
-                                'stroke': barBgColor || '#222222',
-                                'stroke-width': '7px',
-                            });
-                            $(loadingBar).css({ //环形进度条
-                                'stroke': barFgColor || '#f76317',
-                                'stroke-width': '8px',
-                                'stroke-dasharray': c,
-                                'stroke-dashoffset': c,
-                                'transform': 'rotate(-90deg)',
-                                'transform-origin': 'center',
-                            });
+                        $(loadingBarBox).css({ //环形进度条背景色
+                            'stroke': barBgColor || '#222222',
+                            'stroke-width': '7px',
+                        });
+                        $(loadingBar).css({ //环形进度条
+                            'stroke': barFgColor || '#f76317',
+                            'stroke-width': '8px',
+                            'stroke-dasharray': c,
+                            'stroke-dashoffset': c,
+                            'transform': 'rotate(-90deg)',
+                            'transform-origin': 'center',
+                        });
 
-                            if (isFirstLoad) { loadImg() };
+                        if (isFirstLoad) { loadImg() };
+                    }
+
+                    break;
+                case 'imgbar':
+                    if (fgPic === "") {
+                        if (loadPic) {
+                            var img = new Image();
+                            img.src = loadPic;
+
+                            img.onload = function() {
+                                imgH = (this.height / this.width) * imgW;
+
+                                canvas = document.getElementById("canvasLoad");
+                                canvas.setAttribute('height', imgH);
+                                canvas.setAttribute('width', imgW);
+
+
+                                if (isFirstLoad) {
+                                    drawCanvas(canvas, 'bar', loadPic, 0);
+                                    loadImg()
+                                };
+                            }
+                        } else {
+                            loadingBarBox.style.opacity = "0.0";
                         }
+                    } else {
+                        $(loadingBarBox).css({
+                            'display': 'none',
+                            'background-image': 'url(' + fgPic + ')',
+                            'background-size': '100% 100%',
+                        })
 
-                        break;
-                    case 'imgbar':
-                        if (fgPic === "") {
+                        var fgImg = new Image();
+                        fgImg.src = fgPic;
+                        fgImg.onload = function() {
                             if (loadPic) {
                                 var img = new Image();
                                 img.src = loadPic;
 
                                 img.onload = function() {
                                     imgH = (this.height / this.width) * imgW;
+
+                                    $(loadingBarBox).css({
+                                        'width': parseInt(imgW),
+                                        'height': parseInt(imgH),
+                                        'display': 'block',
+                                        // 'margin-bottom': marginBottom + 'px',
+                                    })
 
                                     canvas = document.getElementById("canvasLoad");
                                     canvas.setAttribute('height', imgH);
@@ -162,84 +199,65 @@
                                     };
                                 }
                             } else {
-                                loadingBarBox.style.opacity = "0.0";
-                            }
-                        } else {
-                            $(loadingBarBox).css({
-                                'display': 'none',
-                                'background-image': 'url(' + fgPic + ')',
-                                'background-size': '100% 100%',
-                            })
-
-                            var fgImg = new Image();
-                            fgImg.src = fgPic;
-                            fgImg.onload = function() {
-                                if (loadPic) {
-                                    var img = new Image();
-                                    img.src = loadPic;
-
-                                    img.onload = function() {
-                                        imgH = (this.height / this.width) * imgW;
-
-                                        $(loadingBarBox).css({
-                                            'width': parseInt(imgW),
-                                            'height': parseInt(imgH),
-                                            'display': 'block',
-                                            // 'margin-bottom': marginBottom + 'px',
-                                        })
-
-                                        canvas = document.getElementById("canvasLoad");
-                                        canvas.setAttribute('height', imgH);
-                                        canvas.setAttribute('width', imgW);
-
-
-                                        if (isFirstLoad) {
-                                            drawCanvas(canvas, 'bar', loadPic, 0);
-                                            loadImg()
-                                        };
-                                    }
-                                } else {
-                                    imgH = (this.height / this.width) * imgW;
-                                    $(loadingBarBox).css({
-                                        'width': parseInt(imgW),
-                                        'height': parseInt(imgH),
-                                        'display': 'block',
-                                        // 'margin-bottom': marginBottom + 'px',
-                                    })
-                                }
+                                imgH = (this.height / this.width) * imgW;
+                                $(loadingBarBox).css({
+                                    'width': parseInt(imgW),
+                                    'height': parseInt(imgH),
+                                    'display': 'block',
+                                    // 'margin-bottom': marginBottom + 'px',
+                                })
                             }
                         }
-                        break;
-                    case 'pie':
-                        if (fgPic === "") {
-                            if (loadPic) {
-                                if (isFirstLoad) {
-                                    var img = new Image();
-                                    img.src = loadPic;
-                                    img.onload = function() {
-                                        canvas = document.getElementById("canvasLoad");
-                                        canvas.setAttribute('height', parseInt(imgW) + 1 + 'px');
-                                        canvas.setAttribute('width', parseInt(imgW));
-
-                                        drawCanvas(canvas, 'pie', loadPic, 0);
-                                        loadImg()
-                                    }
-                                } else {
+                    }
+                    break;
+                case 'pie':
+                    if (fgPic === "") {
+                        if (loadPic) {
+                            if (isFirstLoad) {
+                                var img = new Image();
+                                img.src = loadPic;
+                                img.onload = function() {
                                     canvas = document.getElementById("canvasLoad");
                                     canvas.setAttribute('height', parseInt(imgW) + 1 + 'px');
                                     canvas.setAttribute('width', parseInt(imgW));
+
+                                    drawCanvas(canvas, 'pie', loadPic, 0);
+                                    loadImg()
                                 }
                             } else {
-                                loadingBarBox.style.opacity = "0.0";
+                                canvas = document.getElementById("canvasLoad");
+                                canvas.setAttribute('height', parseInt(imgW) + 1 + 'px');
+                                canvas.setAttribute('width', parseInt(imgW));
                             }
                         } else {
-                            console.log('1')
+                            loadingBarBox.style.opacity = "0.0";
+                        }
+                    } else {
+                        console.log('1')
+                        $(loadingBarBox).css({
+                            'display': 'none',
+                            'background-image': 'url(' + fgPic + ')',
+                            'background-size': '100% 100%',
+                        })
+                        if (!isFirstLoad) {
                             $(loadingBarBox).css({
-                                'display': 'none',
-                                'background-image': 'url(' + fgPic + ')',
-                                'background-size': '100% 100%',
+                                'display': 'block',
+                                'width': parseInt(imgW),
+                                'height': parseInt(imgW),
+                                'border-radius': '50%',
+                                'margin-bottom': marginBottom + 'px',
                             })
-                            if (!isFirstLoad) {
+
+                            if (loadPic) {
+                                canvas = document.getElementById("canvasLoad");
+                                canvas.setAttribute('height', parseInt(loadingBarBox.style.height) + 1 + 'px');
+                                canvas.setAttribute('width', loadingBarBox.style.width);
+                            }
+                        } else {
+                            var fgImg = new Image();
+                            fgImg.src = fgPic;
+                            fgImg.onload = function() {
+
                                 $(loadingBarBox).css({
                                     'display': 'block',
                                     'width': parseInt(imgW),
@@ -249,69 +267,51 @@
                                 })
 
                                 if (loadPic) {
-                                    canvas = document.getElementById("canvasLoad");
-                                    canvas.setAttribute('height', parseInt(loadingBarBox.style.height) + 1 + 'px');
-                                    canvas.setAttribute('width', loadingBarBox.style.width);
-                                }
-                            } else {
-                                var fgImg = new Image();
-                                fgImg.src = fgPic;
-                                fgImg.onload = function() {
+                                    var img = new Image();
+                                    img.src = loadPic;
+                                    img.onload = function() {
+                                        canvas = document.getElementById("canvasLoad");
+                                        canvas.setAttribute('height', parseInt(loadingBarBox.style.height) + 1 + 'px');
+                                        canvas.setAttribute('width', loadingBarBox.style.width);
 
-                                    $(loadingBarBox).css({
-                                        'display': 'block',
-                                        'width': parseInt(imgW),
-                                        'height': parseInt(imgW),
-                                        'border-radius': '50%',
-                                        'margin-bottom': marginBottom + 'px',
-                                    })
-
-                                    if (loadPic) {
-                                        var img = new Image();
-                                        img.src = loadPic;
-                                        img.onload = function() {
-                                            canvas = document.getElementById("canvasLoad");
-                                            canvas.setAttribute('height', parseInt(loadingBarBox.style.height) + 1 + 'px');
-                                            canvas.setAttribute('width', loadingBarBox.style.width);
-
-                                            drawCanvas(canvas, 'pie', loadPic, 0);
-                                            loadImg()
-                                        }
+                                        drawCanvas(canvas, 'pie', loadPic, 0);
+                                        loadImg()
                                     }
                                 }
                             }
                         }
-                        break;
-                    case 'rotate':
-                        if (fgPic === "") {
-                            logo.style.opacity = "0.0";
-                        } else {
-                            logo.src = fgPic;
-                            $(loadingBox).css({ 'align-items': 'center' });
-                        }
+                    }
+                    break;
+                case 'rotate':
+                    if (fgPic === "") {
+                        logo.style.opacity = "0.0";
+                    } else {
+                        logo.src = fgPic;
+                        $(loadingBox).css({ 'align-items': 'center' });
+                    }
 
-                        if (isFirstLoad) { loadImg() };
-                        break;
-                    default:
-                        if (fgPic === "") {
-                            logo.style.opacity = "0.0";
-                        } else {
-                            logo.src = fgPic;
-                        }
+                    if (isFirstLoad) { loadImg() };
+                    break;
+                default:
+                    if (fgPic === "") {
+                        logo.style.opacity = "0.0";
+                    } else {
+                        logo.src = fgPic;
+                    }
 
-                        marginBottom = clientH / 4 + 20;
+                    marginBottom = clientH / 4 + 20;
 
-                        $(loadingBox).css({ 'flex-direction': 'column', 'justify-content': 'flex-end' });
-                        $(loadingBar).css({ 'background': barFgColor });
-                        $(loadingBarBox).css({
-                            'background': barBgColor,
-                            'margin-bottom': clientH / 2 - 5 + 'px',
-                            'margin-top': '20px',
-                        });
+                    $(loadingBox).css({ 'flex-direction': 'column', 'justify-content': 'flex-end' });
+                    $(loadingBar).css({ 'background': barFgColor });
+                    $(loadingBarBox).css({
+                        'background': barBgColor,
+                        'margin-bottom': clientH / 2 - 5 + 'px',
+                        'margin-top': '20px',
+                    });
 
-                        if (isFirstLoad) { loadImg() };
-                }
+                    if (isFirstLoad) { loadImg() };
             }
+            // }
         }
 
 
