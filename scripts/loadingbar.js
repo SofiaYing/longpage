@@ -399,7 +399,9 @@
             window.isLoadingbarOver = true;
             window.onloadOver();
             window.removeEventListener(evt, resizeLoadingStyle);
-
+            setTimeout(function() {
+                document.getElementById("loadingBox").style.display = "none";
+            }, 2000)
         }
 
         function toPoint(percent) {

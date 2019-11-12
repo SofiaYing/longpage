@@ -126,9 +126,7 @@ SizeAdjustor.prototype = {
             "display:block; transform-origin:left top; transform:scale(" + this.scaleX + "," + this.scaleY + "); left:" + this.finalLeft +
             "px; top:" + this.finalTop + "px";
 
-        setTimeout(function() {
-            document.getElementById("loadingBox").style.display = "none";
-        }, 800)
+
     },
     update: function() {
         this.finalSize = this.getFinalSize();
