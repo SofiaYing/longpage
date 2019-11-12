@@ -21,7 +21,24 @@ SizeAdjustor.prototype = {
 
     getOriginSize: function() {
         var head = document.getElementsByTagName('head')[0];
+
+        // function GetChild(selector, parent, index) {
+        //     var indexElement = 0;
+        //     var children = parent.childNodes;
+        //     var len = children.length;
+        //     for (var i = 0; i < len; i++) {
+        //         if (children[i].nodeName.toLowerCase() === "#text")
+        //             continue;
+        //         if (selector !== '' && selector !== undefined && selector !== children[i].nodeName.toLowerCase())
+        //             continue;
+        //         if (indexElement === index)
+        //             return children[i];
+        //         else
+        //             indexElement++;
+        //     }
+        // }
         var viewport = GetChild('meta', head, 0);
+        console.log('vvv', viewport)
         if (viewport.name === 'viewport') {
             var content = viewport.content;
             var pos = content.indexOf('width=', 0);

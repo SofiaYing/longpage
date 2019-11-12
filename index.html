@@ -5,13 +5,7 @@
     <meta name="viewport" id="webviewport" content="width=360, height=6650" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <title>中秋节H5</title>
-    <script src="scripts/base.js" type="text/javascript"></script>
-    <script src="scripts/jquery.js" type="text/javascript"></script>
-    <script src="scripts/bgmController.js"></script>
-    <script src="scripts/pace.js"></script>
 
-
-    <script src="scripts/observe.polyfill.min.js" type="text/javascript"></script>
     <style>
         /* .pace {
             display: none;
@@ -57,7 +51,11 @@
             border-radius: 4px;
             background: #333333;
             z-index: 300;
-            display: none;
+            /* display: none; */
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+            align-items: center;
         }
         
         .loadingBarBox {
@@ -234,9 +232,25 @@
         </div>
         <input type="hidden" id="json" value="{'layout':'fixed','lastfile':'chapter-1.html','pageturning':[{'pageresult':'Traslation','pagedir':'UpAndDown','pagecircle':'true','pagetime':'1500','pageicon':'false','pagenoslide':'false'}],'adjustType':'longPageAdjust','bgmhideicon':'false','bgmarea':[{'src':'Media/bgmusic0.mp3','loop':true,'autoplay':'true','start':1,'end':1},],'collect':'http://h5.founderfx.cn/external/h5/collectFormData','submitted':'http://h5.founderfx.cn/external/h5/findFormOne','loadingbar':{'bartype':'pie','barpos':'30','showPercent':'false','barfgcolor':'rgba(247,99,23,1.0)','barbgcolor':'rgba(34,34,34,1.0)','promptText':'','promptSize':'21.0','promptColor':'#ffffff','fgpic':'Media/loadpage1.png','loadpic':'Media/loadpage2.png','bgpic':'Media/loadpage3.png','bgcolor':'#0000a0','bgtype':'image','direction':'clockwise'}}"
         />
+
+
+
+
+        <script src="scripts/pace.js"></script>
+
+        <script src="scripts/jquery.js" type="text/javascript"></script>
+
+        <script src="scripts/base.js" type="text/javascript"></script>
+
         <script src="scripts/sizeAdjustor.js" type="text/javascript"></script>
-        <script src="scripts/index_modify.js" type="text/javascript"></script>
         <script src="scripts/loadingbar.js" type="text/javascript"></script>
+
+        <script src="scripts/index_modify.js" type="text/javascript"></script>
+
+
+
+        <script src="scripts/bgmController.js"></script>
+        <script src="scripts/observe.polyfill.min.js" type="text/javascript"></script>
         <div id="divbgm" class="divbgm">
             <img id="bgmPlay" class="imgbgm" src="Media/bgmplay.png"></img>
             <img id="bgmPause" class="imgbgm" src="Media/bgmpause.png"></img>

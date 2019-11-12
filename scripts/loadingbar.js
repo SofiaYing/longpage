@@ -63,25 +63,29 @@
 
         if (!isLongPage) {
             $(loadingBox).css({
-                'display': 'flex',
-                'justify-content': 'center',
-                'height': finalH + 'px',
-                'width': finalW + 'px',
-                'margin': '0 auto',
-                'align-items': 'center',
-            })
+                    // 'display': 'flex',
+                    // 'justify-content': 'center',
+                    'height': finalH + 'px',
+                    'width': finalW + 'px',
+                    // 'margin': '0 auto',
+                    // 'align-items': 'center',
+                })
+                // loadingBox.style.height = finalH + "px";
+                // loadingBox.style.width = finalW + "px";
             loadingBox.style.marginTop = clientH / 2 - finalH / 2 + "px";
             clientW = finalW;
             clientH = finalH;
         } else {
             $(loadingBox).css({
-                'display': 'flex',
-                'justify-content': 'center',
-                'height': clientH + 'px',
-                'width': clientW + 'px',
-                'margin': '0 auto',
-                'align-items': 'center',
-            })
+                    // 'display': 'flex',
+                    // 'justify-content': 'center',
+                    'height': clientH + 'px',
+                    'width': clientW + 'px',
+                    // 'margin': '0 auto',
+                    // 'align-items': 'center',
+                })
+                // loadingBox.style.height = finalH + "px";
+                // loadingBox.style.width = finalW + "px";
         }
 
         //要操作的进度条
