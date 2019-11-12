@@ -227,8 +227,9 @@
         </div>
         <img id="floatArrow" class="floatArrow" src="Media/arrow.png"></img>
         <audio id="au1" src=""></audio>
-        <div id="loadingBox" class="loadingBox" style="justify-content: center; height: 100vh; width: 100vm; margin: 0px auto; align-items: center; background: url('Media/loadpage3.png') 0% 0% / 100% 100% no-repeat;">
-            <div id="loadingBarBox" style="opacity:1.0;">
+        <div id="loadingBox" class="loadingBox">
+            <img src="Media/loadpage3.png" height="100%" width="100%" style="z-index:1;position: absolute;">
+            <div id="loadingBarBox" style="opacity:1.0;z-index:2">
                 <canvas id="canvasLoad"></canvas>
             </div>
         </div>
