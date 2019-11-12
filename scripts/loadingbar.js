@@ -383,12 +383,12 @@
             var length = imgArray.length
             loadImgtimer = setInterval(
                 function() {
-                    $.each(imgArray, function(index, item) {
+                    console.log('imgArray', imgArray)
+                    Array.from(imgArray).forEach(function(item, index) {
                         if (index === length - 1) {
                             clearInterval(loadImgtimer)
                             loadPage()
                         } else {
-                            console.log('2')
                             var src = $(item).attr('_src')
                             $(item).attr('src', src)
                         }
