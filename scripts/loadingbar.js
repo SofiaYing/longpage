@@ -378,11 +378,9 @@
         }
 
         function loadImg() {
-            console.log('1')
-                // var imgArray = $('body').find('img');
+            // var imgArray = $('body').find('img');
             var imgArray = document.getElementsByTagName('img');
             var length = imgArray.length
-            console.log('1', imgArray)
             loadImgtimer = setInterval(
                 function() {
                     $.each(imgArray, function(index, item) {
@@ -428,7 +426,8 @@
 
 
         function drawCanvas(canvas, type, src, percent) {
-            $(canvas).attr('width', imgW);
+            // $(canvas).attr('width', imgW);
+            canvas.setAttribute('width', imgW);
 
             var context = canvas.getContext("2d");
 
