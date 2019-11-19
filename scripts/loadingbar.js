@@ -383,7 +383,6 @@
             var length = imgArray.length
             loadImgtimer = setInterval(
                 function() {
-                    console.log('imgArray', imgArray)
                     Array.from(imgArray).forEach(function(item, index) {
                         if (index === length - 1) {
                             clearInterval(loadImgtimer)
@@ -398,7 +397,10 @@
 
         function loadPage() {
             loadTimer = setInterval(function() {
-                percent = document.getElementsByClassName('pace-progress')[0].dataset.progress;
+                percent = Pace.bar.currentProgress;
+                console.log('pace', Pace.bar.currentProgress)
+
+                // percent = document.getElementsByClassName('pace-progress')[0].dataset.progress;
                 if (percent >= 99) {
                     clearInterval(loadTimer)
                     goStraightToEnd()
@@ -424,7 +426,6 @@
 
 
         function drawCanvas(canvas, type, src, percent) {
-            // $(canvas).attr('width', imgW);
             canvas.setAttribute('width', imgW);
 
             var context = canvas.getContext("2d");
