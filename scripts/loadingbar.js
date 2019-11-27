@@ -382,7 +382,7 @@
             var firstPercent = 80
             loadTimer = setInterval(function() {
                 percent = Pace.bar.currentProgress;
-
+                process(percent);
                 // progressControlTime += 1;
                 // if (percent <= 80) {
                 //     process(percent);
@@ -400,7 +400,7 @@
                 // }
 
                 if (percent >= 99) {
-                    process(percent);
+
                     clearInterval(loadTimer)
                     goStraightToEnd()
                     Pace.stop()
