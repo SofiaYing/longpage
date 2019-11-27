@@ -398,9 +398,7 @@
                 //     goStraightToEnd()
                 //     Pace.stop()
                 // }
-
                 if (percent >= 99) {
-
                     clearInterval(loadTimer)
                     goStraightToEnd()
                     Pace.stop()

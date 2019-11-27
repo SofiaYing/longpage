@@ -149,7 +149,7 @@ SizeAdjustor.prototype = {
 
         setTimeout(function() {
             document.getElementById("loadingBox").style.display = "none";
-        }, 800)
+        }, 2000)
     },
     update: function() {
         this.finalSize = this.getFinalSize();
