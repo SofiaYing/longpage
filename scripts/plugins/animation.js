@@ -251,6 +251,10 @@
             }
 
             $(demo).css('display', 'block');
+            if ($(demo).find('.gif')) {
+                // $(demo).find('.gif').attr('src', 'Media/arrow.png')
+                // $(demo).find('.gif').attr('src', window.gifSrc)
+            }
             $(demo).addClass('animated ' + value.effect).one(animationEnd, function(event) {
                 event.stopPropagation();
 
