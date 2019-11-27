@@ -872,7 +872,6 @@
     };
 
     Pace.go = function() {
-        console.log('gogogogo')
         var start;
         Pace.running = true;
         bar.render();

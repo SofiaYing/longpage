@@ -11,19 +11,20 @@
     var newImg, imgW, imgH, outerWidth;
     var rotateTimer; //rotate 匀速无限旋转
     var rotateDeg = 0; //rotate 旋转角度
+    var progressControlTime = 0;
 
     var evt = "resize";
     var isFirstLoad = true;
     var isFirstResize = true
 
     var resizeLoadingStyle = function() {
-        if (isFirstResize) {
+        if (!isFirstResize) {
             isFirstLoad = false
+            window.sizeAdjustor.update();
+            window.sizeAdjustor.getFinalSize();
+            loading();
         }
         isFirstResize = false
-        window.sizeAdjustor.update();
-        window.sizeAdjustor.getFinalSize();
-        loading();
     }
     window.addEventListener(evt, resizeLoadingStyle);
 
@@ -62,30 +63,12 @@
         }
 
         if (!isLongPage) {
-            // $(loadingBox).css({
-            //     'display': 'flex',
-            //     'justify-content': 'center',
-            //     'height': finalH + 'px',
-            //     'width': finalW + 'px',
-            //     'margin': '0 auto',
-            //     'align-items': 'center',
-            // })
             loadingBox.style.height = finalH + "px";
             loadingBox.style.width = finalW + "px";
             loadingBox.style.marginTop = clientH / 2 - finalH / 2 + "px";
             clientW = finalW;
             clientH = finalH;
         } else {
-            // $(loadingBox).css({
-            //     'display': 'flex',
-            //     'justify-content': 'center',
-            //     'height': clientH + 'px',
-            //     'width': clientW + 'px',
-            //     'margin': '0 auto',
-            //     'align-items': 'center',
-            // })
-            // loadingBox.style.height = finalH;
-            // loadingBox.style.width = finalW;
             loadingBox.style.height = clientH + "px";
             loadingBox.style.width = clientW + "px";
         }
@@ -378,44 +361,57 @@
         }
 
         function loadImg() {
-            // var imgArray = $('body').find('img');
-            var imgArray = document.getElementsByTagName('img');
+            var imgArray = document.querySelectorAll('img');
             var length = imgArray.length
-            loadImgtimer = setInterval(
-                function() {
-                    Array.from(imgArray).forEach(function(item, index) {
-                        if (index === length - 1) {
-                            clearInterval(loadImgtimer)
-                            loadPage()
-                        } else {
-                            var src = $(item).attr('_src')
-                            $(item).attr('src', src)
+            loadImgtimer = setInterval(function() {
+                Array.from(imgArray).forEach(function(item, index) {
+                    if (index === length - 1) {
+                        clearInterval(loadImgtimer)
+                        loadPage()
+                    } else {
+                        var src = item.getAttribute('_src')
+                        if (src) {
+                            item.setAttribute('src', src)
                         }
-                    })
-                }, 5)
+                    }
+                })
+            }, 5)
         }
 
         function loadPage() {
+            var firstPercent = 80
             loadTimer = setInterval(function() {
                 percent = Pace.bar.currentProgress;
-                console.log('pace', Pace.bar.currentProgress)
 
-                // percent = document.getElementsByClassName('pace-progress')[0].dataset.progress;
+                // progressControlTime += 1;
+                // if (percent <= 80) {
+                //     process(percent);
+                // } else if (percent <= 80 && progressControlTime <= 1000) {
+                //     console.log('pp', progressControlTime)
+                //     var firstTimer = setInterval(function() {
+                //         firstPercent++
+                //         process(percfirstPercentent);
+                //     }, 50)
+                // } else if (percent >= 99) {
+                //     process(percent);
+                //     clearInterval(loadTimer)
+                //     goStraightToEnd()
+                //     Pace.stop()
+                // }
+
                 if (percent >= 99) {
+                    process(percent);
                     clearInterval(loadTimer)
                     goStraightToEnd()
                     Pace.stop()
-                } else {
-                    process(percent);
                 }
-            }, 10)
+            }, 1)
         }
 
         function goStraightToEnd() {
             window.isLoadingbarOver = true;
             window.onloadOver();
             window.removeEventListener(evt, resizeLoadingStyle);
-
         }
 
         function toPoint(percent) {
