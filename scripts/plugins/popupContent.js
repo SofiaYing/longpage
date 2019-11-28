@@ -5,7 +5,8 @@
         var posTop = 0; //closeButtonPos 位置标记
         var translateX = '-50%'; //closeButtonPos 位置标记
         var translateY = '-50%'; //closeButtonPos 位置标记
-        var transformOrigin = 'center';
+        // var scaleX = window.sizeAdjustor.scaleX; //用于按钮大小适配
+        // var scaleY = window.sizeAdjustor.scaleY; //用于按钮大小适配
 
         // 对象
         var PopupContentItem = function(id, option) {
@@ -151,60 +152,51 @@
                             posLeft = posCenterLeft;
                             posTop = posInitTop;
                             translateY = 0;
-                            transformOrigin = 'top';
                             break;
                         case 'CloseImgRightUpCorner': //右上
                             posLeft = posWidthLeft;
                             posTop = posInitTop;
                             translateX = '-100%';
                             translateY = 0;
-                            transformOrigin = 'top right';
                             break;
                         case 'CloseImgLeft': //左
                             posLeft = posInitLeft;
                             posTop = posCenterTop;
                             translateX = 0;
-                            transformOrigin = 'left center';
                             break;
                         case 'CloseImgCenter': //中
                             posLeft = posCenterLeft;
                             posTop = posCenterTop;
                             translateX = '-50%';
                             translateY = '-50%';
-                            transformOrigin = 'center';
                             break;
                         case 'CloseImgRight': //右
                             posLeft = posWidthLeft;
                             posTop = posCenterTop;
                             translateX = '-100%';
-                            transformOrigin = 'right center';
                             break;
                         case 'CloseImgLeftLowCorner': //左下
                             posLeft = posInitLeft;
                             posTop = posHeightTop;
                             translateX = 0;
                             translateY = '-100%';
-                            transformOrigin = 'left bottom';
                             break;
                         case 'CloseImgBottom': //底
                             posLeft = posCenterLeft;
                             posTop = posHeightTop;
                             translateY = '-100%';
-                            transformOrigin = 'center bottom';
                             break;
                         case 'CloseImgRightLowCorner': //右下
                             posLeft = posWidthLeft;
                             posTop = posHeightTop;
                             translateX = '-100%';
                             translateY = '-100%';
-                            transformOrigin = 'right bottom';
                             break;
                         default: //CloseImgLeftUpCorner  左上
                             posLeft = posInitLeft;
                             posTop = posInitTop;
                             translateX = 0;
                             translateY = 0;
-                            transformOrigin = 'left top';
 
                     }
                 }
@@ -220,44 +212,22 @@
                 var value = JSON.parse($(node).siblings('input[name=json]')[0].value);
                 var pos = value.closeButtonPos || 'default';
                 GetPicturePos($(node).children().eq(0), pos);
-                var scale = getScale($(node)[0]);
-                var scaleX = scale.x;
-                var scaleY = scale.y;
+
+                // var w = $(node).children().eq(1).css('width');
+                // var h = $(node).children().eq(1).css('height');
+                // var finalW = scaleX >= 0.5 ? 30 : parseFloat(w) * scaleX;
+                // var finalH = scaleY >= 0.5 ? 30 : parseFloat(h) * scaleY;
                 var curIndex = $(node).children().eq(1).css('z-index');
-                //始终保证按钮大小为30px
-                // var scaleX = window.sizeAdjustor.scaleX;
-                // var scaleY = window.sizeAdjustor.scaleY;
-                // var w = 30 / scaleX;
-                // var h = 30 / scaleY;
 
                 $(node).children().eq(1).css({
                     "left": posLeft + "px",
                     'top': posTop + "px",
-                    'transform': 'translate(' + translateX + ',' + translateY + ') scale(' + scaleX + ',' + scaleY + ')',
-                    'transform-origin': transformOrigin,
+                    'transform': 'translate(' + translateX + ',' + translateY + ')',
                     'opacity': 1,
+                    'width': '30px',
+                    'height': '30px',
                     'z-index': parseInt(curIndex) + parseInt(parentIndex),
                 });
-            }
-        }
-
-        function getScale(subElement) {
-            var scaleX = 1,
-                scaleY = 1,
-                tempEl = subElement;
-            while (tempEl && tempEl.id !== "divpar") {
-                var transform = tempEl.style.transform
-                if (transform.search('scale') > -1) {
-                    var _transformStr = transform.substring(7, transform.length - 1);
-                    var transformArray = _transformStr.split(',');
-                    scaleX /= transformArray[0];
-                    scaleY /= transformArray[1];
-                }
-                tempEl = tempEl.parentNode;
-            }
-            return {
-                x: Number(scaleX),
-                y: Number(scaleY),
             }
         }
 

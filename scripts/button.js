@@ -1590,7 +1590,15 @@ function Button() {
     			var fileext = curFrmSrc.substring(index1, index2);
     			
     			if (top === self) {
-    				var url = 'chapter-' + pageIndex + fileext;
+    				var idxLength = pageIndex.length;
+    				var url = 'chapter-';
+    				if (idxLength === 1)
+    					url = 'chapter-00';
+    				else if (idxLength === 2)
+    					url = 'chapter-0';
+    				else if (idxLength === 3)
+    					url = 'chapter-';
+    				url += (pageIndex + fileext);
     				window.location.href = url;
     			}
     			else {
