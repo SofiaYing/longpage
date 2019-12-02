@@ -375,13 +375,6 @@
                 // }, 20)
         }
 
-        // function initTimer(during) {
-        //     loadTimer = setInterval(function() {
-        //         process(percent);
-        //         percent += 0.2;
-        //     }, during)
-        // }
-
         function initTimer() {
             if (isFirstLoad) {
                 isFirstLoad = false;
@@ -426,14 +419,13 @@
                                     }
                                 }, 10);
                             }
-                        }, 5);
+                        }, 10);
                     }
-                }, 100);
+                }, 200);
             } else {
                 process(percent);
             }
         }
-
 
         function goStraightToEnd() {
             window.isLoadingbarOver = true;
