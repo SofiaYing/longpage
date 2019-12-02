@@ -370,17 +370,24 @@
             var tPercent = 1
             loadTimer = setInterval(function() {
                 percent = Pace.bar.currentProgress;
-                process(tPercent);
+                process(percent);
+                // process(tPercent);
                 tPercent += 0.2;
-                if (tPercent >= 80 && percent >= 99) {
+                if (percent >= 99) {
                     process(100);
                     clearInterval(loadTimer)
                     goStraightToEnd()
                     Pace.stop()
-                } else if (tPercent >= 80) {
-                    process(percent);
                 }
-            }, 15)
+                // if (tPercent >= 80 && percent >= 99) {
+                //     process(100);
+                //     clearInterval(loadTimer)
+                //     goStraightToEnd()
+                //     Pace.stop()
+                // } else if (tPercent >= 80) {
+                //     process(percent);
+                // }
+            }, 1)
         }
 
         function initTimer() {
