@@ -77,10 +77,8 @@
         var loadingBarBox = document.getElementById("loadingBarBox");
         var loadingBar = document.getElementById("loadingBar");
         var logo = document.getElementById("logo");
-        // var imgH; //imgbar加载图片高度
         var canvas; //pie/imgbar加载
-        // var marginBottom = parseInt($(loadingBarBox).css('height')) / 2 + 20;
-        var marginBottom = parseInt(loadingBarBox.style.height) / 2 + 20;
+        var marginBottom = parseInt(getStyle(loadingBarBox, 'height')) / 2 + 20;
         outerWidth = parseInt(loadingBarBox.style.width); //default进度条宽度
         // outerWidth = parseInt($(loadingBarBox).css('width')); //default进度条宽度
         imgW = 0.4 * clientW; //pie/imgbar加载图片宽度
@@ -223,23 +221,12 @@
                             loadingBarBox.style.opacity = "0.0";
                         }
                     } else {
-                        // $(loadingBarBox).css({
-                        //     'display': 'none',
-                        //     'background-image': 'url(' + fgPic + ')',
-                        //     'background-size': '100% 100%',
-                        // })
                         loadingBarBox.style.cssText += 'background-image: url(' + fgPic + ');background-size: 100% 100%;'
 
                         if (!isFirstLoad) {
-                            // $(loadingBarBox).css({
-                            //     'display': 'block',
-                            //     'width': parseInt(imgW),
-                            //     'height': parseInt(imgW),
-                            //     'border-radius': '50%',
-                            //     'margin-bottom': marginBottom + 'px',
-                            // })
-                            loadingBarBox.style.cssText += "display:block;width:" + parseInt(imgW) + "height: " + parseInt(imgW) +
-                                "border-radius: 50%;margin-bottom: " + marginBottom + "px"
+
+                            loadingBarBox.style.cssText += "display:block;width:" + parseInt(imgW) + "px;height: " + parseInt(imgW) +
+                                "px;border-radius: 50%;margin-bottom: " + marginBottom + "px"
 
                             if (loadPic) {
                                 canvas = document.getElementById("canvasLoad");
@@ -247,18 +234,12 @@
                                 canvas.setAttribute('width', loadingBarBox.style.width);
                             }
                         } else {
+                            console.log('marginBottom', marginBottom)
                             var fgImg = new Image();
                             fgImg.src = fgPic;
                             fgImg.onload = function() {
-                                loadingBarBox.style.cssText += "display:block;width:" + parseInt(imgW) + "height: " + parseInt(imgW) +
-                                    "border-radius: 50%;margin-bottom: " + marginBottom + "px"
-                                    // $(loadingBarBox).css({
-                                    //     'display': 'block',
-                                    //     'width': parseInt(imgW),
-                                    //     'height': parseInt(imgW),
-                                    //     'border-radius': '50%',
-                                    //     'margin-bottom': marginBottom + 'px',
-                                    // })
+                                loadingBarBox.style.cssText += "display:block;width:" + parseInt(imgW) + "px;height: " + parseInt(imgW) +
+                                    "px;border-radius: 50%;margin-bottom: " + marginBottom + "px";
 
                                 if (loadPic) {
                                     var img = new Image();
@@ -378,50 +359,8 @@
             }, 5)
         }
 
-        // function loadPage() {
-        //     var firstPercent = 80
-        //     loadTimer = setInterval(function() {
-        //         percent = Pace.bar.currentProgress;
-        //         process(percent);
-        //         if (percent >= 99) {
-        //             clearInterval(loadTimer)
-        //             goStraightToEnd()
-        //             Pace.stop()
-        //         }
-        //     }, 1)
-        // }
-
         function loadPage() {
-            var firstPercent = 0;
-            var firstTimer = setInterval(function() {
-                firstPercent++;
-                if (firstPercent >= 50) {
-                    clearInterval(firstTimer)
-                    if (percent >= firstPercent) {
-
-                    } else {
-                        var secondTimer = setInterval(function() {
-                            firstPercent++;
-                            if (firstPercent >= 50) {
-                                if (percent >= firstPercent) {
-
-                                } else {
-
-                                }
-                            }
-                        }, 30)
-                    }
-                }
-                percent = Pace.bar.currentProgress;
-                process(firstPercent);
-                progressControlTime += 20;
-                if (percent >= 99) {
-                    clearInterval(loadTimer)
-                    goStraightToEnd()
-                    Pace.stop()
-                }
-            }, 20)
-
+            var firstPercent = 80
             loadTimer = setInterval(function() {
                 percent = Pace.bar.currentProgress;
                 process(percent);
@@ -432,6 +371,48 @@
                 }
             }, 1)
         }
+
+        // function loadPage() {
+        //     var firstPercent = 0;
+        //     var firstTimer = setInterval(function() {
+        //         firstPercent++;
+        //         if (firstPercent >= 50) {
+        //             clearInterval(firstTimer)
+        //             if (percent >= firstPercent) {
+
+        //             } else {
+        //                 var secondTimer = setInterval(function() {
+        //                     firstPercent++;
+        //                     if (firstPercent >= 50) {
+        //                         if (percent >= firstPercent) {
+
+        //                         } else {
+
+        //                         }
+        //                     }
+        //                 }, 30)
+        //             }
+        //         }
+        //         percent = Pace.bar.currentProgress;
+        //         process(firstPercent);
+        //         progressControlTime += 20;
+        //         if (percent >= 99) {
+        //             clearInterval(loadTimer)
+        //             goStraightToEnd()
+        //             Pace.stop()
+        //         }
+        //     }, 20)
+
+        //     loadTimer = setInterval(function() {
+        //         percent = Pace.bar.currentProgress;
+        //         process(percent);
+        //         if (percent >= 99) {
+        //             clearInterval(loadTimer)
+        //             goStraightToEnd()
+        //             Pace.stop()
+        //         }
+        //     }, 1)
+        // }
 
         function goStraightToEnd() {
             window.isLoadingbarOver = true;
@@ -514,6 +495,7 @@
         }
     }
 
+    function getStyle(element, attr) {          return window.getComputedStyle ? window.getComputedStyle(element, null)[attr] : element.currentStyle[attr];       }
 
 
 })(this);

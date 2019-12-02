@@ -274,7 +274,6 @@
         };
 
         Bar.prototype.update = function(prog) {
-            console.log('ppp', prog)
             this.progress = prog;
             return this.render();
         };
@@ -308,7 +307,6 @@
                     progressStr = this.progress < 10 ? "0" : "";
                     progressStr += this.progress | 0;
                 }
-                console.log('1this.progress', this.progress)
                 this.currentProgress = parseInt(progressStr)
                 el.children[0].setAttribute('data-progress', "" + progressStr);
             }
@@ -900,7 +898,6 @@
                 }
             }
             avg = sum / count;
-            console.log('uniScaler.tick(frameTime, avg)', uniScaler.tick(frameTime, avg))
             bar.update(uniScaler.tick(frameTime, avg));
             if (bar.done() || done || cancelAnimation) {
                 bar.update(100);
