@@ -362,8 +362,8 @@
         }
 
         function loadPage() {
-            initTimer()
-                // paceTimer()
+            // initTimer()
+            paceTimer()
         }
 
         function paceTimer() {
@@ -371,23 +371,23 @@
             loadTimer = setInterval(function() {
                 percent = Pace.bar.currentProgress;
                 process(percent);
-                // process(tPercent);
+                process(tPercent);
                 tPercent += 0.2;
-                if (percent >= 99) {
-                    process(100);
-                    clearInterval(loadTimer)
-                    goStraightToEnd()
-                    Pace.stop()
-                }
-                // if (tPercent >= 80 && percent >= 99) {
+                // if (percent >= 99) {
                 //     process(100);
                 //     clearInterval(loadTimer)
                 //     goStraightToEnd()
                 //     Pace.stop()
-                // } else if (tPercent >= 80) {
-                //     process(percent);
                 // }
-            }, 1)
+                if (tPercent >= 85 && percent >= 99) {
+                    process(100);
+                    clearInterval(loadTimer)
+                    goStraightToEnd()
+                    Pace.stop()
+                } else if (tPercent >= 85) {
+                    process(percent);
+                }
+            }, 15)
         }
 
         function initTimer() {
