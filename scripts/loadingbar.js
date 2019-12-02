@@ -367,7 +367,7 @@
             loadTimer = setInterval(function() {
                 percent = Pace.bar.currentProgress;
                 process(percent);
-                if (document.getElementById('longpage_container').style.display !== 'block') {
+                if (percent >= 20 && document.getElementById('longpage_container').style.display !== 'block') {
                     document.getElementById('longpage_container').style.display = "block"
                 }
                 if (percent >= 99) {
