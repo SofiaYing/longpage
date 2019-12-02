@@ -362,17 +362,21 @@
         }
 
         function loadPage() {
-            initTimer()
-                // loadTimer = setInterval(function() {
-                //     percent = Pace.bar.currentProgress;
-                //     process(percent);
-                //     if (percent >= 99) {
-                //         process(100);
-                //         clearInterval(loadTimer)
-                //         goStraightToEnd()
-                //         Pace.stop()
-                //     }
-                // }, 20)
+            // initTimer()
+            var fPercent = 1
+            loadTimer = setInterval(function() {
+                percent = Pace.bar.currentProgress;
+                process(fPercent);
+                fPercent += 0.2;
+                if (fPercent >= 80 && percent >= 99) {
+                    process(100);
+                    clearInterval(loadTimer)
+                    goStraightToEnd()
+                    Pace.stop()
+                } else if (fPercent >= 80) {
+                    process(percent);
+                }
+            }, 20)
         }
 
         function initTimer() {
