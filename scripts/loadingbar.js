@@ -364,10 +364,9 @@
         function loadPage() {
             initTimer()
                 // loadTimer = setInterval(function() {
-                //     // percent = Pace.bar.currentProgress;
+                //     percent = Pace.bar.currentProgress;
                 //     process(percent);
-                //     firstPercent += 0.2
-                //     if (firstPercent > 80 && percent >= 99) {
+                //     if (percent >= 99) {
                 //         process(100);
                 //         clearInterval(loadTimer)
                 //         goStraightToEnd()
@@ -389,19 +388,18 @@
                 firstTimer = setInterval(function() {
                     process(percent);
                     percent++;
-                    console.log('firstTimer', percent)
-                    if (percent === 20) {
+                    if (percent >= 20) {
                         clearInterval(firstTimer);
                         secondTimer = setInterval(function() {
-                            console.log('secondTimer', percent)
                             process(percent);
                             percent += 0.2;
-                            if (parseInt(percent) === 60) {
+                            if (percent >= 60) {
                                 clearInterval(secondTimer);
                                 thirdTimer = setInterval(function() {
                                     process(percent);
                                     percent += 0.3;
-                                    if (parseInt(percent) === 90) {
+                                    if (parseInt(percent) >= 90) {
+                                        process(percent);
                                         clearInterval(thirdTimer);
                                         fourthTimer = setInterval(function() {
                                             process(percent);
@@ -413,7 +411,8 @@
                                                 goStraightToEnd();
                                                 return;
                                             }
-                                            if (parseInt(percent) === 98) {
+                                            if (parseInt(percent) >= 98) {
+                                                clearInterval(fourthTimer);
                                                 finalTimer = setInterval(function() {
                                                     if (window.isPageLoad) {
                                                         clearInterval(finalTimer);
@@ -490,7 +489,7 @@
                 if (percent <= 25) {
                     percent = (percent - 25) / 100;
                 } else {
-                    percent = (percent - 25) / 75;
+                    percent = (percent - 25) / 100;
                 }
 
                 context.arc(r, r, r, startPoint, Math.PI * 2 * percent, false);
