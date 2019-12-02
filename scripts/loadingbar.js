@@ -362,8 +362,8 @@
         }
 
         function loadPage() {
-            // initTimer()
-            paceTimer()
+            initTimer()
+                // paceTimer()
         }
 
         function paceTimer() {
