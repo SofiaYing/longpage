@@ -342,21 +342,23 @@
         }
 
         function loadImg() {
-            var imgArray = document.querySelectorAll('img');
-            var length = imgArray.length
-            loadImgtimer = setInterval(function() {
-                Array.from(imgArray).forEach(function(item, index) {
-                    if (index === length - 1) {
-                        clearInterval(loadImgtimer)
-                        loadPage()
-                    } else {
-                        var src = item.getAttribute('_src')
-                        if (src) {
-                            item.setAttribute('src', src)
-                        }
-                    }
-                })
-            }, 5)
+            document.getElementById('longpage_container').style.display = "block"
+            loadPage()
+                // var imgArray = document.querySelectorAll('img');
+                // var length = imgArray.length
+                // loadImgtimer = setInterval(function() {
+                //     Array.from(imgArray).forEach(function(item, index) {
+                //         if (index === length - 1) {
+                //             clearInterval(loadImgtimer)
+                //             loadPage()
+                //         } else {
+                //             var src = item.getAttribute('_src')
+                //             if (src) {
+                //                 item.setAttribute('src', src)
+                //             }
+                //         }
+                //     })
+                // }, 5)
         }
 
         function loadPage() {
