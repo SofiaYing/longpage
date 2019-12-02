@@ -16,8 +16,6 @@ function removeSwiping() {
     });
 }
 
-
-
 window.onloadOver = function() {
     window.sizeAdjustor.adjustContainer();
     var scale = window.sizeAdjustor.scaleX;
@@ -34,34 +32,34 @@ window.onloadOver = function() {
     window.dataController = new DataController(jsonData);
     window.bgmController = new BGMController(jsonData.bgmarea, jsonData.bgmhideicon);
     bgmController.controlAutoBgm(0, undefined);
+    var effects = {
+        "Traslation": "slide",
+        "Fad": "fade",
+        "CoverFlow": "coverflow",
+        "Overturn": "flip",
+        "3DTurn": "cube"
+    };
 
+    window.onmessage = function(event) {
+        var data = eval('(' + event.data + ')');
+        if (data.act === 'slidto') {
+            var index = parseInt(data.val);
+            //swiper在loop=true模式下,页面索引会加1
+            if (isLoop) index++;
+            mySwiper.slideTo(index, 0);
+        } else if (data.act === 'gyroscope') {
+            window.deviceOrientation = data.val;
+        } else {
 
-    //实例化一个FXH5对象并对第一页reset
+        }
+    }
+
+    this.console.log('fff', fx_options)
+        //实例化一个FXH5对象并对第一页reset
     window.fx = new FXH5(fx_options);
 
     if (jsonData.adjustType !== "longPageAdjust") {
-        var effects = {
-            "Traslation": "slide",
-            "Fad": "fade",
-            "CoverFlow": "coverflow",
-            "Overturn": "flip",
-            "3DTurn": "cube"
-        };
-
-        window.onmessage = function(event) {
-            var data = eval('(' + event.data + ')');
-            if (data.act === 'slidto') {
-                var index = parseInt(data.val);
-                //swiper在loop=true模式下,页面索引会加1
-                if (isLoop) index++;
-                mySwiper.slideTo(index, 0);
-            } else if (data.act === 'gyroscope') {
-                window.deviceOrientation = data.val;
-            } else {
-
-            }
-        }
-
+        // window.fx = new FXH5(fx_options);
         fx.reset("0");
         //实力化一个swiper对象并初始化
         window.mySwiper = new Swiper('.swiper-container', {
@@ -103,6 +101,7 @@ window.onloadOver = function() {
             window.sizeAdjustor.adjustContainer();
             var scale = window.sizeAdjustor.scale;
             mySwiper.touchRatio = 1 / scale;
+            bgmDiv.style.left = (sizeAdjustor.finalLeft + sizeAdjustor.finalSize.width - 50) + "px";
             var videoItems = window.fx.getItemsByCtrlName("video");
             if (videoItems !== null) {
                 videoItems.forEach(function(curItem) {
@@ -110,6 +109,11 @@ window.onloadOver = function() {
                 })
             }
         });
+        var pageIndexSet = parseInt(sessionStorage.getItem("pageIndex")); //从缓存中读取点击超链接时所在页面
+        if (!isNaN(pageIndexSet)) {
+            mySwiper.slideTo(pageIndexSet, 0, false); //跳转到该页面
+            sessionStorage.removeItem('pageIndex'); //删除该缓存，防止刷新时仍跳转到该页
+        }　　
 
         (function() {
             var arrow = document.getElementById("floatArrow");
@@ -120,7 +124,7 @@ window.onloadOver = function() {
             if (noSwiping) removeSwiping();
             removeAttrInSwiperDuplicate();
         })();
-    } else {
+    } else { //如果是长页面
         if (is_ios()) {
             var throttle = function(func, delay) {
                 var timer = null;
@@ -154,6 +158,12 @@ window.onloadOver = function() {
             }
             overscroll(document.querySelector('#longpage_container'));
         }
+
+        var offsetTop = sessionStorage.getItem("offsetTop"); //从缓存中获取点击链接时滚动条所在位置
+        if (offsetTop !== null && offsetTop !== 0) {
+            $(longpage_container).scrollTop(offsetTop);
+            sessionStorage.removeItem('offsetTop');
+        }
         if (fx_options['0']) {
             var longPageOptions = {}
             var longPageArray = []
@@ -180,13 +190,12 @@ window.onloadOver = function() {
             window.fx = new FXH5(longPageOptions);
 
             fx_options['0'].forEach(function(item, index) {
-                if (item.plugin !== 'panorama' && item.plugin !== 'jigsaw' && item.plugin !== 'imageDrag' && item.plugin !== 'audio' && item.plugin !== 'animate') {
+                if (item.plugin !== 'jigsaw' && item.plugin !== 'imageDrag' && item.plugin !== 'audio' && item.plugin !== 'animate') {
                     observeOptions.observe(document.getElementById(item.container));
                 }
             })
         }
     }
-
 };
 
 (function(global, undefined) {

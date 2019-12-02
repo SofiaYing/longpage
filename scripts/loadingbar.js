@@ -153,11 +153,14 @@
                             loadingBarBox.style.opacity = "0.0";
                         }
                     } else {
-                        $(loadingBarBox).css({
-                            'display': 'none',
-                            'background-image': 'url(' + fgPic + ')',
-                            'background-size': '100% 100%',
-                        })
+                        loadingBarBox.style.cssText += 'display: none;'
+                            // 'background-image': 'url(' + fgPic + ')',
+                            // 'background-size': '100% 100%',
+                            // $(loadingBarBox).css({
+                            //     'display': 'none',
+                            //     'background-image': 'url(' + fgPic + ')',
+                            //     'background-size': '100% 100%',
+                            // })
 
                         var fgImg = new Image();
                         fgImg.src = fgPic;
@@ -169,12 +172,14 @@
                                 img.onload = function() {
                                     imgH = (this.height / this.width) * imgW;
 
-                                    $(loadingBarBox).css({
-                                        'width': parseInt(imgW),
-                                        'height': parseInt(imgH),
-                                        'display': 'block',
-                                        // 'margin-bottom': marginBottom + 'px',
-                                    })
+                                    loadingBarBox.style.cssText += "display:block;width:" + parseInt(imgW) + "px;height: " + parseInt(imgH) + 'px'
+
+                                    // $(loadingBarBox).css({
+                                    //     'width': parseInt(imgW),
+                                    //     'height': parseInt(imgH),
+                                    //     'display': 'block',
+                                    //     // 'margin-bottom': marginBottom + 'px',
+                                    // })
 
                                     canvas = document.getElementById("canvasLoad");
                                     canvas.setAttribute('height', imgH);
@@ -234,7 +239,6 @@
                                 canvas.setAttribute('width', loadingBarBox.style.width);
                             }
                         } else {
-                            console.log('marginBottom', marginBottom)
                             var fgImg = new Image();
                             fgImg.src = fgPic;
                             fgImg.onload = function() {
@@ -276,13 +280,11 @@
 
                     marginBottom = clientH / 4 + 20;
 
-                    $(loadingBox).css({ 'flex-direction': 'column', 'justify-content': 'flex-end' });
-                    $(loadingBar).css({ 'background': barFgColor });
-                    $(loadingBarBox).css({
-                        'background': barBgColor,
-                        'margin-bottom': clientH / 2 - 5 + 'px',
-                        'margin-top': '20px',
-                    });
+                    marginBottom = clientH / 4 + 20;
+                    loadingBox.style.cssText += 'flex-direction:column;justify-content:flex-end';
+                    // $(loadingBar).css({ 'background': barFgColor });
+                    var h = clientH / 2 - 5;
+                    loadingBarBox.style.cssText += 'margin-bottom:' + h + 'px;margin-top:20px'
 
                     if (isFirstLoad) { loadImg() };
             }
@@ -306,19 +308,11 @@
 
                     if (direction && direction === 'anticlockwise') {
                         rotateTimer = setInterval(function() {
-                            if (window.isLoadingbarOver) {
-                                clearInterval(rotateTimer);
-                                return;
-                            }
                             rotateDeg--;
                             $(logo).css({ "transform": "rotate(" + rotateDeg + "deg)" });
                         }, 8);
                     } else {
                         rotateTimer = setInterval(function() {
-                            if (window.isLoadingbarOver) {
-                                clearInterval(rotateTimer);
-                                return;
-                            }
                             rotateDeg++;
                             $(logo).css({ "transform": "rotate(" + rotateDeg + "deg)" });
                         }, 8);
@@ -362,15 +356,15 @@
         }
 
         function loadPage() {
-            // initTimer()
-            paceTimer()
+            initTimer()
+                // paceTimer()
         }
 
         function paceTimer() {
             var tPercent = 1
             loadTimer = setInterval(function() {
                 percent = Pace.bar.currentProgress;
-                process(percent);
+                // process(percent);
                 process(tPercent);
                 tPercent += 0.2;
                 // if (percent >= 99) {

@@ -38,7 +38,6 @@ SizeAdjustor.prototype = {
         //     }
         // }
         var viewport = GetChild('meta', head, 0);
-        console.log('vvv', viewport)
         if (viewport.name === 'viewport') {
             var content = viewport.content;
             var pos = content.indexOf('width=', 0);
@@ -143,13 +142,13 @@ SizeAdjustor.prototype = {
             this.finalLeft = clientW / 2 - this.finalSize.width / 2;
         }
 
-        container.style.cssText +=
-            "display:block; transform-origin:left top; transform:scale(" + this.scaleX + "," + this.scaleY + "); left:" + this.finalLeft +
-            "px; top:" + this.finalTop + "px";
+        // container.style.cssText +=
+        //     "display:block; transform-origin:left top; transform:scale(" + this.scaleX + "," + this.scaleY + "); left:" + this.finalLeft +
+        //     "px; top:" + this.finalTop + "px";
 
-        setTimeout(function() {
-            document.getElementById("loadingBox").style.display = "none";
-        }, 500)
+        // setTimeout(function() {
+        //     document.getElementById("loadingBox").style.display = "none";
+        // }, 2000)
     },
     update: function() {
         this.finalSize = this.getFinalSize();
