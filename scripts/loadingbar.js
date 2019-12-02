@@ -342,9 +342,8 @@
         }
 
         function loadImg() {
-
-            // document.getElementById('longpage_container').style.display = "block"
-            process(1);
+            percent = 1;
+            process(percent);
             var imgArray = document.querySelectorAll('img');
             var length = imgArray.length
             loadImgtimer = setInterval(function() {
@@ -363,61 +362,79 @@
         }
 
         function loadPage() {
-            var firstPercent = 0
-            loadTimer = setInterval(function() {
-                percent = Pace.bar.currentProgress;
-                process(firstPercent);
-                firstPercent += 0.2
-                if (firstPercent > 80 && percent >= 99) {
-                    process(100);
-                    clearInterval(loadTimer)
-                    goStraightToEnd()
-                    Pace.stop()
-                }
-            }, 20)
+            initTimer()
+                // loadTimer = setInterval(function() {
+                //     // percent = Pace.bar.currentProgress;
+                //     process(percent);
+                //     firstPercent += 0.2
+                //     if (firstPercent > 80 && percent >= 99) {
+                //         process(100);
+                //         clearInterval(loadTimer)
+                //         goStraightToEnd()
+                //         Pace.stop()
+                //     }
+                // }, 20)
         }
 
-        // function loadPage() {
-        //     var firstPercent = 0;
-        //     var firstTimer = setInterval(function() {
-        //         firstPercent++;
-        //         if (firstPercent >= 50) {
-        //             clearInterval(firstTimer)
-        //             if (percent >= firstPercent) {
-
-        //             } else {
-        //                 var secondTimer = setInterval(function() {
-        //                     firstPercent++;
-        //                     if (firstPercent >= 50) {
-        //                         if (percent >= firstPercent) {
-
-        //                         } else {
-
-        //                         }
-        //                     }
-        //                 }, 30)
-        //             }
-        //         }
-        //         percent = Pace.bar.currentProgress;
-        //         process(firstPercent);
-        //         progressControlTime += 20;
-        //         if (percent >= 99) {
-        //             clearInterval(loadTimer)
-        //             goStraightToEnd()
-        //             Pace.stop()
-        //         }
-        //     }, 20)
-
+        // function initTimer(during) {
         //     loadTimer = setInterval(function() {
-        //         percent = Pace.bar.currentProgress;
         //         process(percent);
-        //         if (percent >= 99) {
-        //             clearInterval(loadTimer)
-        //             goStraightToEnd()
-        //             Pace.stop()
-        //         }
-        //     }, 1)
+        //         percent += 0.2;
+        //     }, during)
         // }
+
+        function initTimer() {
+            if (isFirstLoad) {
+                isFirstLoad = false;
+                firstTimer = setInterval(function() {
+                    process(percent);
+                    percent++;
+                    console.log('firstTimer', percent)
+                    if (percent === 20) {
+                        clearInterval(firstTimer);
+                        secondTimer = setInterval(function() {
+                            console.log('secondTimer', percent)
+                            process(percent);
+                            percent += 0.2;
+                            if (parseInt(percent) === 60) {
+                                clearInterval(secondTimer);
+                                thirdTimer = setInterval(function() {
+                                    process(percent);
+                                    percent += 0.3;
+                                    if (parseInt(percent) === 90) {
+                                        clearInterval(thirdTimer);
+                                        fourthTimer = setInterval(function() {
+                                            process(percent);
+                                            percent += 0.02;
+                                            if (window.isPageLoad) {
+                                                clearInterval(fourthTimer);
+                                                percent = 100;
+                                                process(percent);
+                                                goStraightToEnd();
+                                                return;
+                                            }
+                                            if (parseInt(percent) === 98) {
+                                                finalTimer = setInterval(function() {
+                                                    if (window.isPageLoad) {
+                                                        clearInterval(finalTimer);
+                                                        goStraightToEnd();
+                                                        return;
+                                                    }
+                                                }, 1);
+                                            }
+                                        }, 2);
+
+                                    }
+                                }, 10);
+                            }
+                        }, 5);
+                    }
+                }, 100);
+            } else {
+                process(percent);
+            }
+        }
+
 
         function goStraightToEnd() {
             window.isLoadingbarOver = true;
