@@ -342,24 +342,24 @@
         }
 
         function loadImg() {
-            loadPage()
-                // document.getElementById('longpage_container').style.display = "block"
 
-            // var imgArray = document.querySelectorAll('img');
-            // var length = imgArray.length
-            // loadImgtimer = setInterval(function() {
-            //     Array.from(imgArray).forEach(function(item, index) {
-            //         if (index === length - 1) {
-            //             clearInterval(loadImgtimer)
-            //             loadPage()
-            //         } else {
-            //             var src = item.getAttribute('_src')
-            //             if (src) {
-            //                 item.setAttribute('src', src)
-            //             }
-            //         }
-            //     })
-            // }, 5)
+            // document.getElementById('longpage_container').style.display = "block"
+            process(1);
+            var imgArray = document.querySelectorAll('img');
+            var length = imgArray.length
+            loadImgtimer = setInterval(function() {
+                Array.from(imgArray).forEach(function(item, index) {
+                    if (index === length - 1) {
+                        clearInterval(loadImgtimer)
+                        loadPage()
+                    } else {
+                        var src = item.getAttribute('_src')
+                        if (src) {
+                            item.setAttribute('src', src)
+                        }
+                    }
+                })
+            }, 5)
         }
 
         function loadPage() {
@@ -367,9 +367,6 @@
             loadTimer = setInterval(function() {
                 percent = Pace.bar.currentProgress;
                 process(percent);
-                if (percent >= 20 && document.getElementById('longpage_container').style.display !== 'block') {
-                    document.getElementById('longpage_container').style.display = "block"
-                }
                 if (percent >= 99) {
                     clearInterval(loadTimer)
                     goStraightToEnd()
