@@ -343,7 +343,7 @@
 
         function loadImg() {
             loadPage()
-            document.getElementById('longpage_container').style.display = "block"
+                // document.getElementById('longpage_container').style.display = "block"
 
             // var imgArray = document.querySelectorAll('img');
             // var length = imgArray.length
@@ -367,6 +367,9 @@
             loadTimer = setInterval(function() {
                 percent = Pace.bar.currentProgress;
                 process(percent);
+                if (document.getElementById('longpage_container').style.display !== 'block') {
+                    document.getElementById('longpage_container').style.display = "block"
+                }
                 if (percent >= 99) {
                     clearInterval(loadTimer)
                     goStraightToEnd()
