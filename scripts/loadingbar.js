@@ -363,16 +363,18 @@
         }
 
         function loadPage() {
-            var firstPercent = 80
+            var firstPercent = 0
             loadTimer = setInterval(function() {
                 percent = Pace.bar.currentProgress;
-                process(percent);
-                if (percent >= 99) {
+                process(firstPercent);
+                firstPercent += 0.2
+                if (firstPercent > 80 && percent >= 99) {
+                    process(100);
                     clearInterval(loadTimer)
                     goStraightToEnd()
                     Pace.stop()
                 }
-            }, 1)
+            }, 20)
         }
 
         // function loadPage() {
