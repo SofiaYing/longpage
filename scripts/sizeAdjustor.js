@@ -146,9 +146,9 @@ SizeAdjustor.prototype = {
         //     "display:block; transform-origin:left top; transform:scale(" + this.scaleX + "," + this.scaleY + "); left:" + this.finalLeft +
         //     "px; top:" + this.finalTop + "px";
 
-        // setTimeout(function() {
-        //     document.getElementById("loadingBox").style.display = "none";
-        // }, 2000)
+        setTimeout(function() {
+            document.getElementById("loadingBox").style.display = "none";
+        }, 500)
     },
     update: function() {
         this.finalSize = this.getFinalSize();
