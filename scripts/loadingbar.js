@@ -362,21 +362,25 @@
         }
 
         function loadPage() {
-            // initTimer()
-            var fPercent = 1
+            initTimer()
+                // paceTimer()
+        }
+
+        function paceTimer() {
+            var tPercent = 1
             loadTimer = setInterval(function() {
                 percent = Pace.bar.currentProgress;
-                process(fPercent);
-                fPercent += 0.2;
-                if (fPercent >= 80 && percent >= 99) {
+                process(tPercent);
+                tPercent += 0.2;
+                if (tPercent >= 80 && percent >= 99) {
                     process(100);
                     clearInterval(loadTimer)
                     goStraightToEnd()
                     Pace.stop()
-                } else if (fPercent >= 80) {
+                } else if (tPercent >= 80) {
                     process(percent);
                 }
-            }, 20)
+            }, 15)
         }
 
         function initTimer() {
@@ -418,12 +422,12 @@
                                                     }
                                                 }, 1);
                                             }
-                                        }, 2);
+                                        }, 5);
 
                                     }
-                                }, 10);
+                                }, 20);
                             }
-                        }, 10);
+                        }, 20);
                     }
                 }, 200);
             } else {
