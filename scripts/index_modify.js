@@ -44,24 +44,31 @@ window.onloadOver = function() {
         var data = eval('(' + event.data + ')');
         if (data.act === 'slidto') {
             var index = parseInt(data.val);
-            //swiper在loop=true模式下,页面索引会加1
-            if (isLoop) index++;
-            mySwiper.slideTo(index, 0);
+            if (jsonData.adjustType !== "longPageAdjust") {
+                //swiper在loop=true模式下,页面索引会加1
+                if (isLoop) index++;
+                mySwiper.slideTo(index, 0);
+            } else {
+                fx.destroy(String(data.currentPage));
+                offLongpageObserver(data.currentPage - 1);
+                initLongpageObserver(index);
+                fx.reset(String(index + 1));
+
+                $('#page' + data.currentPage).css('display', 'none');
+                $('#page' + (index + 1)).css('display', 'block');
+                // $('#longpage_container').scrollTop(0);
+                $('body,html').scrollTop(0);
+            }
         } else if (data.act === 'gyroscope') {
             window.deviceOrientation = data.val;
-        } else {
-
         }
     }
 
-    this.console.log('fff', fx_options)
-        //实例化一个FXH5对象并对第一页reset
     window.fx = new FXH5(fx_options);
 
     if (jsonData.adjustType !== "longPageAdjust") {
-        // window.fx = new FXH5(fx_options);
         fx.reset("0");
-        //实力化一个swiper对象并初始化
+        // 实力化一个swiper对象并初始化
         window.mySwiper = new Swiper('.swiper-container', {
             effect: effects[effectName] ? effects[effectName] : "slide",
             direction: direction,
@@ -94,8 +101,8 @@ window.onloadOver = function() {
             fx.reset(String(self.realIndex));
             self.preRealIndex = self.realIndex;
         }, false);
+
         var evt = "resize";
-        var isWeixin = is_weixin();
         window.addEventListener(evt, function() {
             window.sizeAdjustor.update();
             window.sizeAdjustor.adjustContainer();
@@ -117,8 +124,10 @@ window.onloadOver = function() {
 
         (function() {
             var arrow = document.getElementById("floatArrow");
-            if (showSwipIcon) addArrowClickListener(arrow);
-            else {
+            if (showSwipIcon) {
+                addArrowClickListener(arrow);
+                arrow.style.display = "block";
+            } else {
                 arrow.style.display = "none";
             }
             if (noSwiping) removeSwiping();
@@ -164,36 +173,55 @@ window.onloadOver = function() {
             $(longpage_container).scrollTop(offsetTop);
             sessionStorage.removeItem('offsetTop');
         }
-        if (fx_options['0']) {
-            var longPageOptions = {}
-            var longPageArray = []
 
-            var observeOptions = new IntersectionObserver((entries) => {
-                entries.forEach((item, index) => {
-                    var nodeIndex = longPageArray.findIndex(function(optItem) {
-                        return optItem.container === item.target.id
-                    })
-                    if (item.intersectionRatio >= 0.75) {
-                        fx.reset(nodeIndex.toString())
-                    } else {
-                        fx.destroy(nodeIndex.toString())
-                    }
-                })
-            }, {
-                threshold: [0.75]
-            });
+        var observeOptions = new IntersectionObserver((entries) => {
+            entries.forEach((item, index) => {
 
-            $.each(fx_options['0'], function(index, item) {
-                longPageOptions[index] = [item]
-                longPageArray.push(item)
-            })
-            window.fx = new FXH5(longPageOptions);
-
-            fx_options['0'].forEach(function(item, index) {
-                if (item.plugin !== 'jigsaw' && item.plugin !== 'imageDrag' && item.plugin !== 'audio' && item.plugin !== 'animate') {
-                    observeOptions.observe(document.getElementById(item.container));
+                var curItem = window.fx.getItemById(item.target.id);
+                if (item.intersectionRatio >= 0.75) {
+                    curItem.reset()
+                } else {
+                    curItem.destroy()
                 }
             })
+        }, {
+            threshold: [0.75]
+        });
+        //给每一页长页面添加视窗监听
+        function initLongpageObserver(index) {
+            var indexStr = index.toString();
+            if (fx_options[indexStr]) {
+                fx_options[indexStr].forEach(function(item, optionsIndex) {
+                    if (item.plugin !== 'animate' && item.plugin !== 'audio' && item.plugin !== 'jigsaw' && item.plugin !== 'imageDrag') {
+                        observeOptions.observe(document.getElementById(item.container));
+                    } else {
+                        if (item.plugin === 'audio' || item.plugin === 'animate') {
+                            var curItem = window.fx.getItemById(item.container);
+                            curItem.onObserver();
+                        }
+                    }
+                })
+            }
+        }
+
+        //首次加载，自动添加第一页视窗监听
+        initLongpageObserver(0);
+
+        //解除视窗监听
+        function offLongpageObserver(index) {
+            var indexStr = index.toString();
+            if (typeof(fx_options[indexStr]) !== 'undefined') {
+                fx_options[indexStr].forEach(function(item) {
+                    if (item.plugin !== 'animate' && item.plugin !== 'audio' && item.plugin !== 'jigsaw' && item.plugin !== 'imageDrag') {
+                        observeOptions.unobserve(document.getElementById(item.container));
+                    } else {
+                        if (item.plugin === 'audio' || item.plugin === 'animate') {
+                            var curItem = window.fx.getItemById(item.container);
+                            curItem.offObserver();
+                        }
+                    }
+                })
+            }
         }
     }
 };

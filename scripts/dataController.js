@@ -42,6 +42,8 @@ DataController.prototype = {
             "?workid=" + self.paramRes["param"] +
             "&openid=" + oldOpenid +
             "&token=" + self.getKey();
+
+        // console.log('self',self.getKey())
         $.ajax({
             type: "POST",
             url: requestUrl,

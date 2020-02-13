@@ -21,22 +21,6 @@ SizeAdjustor.prototype = {
 
     getOriginSize: function() {
         var head = document.getElementsByTagName('head')[0];
-
-        // function GetChild(selector, parent, index) {
-        //     var indexElement = 0;
-        //     var children = parent.childNodes;
-        //     var len = children.length;
-        //     for (var i = 0; i < len; i++) {
-        //         if (children[i].nodeName.toLowerCase() === "#text")
-        //             continue;
-        //         if (selector !== '' && selector !== undefined && selector !== children[i].nodeName.toLowerCase())
-        //             continue;
-        //         if (indexElement === index)
-        //             return children[i];
-        //         else
-        //             indexElement++;
-        //     }
-        // }
         var viewport = GetChild('meta', head, 0);
         if (viewport.name === 'viewport') {
             var content = viewport.content;
@@ -95,12 +79,9 @@ SizeAdjustor.prototype = {
             //     finalH = clientW;
             //     finalW = pg_Width * pg_Height / clientW;
             // }
-            var divpar = document.getElementById('divpar');
             if (!is_mobile()) {
-                // var outerWidth = $('#divpar')[0].offsetWidth;
-                // var innerWidth = $('#divpar')[0].clientWidth;
-                var outerWidth = divpar.offsetWidth;
-                var innerWidth = divpar.clientWidth;
+                var outerWidth = document.getElementById('divpar').offsetWidth;
+                var innerWidth = document.getElementById('divpar').clientWidth;
                 var scrollBarWidth = outerWidth - innerWidth;
                 finalW = clientW - scrollBarWidth;
                 if (outerWidth > 320) {
@@ -126,29 +107,43 @@ SizeAdjustor.prototype = {
         var clientH = document.documentElement.clientHeight;
         var clientW = document.documentElement.clientWidth;
         var container = document.getElementById("swiper_container");
-        var divpar = document.getElementById('divpar')
 
         if (this.jsonData.adjustType === "longPageAdjust") {
             this.finalTop = 0;
             this.finalLeft = clientW / 2 - this.finalSize.width / 2;
             // this.finalLeft = 0;
-            var outerWidth = divpar.offsetWidth;
+            var outerWidth = document.getElementById('divpar').style.offsetWidth;
             if (!is_mobile() && outerWidth < 320) {
                 this.finalLeft = 0;
             }
+
+            var pages = document.querySelectorAll('.divshow');
+            if (pages.length > 1) {
+                document.querySelector('#longpage_container').className = ''
+                document.querySelector('body').style.position = 'static'
+                document.querySelector('body').style.overflow = 'auto'
+                pages.forEach(function(page, index) {
+                    if (index === 0) {
+                        page.style.display = 'block'
+                    } else {
+                        page.style.display = 'none'
+                    }
+                })
+            }
+
 
         } else {
             this.finalTop = clientH / 2 - this.finalSize.height / 2;
             this.finalLeft = clientW / 2 - this.finalSize.width / 2;
         }
 
-        // container.style.cssText +=
-        //     "display:block; transform-origin:left top; transform:scale(" + this.scaleX + "," + this.scaleY + "); left:" + this.finalLeft +
-        //     "px; top:" + this.finalTop + "px";
+        container.style.cssText +=
+            "display:block; transform-origin:left top; transform:scale(" + this.scaleX + "," + this.scaleY + "); left:" + this.finalLeft +
+            "px; top:" + this.finalTop + "px";
 
         setTimeout(function() {
             document.getElementById("loadingBox").style.display = "none";
-        }, 500)
+        }, 10)
     },
     update: function() {
         this.finalSize = this.getFinalSize();

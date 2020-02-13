@@ -2,176 +2,38 @@
 <html xml:lang="zh-cn" xmlns:epub="http://www.idpf.org/2007/ops" xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg">
 	<head>
 		<meta charset="UTF-8"></meta>
-		<title>无命题1</title>
-		<meta name="viewport" content="width=640, height=1260"></meta>
+		<title>无命题3</title>
+		<meta name="viewport" content="width=320, height=520"></meta>
 		<script type="text/javascript" src="scripts/base.js"></script>
 		<script type="text/javascript" src="scripts/compatibility.js"></script>
 		<script type="text/javascript" src="scripts/jquery.js"></script>
 		<script type="text/javascript" src="scripts/jquery.mobile.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="./scripts/jquery.mobile.min.css"></link>
-		<script type="text/javascript" src="scripts/TimelineMax.min.js"></script>
-		<script type="text/javascript" src="scripts/TweenMax.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="./scripts/animate.css"></link>
-		<script type="text/javascript" src="scripts/button.js"></script>
-		<script type="text/javascript" src="scripts/animation.js"></script>
+		<script type="text/javascript" src="scripts/video.js"></script>
 		<script type="text/javascript">$(document).ready(function()
 {
 compatibility()
-Button()
-animation()
 window.onload=function()
 {
+Initvideo()
 };
 });
 </script>
 		<link rel="stylesheet" type="text/css" href="CSS/book_textstyle1.css"></link>
 		<link rel="stylesheet" type="text/css" href="CSS/book_Chapter1.css"></link>
 	</head>
-	<body data-width="640" data-height="1260">
+	<body data-width="320" data-height="520">
 		<div class="p1para1 p1textdiv0">
 			<div id="pGrp-2" class="p1pGrpDiv-FxLi2">
 				<div class="">
-					<div class="p1imagediv4">
-						<img class="p1image5" src="Media/chapter-1image1.jpg" id="imageItem-4" alt="Media/chapter-1image1.jpg"></img>
+					<div title="video" class="p1InAdiv4" id="videoItem-4">
+						<div style="top:0px;left:0px;width:100%;height:100%;position:absolute;background:#000000;"></div>
+						<video controls="controls" src="Media/chapter-1video1.mp4" poster="Media/chapter-1video4.png" style="top:0px;left:0px;width:100%;height:100%;position:absolute;display:inline;pointer-events:auto;" playsinline="true" x5-playsinline="true" webkit-playsinline="true"></video>
+						<img src="Media/chapter-1video2.png" style="top:0px;left:0px;position:absolute;z-index:80;display:none;"></img>
+						<img src="Media/chapter-1video3.png" style="top:0px;left:0px;position:absolute;z-index:80;display:none;"></img>
+						<img src="Media/Play_1.PNG" style="top:50%;left:50%;margin-left:-40px;margin-top:-40px;position:absolute;z-index:89;display:none;"></img>
+						<input type="hidden" name="json" value="{&quot;floatingWin&quot;:&quot;false&quot;,&quot;loop&quot;:false,&quot;playOnPageTurn&quot;:&quot;false&quot;,&quot;playDelay&quot;:0}"></input>
 					</div>
-				</div>
-				<div title="Animation" id="si_800001C4" style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
-					<div style="left:-217px;top:-95.5px;height:357px;width:537px;position:absolute;opacity:0.0;">
-						<div title="groupItem" style="width:100%;height:100%;">
-							<div style="overflow:hidden;position:absolute;width:1074.00px;height:714.00px;transform:rotate(0.000000deg) scale(0.500000,0.500000) skewX(0.000000deg);">
-								<img src="Media/chapter-1image2.png" id="imageItem-5" alt="Media/chapter-1image2.png" style="width:1074px;height:714px;margin-left:0%;margin-top:0%;"></img>
-							</div>
-						</div>
-					</div>
-					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;4-0&quot;,&quot;effect&quot;:&quot;jackInTheBoxIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;0.600000023841858&quot;}]}]}"></input>
-				</div>
-				<div title="Animation" id="si_800001C7" style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
-					<div style="left:-62px;top:79.794px;height:98.5px;width:382px;position:absolute;opacity:0.0;">
-						<div title="groupItem" style="width:100%;height:100%;">
-							<div style="overflow:hidden;position:absolute;width:764.00px;height:197.00px;transform:rotate(0.000000deg) scale(0.500000,0.500000) skewX(0.000000deg);">
-								<img src="Media/chapter-1image3.png" id="imageItem-6" alt="Media/chapter-1image3.png" style="width:764px;height:197px;margin-left:0%;margin-top:0%;"></img>
-							</div>
-						</div>
-					</div>
-					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;5-0&quot;,&quot;effect&quot;:&quot;flipIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
-				</div>
-				<div title="Animation" id="si_800001CA" style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
-					<div style="left:79px;top:154.794px;height:145.5px;width:100px;position:absolute;opacity:0.0;">
-						<div title="groupItem" style="width:100%;height:100%;">
-							<div style="overflow:hidden;position:absolute;width:200.00px;height:291.00px;transform:rotate(0.000000deg) scale(0.500000,0.500000) skewX(0.000000deg);">
-								<img src="Media/chapter-1image4.png" id="imageItem-7" alt="Media/chapter-1image4.png" style="width:200px;height:291px;margin-left:0%;margin-top:0%;"></img>
-							</div>
-						</div>
-					</div>
-					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;6-0&quot;,&quot;effect&quot;:&quot;rotateIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;1&quot;,&quot;playTime&quot;:&quot;0.5&quot;}]}]}"></input>
-				</div>
-				<div title="Animation" id="si_800001CD" style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
-					<div style="left:192.997px;top:173.544px;height:108px;width:103.5px;position:absolute;opacity:0.0;">
-						<div title="groupItem" style="width:100%;height:100%;">
-							<div style="overflow:hidden;position:absolute;width:207.00px;height:216.00px;transform:rotate(0.000000deg) scale(0.500000,0.500000) skewX(0.000000deg);">
-								<img src="Media/chapter-1image5.png" id="imageItem-8" alt="Media/chapter-1image5.png" style="width:207px;height:216px;margin-left:0%;margin-top:0%;"></img>
-							</div>
-						</div>
-					</div>
-					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;7-0&quot;,&quot;effect&quot;:&quot;rotateIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;1.20000004768372&quot;,&quot;playTime&quot;:&quot;0.5&quot;}]}]}"></input>
-				</div>
-				<div title="Animation" id="si_800001D0" style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
-					<div style="left:289.994px;top:172.044px;height:111px;width:148px;position:absolute;opacity:0.0;">
-						<div title="groupItem" style="width:100%;height:100%;">
-							<div style="overflow:hidden;position:absolute;width:296.00px;height:222.00px;transform:rotate(0.000000deg) scale(0.500000,0.500000) skewX(0.000000deg);">
-								<img src="Media/chapter-1image6.png" id="imageItem-9" alt="Media/chapter-1image6.png" style="width:296px;height:222px;margin-left:0%;margin-top:0%;"></img>
-							</div>
-						</div>
-					</div>
-					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;8-0&quot;,&quot;effect&quot;:&quot;rotateIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;1.39999997615814&quot;,&quot;playTime&quot;:&quot;0.5&quot;}]}]}"></input>
-				</div>
-				<div title="Animation" id="si_800001D3" style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
-					<div style="left:85px;top:94.501px;height:436.5px;width:235px;position:absolute;opacity:0.0;">
-						<div title="groupItem" style="width:100%;height:100%;">
-							<div style="overflow:hidden;position:absolute;width:470.00px;height:873.00px;transform:rotate(0.000000deg) scale(0.500000,0.500000) skewX(0.000000deg);">
-								<img src="Media/chapter-1image7.png" id="imageItem-10" alt="Media/chapter-1image7.png" style="width:470px;height:873px;margin-left:0%;margin-top:0%;"></img>
-							</div>
-						</div>
-					</div>
-					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;after&quot;,&quot;uid&quot;:&quot;9-0&quot;,&quot;effect&quot;:&quot;slideInRight&quot;,&quot;direction&quot;:&quot;right&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;0.5&quot;}]}]}"></input>
-				</div>
-				<div title="Animation" id="si_80000179" style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
-					<div style="left:369.25px;top:730.23px;height:322.5px;width:180.5px;position:absolute;opacity:0.0;">
-						<div title="groupItem" style="width:100%;height:100%;">
-							<div style="overflow:hidden;position:absolute;width:361.00px;height:645.00px;transform:rotate(0.000000deg) scale(0.500000,0.500000) skewX(0.000000deg);">
-								<img src="Media/chapter-1image8.png" id="imageItem-11" alt="Media/chapter-1image8.png" style="width:361px;height:645px;margin-left:0%;margin-top:0%;"></img>
-							</div>
-						</div>
-					</div>
-					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;3-0&quot;,&quot;effect&quot;:&quot;backInUp&quot;,&quot;direction&quot;:&quot;bottom&quot;,&quot;playDelay&quot;:&quot;0.899999976158142&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
-				</div>
-				<div title="Animation" id="si_80000173" style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
-					<div style="left:41.083px;top:730.48px;height:322px;width:198.5px;position:absolute;opacity:0.0;">
-						<div title="groupItem" style="width:100%;height:100%;">
-							<div style="overflow:hidden;position:absolute;width:397.00px;height:644.00px;transform:rotate(0.000000deg) scale(0.500000,0.500000) skewX(0.000000deg);">
-								<img src="Media/chapter-1image9.png" id="imageItem-12" alt="Media/chapter-1image9.png" style="width:397px;height:644px;margin-left:0%;margin-top:0%;"></img>
-							</div>
-						</div>
-					</div>
-					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;1-0&quot;,&quot;effect&quot;:&quot;backInUp&quot;,&quot;direction&quot;:&quot;bottom&quot;,&quot;playDelay&quot;:&quot;0.300000011920929&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
-				</div>
-				<div title="Animation" id="si_80000170" style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
-					<div style="left:-89.5px;top:714.98px;height:353px;width:179px;position:absolute;opacity:0.0;">
-						<div title="groupItem" style="width:100%;height:100%;">
-							<div style="overflow:hidden;position:absolute;width:358.00px;height:706.00px;transform:rotate(0.000000deg) scale(0.500000,0.500000) skewX(0.000000deg);">
-								<img src="Media/chapter-1image10.png" id="imageItem-13" alt="Media/chapter-1image10.png" style="width:358px;height:706px;margin-left:0%;margin-top:0%;"></img>
-							</div>
-						</div>
-					</div>
-					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;0-0&quot;,&quot;effect&quot;:&quot;backInUp&quot;,&quot;direction&quot;:&quot;bottom&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
-				</div>
-				<div title="Animation" id="si_80000176" style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
-					<div style="left:201.167px;top:730.48px;height:322px;width:198px;position:absolute;opacity:0.0;">
-						<div title="groupItem" style="width:100%;height:100%;">
-							<div style="overflow:hidden;position:absolute;width:396.00px;height:644.00px;transform:rotate(0.000000deg) scale(0.500000,0.500000) skewX(0.000000deg);">
-								<img src="Media/chapter-1image11.png" id="imageItem-14" alt="Media/chapter-1image11.png" style="width:396px;height:644px;margin-left:0%;margin-top:0%;"></img>
-							</div>
-						</div>
-					</div>
-					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;auto&quot;,&quot;uid&quot;:&quot;2-0&quot;,&quot;effect&quot;:&quot;backInUp&quot;,&quot;direction&quot;:&quot;bottom&quot;,&quot;playDelay&quot;:&quot;0.600000023841858&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
-				</div>
-				<div title="Animation" id="si_800001D6" style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
-					<div style="left:42.054px;top:787.48px;height:115.5px;width:317.5px;position:absolute;opacity:0.0;">
-						<div title="groupItem" style="width:100%;height:100%;">
-							<div id="buttonItem-18">
-								<div title="Button" style="overflow:hidden;height:115px;width:317px;position:relative;z-index:1;pointer-events:auto;">
-									<div style="left:0px;top:0px;height:115px;width:317px;display:inline;position:absolute;">
-										<img src="Media/chapter-1image12.png" style="height:115px;width:317px;"></img>
-									</div>
-									<input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;3&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
-								</div>
-							</div>
-						</div>
-					</div>
-					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;after&quot;,&quot;uid&quot;:&quot;10-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;2&quot;}]}]}"></input>
-				</div>
-				<div title="Animation" id="si_800001D9" style="left:-42.5205722834644px;top:-42.5196850393701px;height:1260px;width:640px;position:absolute;pointer-events:none;">
-					<div style="left:397.696px;top:827.98px;height:75px;width:198.5px;position:absolute;opacity:0.0;">
-						<div title="groupItem" style="width:100%;height:100%;">
-							<div id="buttonItem-19">
-								<div title="Button" style="overflow:hidden;height:75px;width:198px;position:relative;z-index:1;pointer-events:auto;">
-									<div style="left:0px;top:0px;height:75px;width:198px;display:inline;position:absolute;">
-										<img src="Media/chapter-1image13.png" style="height:75px;width:198px;"></img>
-									</div>
-									<input type="hidden" name="json" value="{&quot;timeLineSlideAction&quot;:&quot;false&quot;,&quot;timeLineSlideId&quot;:&quot;&quot;,&quot;operation&quot;:&quot;&quot;,&quot;closeStateAction&quot;:&quot;false&quot;,&quot;closeAllStateAction&quot;:&quot;false&quot;,&quot;gotoStateAction&quot;:&quot;false&quot;,&quot;gotoNextStateAction&quot;:&quot;false&quot;,&quot;gotoPrevStateAction&quot;:&quot;false&quot;,&quot;stateuid&quot;:&quot;&quot;,&quot;statetype&quot;:&quot;&quot;,&quot;gotoPageAction&quot;:&quot;true&quot;,&quot;pageIndex&quot;:&quot;2&quot;,&quot;gotoURLAction&quot;:&quot;false&quot;,&quot;url&quot;:&quot;&quot;,&quot;gotoZoomAction&quot;:&quot;&quot;}"></input>
-								</div>
-							</div>
-						</div>
-					</div>
-					<input type="hidden" name="json" value="{&quot;mutualExclusion&quot;:&quot;true&quot;,&quot;displayCloseButton&quot;:&quot;false&quot;,&quot;displayFirstImage&quot;:&quot;false&quot;,&quot;iconFlicker&quot;:&quot;false&quot;,&quot;closeButtonPos&quot;:&quot;CloseImgRightUpCorner&quot;,&quot;slideshow&quot;:[{&quot;playOnPageTurn&quot;:&quot;&quot;,&quot;playDelay&quot;:&quot;&quot;,&quot;playInterval&quot;:&quot;&quot;,&quot;effect&quot;:&quot;&quot;,&quot;slideSpeed&quot;:&quot;&quot;,&quot;slideDirection&quot;:&quot;&quot;,&quot;wipeEnable&quot;:&quot;&quot;,&quot;fullScreen&quot;:&quot;&quot;}],&quot;states&quot;:[{&quot;bgaudio&quot;:&quot;&quot;,&quot;animations&quot;:[{&quot;type&quot;:&quot;toAppearance&quot;,&quot;event&quot;:&quot;synchro&quot;,&quot;uid&quot;:&quot;11-0&quot;,&quot;effect&quot;:&quot;fadeIn&quot;,&quot;direction&quot;:&quot;default&quot;,&quot;playDelay&quot;:&quot;0&quot;,&quot;playTime&quot;:&quot;1&quot;}]}]}"></input>
-				</div>
-				<div class="">
-					<div class="p1imagediv6">
-						<img class="p1image7" src="Media/chapter-1image14.png" id="imageItem-17" alt="Media/chapter-1image14.png"></img>
-					</div>
-				</div>
-				<div class="">
-					<object type="image/svg+xml" class="p1graphic8" data="Media/chapter-1_graphItem2svg0.svg" id="graphicsItem-32"></object>
 				</div>
 			</div>
 		</div>

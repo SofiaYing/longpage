@@ -1,17 +1,18 @@
 (function(window, undefined) {
     window.sizeAdjustor = new SizeAdjustor();
-    window.isPageLoad = window.isLoadingbarOver = false;
+    window.isPageLoad = false;
     window.onload = function() {
         window.isPageLoad = true;
     }
     var isLongPage = window.sizeAdjustor.jsonData.adjustType === "longPageAdjust";
     //进度条效果
     var percent = 0;
-    var loadImgtimer, loadtimer = 0;
+    var loadImgtimer = 0;
+    var marginBottom = 0;
     var newImg, imgW, imgH, outerWidth;
     var rotateTimer; //rotate 匀速无限旋转
     var rotateDeg = 0; //rotate 旋转角度
-    var progressControlTime = 0;
+    var loadingAdd = 0.3;
 
     var evt = "resize";
     var isFirstLoad = true;
@@ -73,371 +74,304 @@
             loadingBox.style.width = clientW + "px";
         }
 
-        //要操作的进度条
+        loadingBox.style.display = 'flex';
+
         var loadingBarBox = document.getElementById("loadingBarBox");
         var loadingBar = document.getElementById("loadingBar");
         var logo = document.getElementById("logo");
-        var canvas; //pie/imgbar加载
-        var marginBottom = parseInt(getStyle(loadingBarBox, 'height')) / 2 + 20;
-        outerWidth = parseInt(loadingBarBox.style.width); //default进度条宽度
-        // outerWidth = parseInt($(loadingBarBox).css('width')); //default进度条宽度
-        imgW = 0.4 * clientW; //pie/imgbar加载图片宽度
-        newImg; //pie/imgbar加载
-        var process = typePrcess(jsondata.loadingbar.bartype);
+        var loadingProgress = document.getElementById("loadingProgress");
 
-        //jsondata.type default:进度条 ring:环形 pie：饼形 bar:条状 rotate:旋转
+        var canvas; //pie/imgbar加载
+        var progressUpdate;
+
+        if (clientW < clientH) {
+            marginBottom = clientH / 4 + 20;
+            imgW = 0.4 * clientW; //pie/imgbar加载图片宽度
+        } else {
+            imgW = 0.4 * clientH;
+        }
+
+        if (loadingProgress) {
+            var textSpan = loadingProgress.querySelectorAll('span')[0];
+            if (!textSpan.innerHTML) {
+                textSpan.style.marginRight = 0;
+            }
+            var loadingProgressSpan = loadingProgress.querySelectorAll('span')[1];
+            progressUpdate = function(percent) {
+                loadingProgressSpan.innerHTML = percent.toFixed(2);
+            }
+        }
+
+        var process = typePrcess(jsondata.loadingbar.bartype, progressUpdate); //加载动作
+
+        //jsondata.type default:进度条 ring:环形 pie：饼形 bar:条状 rotate:旋转 percent:百分比
         if (jsondata.loadingbar) {
 
-            //设置背景图/颜色
-            // loadingBox.style.background = jsondata.loadingbar.bgtype === "color" ? bgColor : "url(" + bgPic + ") no-repeat"; //背景图
-            // loadingBox.style.backgroundSize = "100% 100%";
-
-            // var img = new Image();
-            // img.src = bgPic;
-
-            // img.onload = function() {
             switch (jsondata.loadingbar.bartype) {
                 case 'ring':
+                    var ringSvg = document.querySelector('svg')
                     if (fgPic !== "") {
-                        $('#logo').attr('xlink:href', fgPic); //前景图
+                        document.querySelector('#logo').setAttribute('xlink:href', fgPic)
 
-                        var w = toPoint($('svg').attr('width')) * clientW; //svg宽度
-
-                        var r = toPoint($(loadingBar).attr('r')) * w;
+                        var w = toPoint(ringSvg.getAttribute('width')) * clientW; //svg宽度
+                        var r = toPoint(loadingBar.getAttribute('r')) * w;
                         var c = Math.PI * (r * 2); //周长
 
-                        marginBottom = clientH / 4 + 20;
-                        $('svg').css({
-                            'height': w,
-                            'width': w,
-                            'margin-bottom': marginBottom + 'px',
-                        })
+                        ringSvg.style.height = w;
+                        ringSvg.style.width = w;
 
-                        $(loadingBarBox).css({ //环形进度条背景色
-                            'stroke': barBgColor || '#222222',
-                            'stroke-width': '7px',
-                        });
-                        $(loadingBar).css({ //环形进度条
-                            'stroke': barFgColor || '#f76317',
-                            'stroke-width': '8px',
-                            'stroke-dasharray': c,
-                            'stroke-dashoffset': c,
-                            'transform': 'rotate(-90deg)',
-                            'transform-origin': 'center',
-                        });
+                        setMarginBottom(loadingProgress, ringSvg, marginBottom);
 
-                        if (isFirstLoad) { loadImg() };
+                        loadingBarBox.style.visibility = 'visible';
+
+                        loadingBarBox.style.stroke = barBgColor || '#222';
+                        loadingBarBox.style.strokeWidth = '7px';
+                        barFgColor ? barFgColor = barFgColor : barFgColor = '#f76317';
+                        loadingBar.style.cssText += 'stroke:' + barFgColor + ';stroke-width:8px;stroke-dasharray:' + c +
+                            ';stroke-dashoffset:' + c + ';transform:rotate(-90deg);transform-origin:center';
+
+                    } else {
+                        ringSvg.style.display = 'none';
+                        if (loadingProgress) { loadingProgress.style.visibility = 'visible'; }
                     }
+
+                    if (isFirstLoad) { loadImg() };
 
                     break;
                 case 'imgbar':
-                    if (fgPic === "") {
-                        if (loadPic) {
-                            var img = new Image();
-                            img.src = loadPic;
+                    setMarginBottom(loadingProgress, loadingBarBox, marginBottom);
 
-                            img.onload = function() {
-                                imgH = (this.height / this.width) * imgW;
+                    if (loadPic) {
+                        var img = new Image();
+                        img.src = loadPic;
 
-                                canvas = document.getElementById("canvasLoad");
-                                canvas.setAttribute('height', imgH);
-                                canvas.setAttribute('width', imgW);
+                        img.onload = function() {
+                            imgH = (this.height / this.width) * imgW
 
+                            loadingBarBox.style.cssText += "visibility:visible;width:" +
+                                parseInt(imgW) + "px;height: " + parseInt(imgH) + 'px';
 
-                                if (isFirstLoad) {
-                                    drawCanvas(canvas, 'bar', loadPic, 0);
-                                    loadImg()
-                                };
-                            }
-                        } else {
-                            loadingBarBox.style.opacity = "0.0";
+                            canvas = document.getElementById("canvasLoad");
+                            canvas.setAttribute('height', imgH);
+                            canvas.setAttribute('width', imgW);
+
+                            if (isFirstLoad) {
+                                drawCanvas(canvas, 'bar', loadPic, 0);
+                                loadImg()
+                            };
                         }
-                    } else {
-                        loadingBarBox.style.cssText += 'display: none;'
-                            // 'background-image': 'url(' + fgPic + ')',
-                            // 'background-size': '100% 100%',
-                            // $(loadingBarBox).css({
-                            //     'display': 'none',
-                            //     'background-image': 'url(' + fgPic + ')',
-                            //     'background-size': '100% 100%',
-                            // })
-
+                    } else if (fgPic) {
                         var fgImg = new Image();
                         fgImg.src = fgPic;
                         fgImg.onload = function() {
-                            if (loadPic) {
-                                var img = new Image();
-                                img.src = loadPic;
-
-                                img.onload = function() {
-                                    imgH = (this.height / this.width) * imgW;
-
-                                    loadingBarBox.style.cssText += "display:block;width:" + parseInt(imgW) + "px;height: " + parseInt(imgH) + 'px'
-
-                                    // $(loadingBarBox).css({
-                                    //     'width': parseInt(imgW),
-                                    //     'height': parseInt(imgH),
-                                    //     'display': 'block',
-                                    //     // 'margin-bottom': marginBottom + 'px',
-                                    // })
-
-                                    canvas = document.getElementById("canvasLoad");
-                                    canvas.setAttribute('height', imgH);
-                                    canvas.setAttribute('width', imgW);
-
-
-                                    if (isFirstLoad) {
-                                        drawCanvas(canvas, 'bar', loadPic, 0);
-                                        loadImg()
-                                    };
-                                }
-                            } else {
-                                imgH = (this.height / this.width) * imgW;
-                                $(loadingBarBox).css({
-                                    'width': parseInt(imgW),
-                                    'height': parseInt(imgH),
-                                    'display': 'block',
-                                    // 'margin-bottom': marginBottom + 'px',
-                                })
-                            }
+                            imgH = (this.height / this.width) * imgW;
+                            loadingBarBox.style.cssText += "visibility:visible;width:" +
+                                parseInt(imgW) + "px;height: " + parseInt(imgH) + 'px'
                         }
                     }
+
                     break;
                 case 'pie':
-                    if (fgPic === "") {
-                        if (loadPic) {
-                            if (isFirstLoad) {
-                                var img = new Image();
-                                img.src = loadPic;
-                                img.onload = function() {
-                                    canvas = document.getElementById("canvasLoad");
-                                    canvas.setAttribute('height', parseInt(imgW) + 1 + 'px');
-                                    canvas.setAttribute('width', parseInt(imgW));
+                    setMarginBottom(loadingProgress, loadingBarBox, marginBottom)
 
-                                    drawCanvas(canvas, 'pie', loadPic, 0);
-                                    loadImg()
-                                }
-                            } else {
-                                canvas = document.getElementById("canvasLoad");
-                                canvas.setAttribute('height', parseInt(imgW) + 1 + 'px');
-                                canvas.setAttribute('width', parseInt(imgW));
-                            }
-                        } else {
-                            loadingBarBox.style.opacity = "0.0";
+                    //修改后border-radius可去掉
+                    loadingBarBox.style.cssText += "visibility:visible;width:" +
+                        parseInt(imgW) + "px;height: " + parseInt(imgW) + "px;border-radius:50%";
+
+                    if (!isFirstLoad) {
+                        if (loadPic) {
+                            canvas = document.getElementById("canvasLoad");
+                            canvas.setAttribute('height', parseInt(imgW) + 1);
+                            canvas.setAttribute('width', parseInt(imgW));
                         }
                     } else {
-                        loadingBarBox.style.cssText += 'background-image: url(' + fgPic + ');background-size: 100% 100%;'
-
-                        if (!isFirstLoad) {
-
-                            loadingBarBox.style.cssText += "display:block;width:" + parseInt(imgW) + "px;height: " + parseInt(imgW) +
-                                "px;border-radius: 50%;margin-bottom: " + marginBottom + "px"
-
-                            if (loadPic) {
+                        if (loadPic) {
+                            var img = new Image();
+                            img.src = loadPic;
+                            img.onload = function() {
                                 canvas = document.getElementById("canvasLoad");
-                                canvas.setAttribute('height', parseInt(loadingBarBox.style.height) + 1 + 'px');
-                                canvas.setAttribute('width', loadingBarBox.style.width);
-                            }
-                        } else {
-                            var fgImg = new Image();
-                            fgImg.src = fgPic;
-                            fgImg.onload = function() {
-                                loadingBarBox.style.cssText += "display:block;width:" + parseInt(imgW) + "px;height: " + parseInt(imgW) +
-                                    "px;border-radius: 50%;margin-bottom: " + marginBottom + "px";
+                                canvas.setAttribute('height', parseInt(imgW) + 1);
+                                canvas.setAttribute('width', parseInt(imgW));
 
-                                if (loadPic) {
-                                    var img = new Image();
-                                    img.src = loadPic;
-                                    img.onload = function() {
-                                        canvas = document.getElementById("canvasLoad");
-                                        canvas.setAttribute('height', parseInt(loadingBarBox.style.height) + 1 + 'px');
-                                        canvas.setAttribute('width', loadingBarBox.style.width);
-
-                                        drawCanvas(canvas, 'pie', loadPic, 0);
-                                        loadImg()
-                                    }
-                                }
+                                drawCanvas(canvas, 'pie', loadPic, 0);
+                                loadImg()
                             }
                         }
                     }
                     break;
                 case 'rotate':
-                    if (fgPic === "") {
-                        logo.style.opacity = "0.0";
-                    } else {
-                        logo.src = fgPic;
-                        $(loadingBox).css({ 'align-items': 'center' });
+                    if (loadingProgress) {
+                        var logoContainer = document.querySelector('.logoContainer');
+                        var finalH = Math.sqrt(Math.pow(parseInt(getStyle(logo, 'height')), 2) +
+                            Math.pow(parseInt(getStyle(logo, 'width')), 2))
+
+                        logoContainer.style.height = finalH + 'px';
+                        loadingProgress.style.visibility = 'visible';
                     }
 
                     if (isFirstLoad) { loadImg() };
                     break;
+
+                case 'percentage':
+                    var w = parseInt(getStyle(loadingBox, 'width')) * 0.4 + 'px';
+                    if (logo) { logo.style.width = w; }
+                    // loadingProgress.style.width = w;
+                    loadingProgress.style.visibility = 'visible';
+
+                    if (isFirstLoad) { loadImg() };
+                    break;
                 default:
-                    if (fgPic === "") {
-                        logo.style.opacity = "0.0";
-                    } else {
-                        logo.src = fgPic;
+                    var w = parseInt(getStyle(loadingBox, 'width')) * 0.4 + 'px';
+                    outerWidth = parseInt(getStyle(loadingBarBox, 'width')); //default进度条宽度
+                    loadingBarBox.style.visibility = 'visible';
+
+                    if (logo) { logo.style.width = w; }
+                    if (loadingProgress) {
+                        // loadingProgress.style.width = w;
+                        loadingProgress.style.visibility = 'visible';
                     }
-
-                    marginBottom = clientH / 4 + 20;
-
-                    marginBottom = clientH / 4 + 20;
-                    loadingBox.style.cssText += 'flex-direction:column;justify-content:flex-end';
-                    // $(loadingBar).css({ 'background': barFgColor });
-                    var h = clientH / 2 - 5;
-                    loadingBarBox.style.cssText += 'margin-bottom:' + h + 'px;margin-top:20px'
 
                     if (isFirstLoad) { loadImg() };
             }
-            // }
         }
 
 
         //根据加载选项确定渲染函数
-        function typePrcess(type) {
+        function typePrcess(type, render) {
             switch (type) {
                 case 'ring':
-                    var w = toPoint($('svg').attr('width')) * clientW; //svg宽度
-                    var r = toPoint($(loadingBar).attr('r')) * w;
+                    var ringSvg = document.querySelector('svg')
+                    var w = toPoint(ringSvg.getAttribute('width')) * clientW; //svg宽度
+                    var r = toPoint(loadingBar.getAttribute('r')) * w;
                     var c = Math.PI * (2 * r);
 
                     return function(percent) {
                         var p = c * (100 - percent) / 100;
-                        $(loadingBar).css({ 'stroke-dashoffset': p });
+                        loadingBar.style.strokeDashoffset = p;
+                        render && render(percent);
                     }
                 case 'rotate': //clockwise/anticlockwise
-
                     if (direction && direction === 'anticlockwise') {
-                        rotateTimer = setInterval(function() {
+                        rotateTimer = requestAnimationFrame(function rotate() {
+                            if (window.isPageLoad && percent >= 100) {
+                                cancelAnimationFrame(rotateTimer);
+                                return;
+                            }
                             rotateDeg--;
-                            $(logo).css({ "transform": "rotate(" + rotateDeg + "deg)" });
-                        }, 8);
+                            logo.style.transform = "rotate(" + rotateDeg + "deg)";
+                            requestAnimationFrame(rotate);
+                        });
                     } else {
-                        rotateTimer = setInterval(function() {
+                        rotateTimer = requestAnimationFrame(function rotate() {
+                            if (window.isPageLoad && percent >= 100) {
+                                cancelAnimationFrame(rotateTimer);
+                                return;
+                            }
                             rotateDeg++;
-                            $(logo).css({ "transform": "rotate(" + rotateDeg + "deg)" });
-                        }, 8);
+                            logo.style.transform = "rotate(" + rotateDeg + "deg)";
+                            requestAnimationFrame(rotate);
+                        });
 
                     }
-                    return function() {};
+                    return function(percent) {
+                        render && render(percent);
+                    };
 
                 case 'imgbar': //leftToRight/bottomToTop
                     return function(percent) {
                         drawCanvas(canvas, 'bar', fgPic, percent);
+                        render && render(percent);
                     }
                 case 'pie': //clockwise/anticlockwise
                     return function(percent) {
                         drawCanvas(canvas, 'pie', fgPic, percent);
+                        render && render(percent);
+                    }
+                case 'percentage':
+                    return function(percent) {
+                        render && render(percent);
                     }
                 default:
                     return function(percent) {
                         loadingBar.style.width = (outerWidth * percent / 100) + "px";
+                        render && render(percent);
                     }
             }
         }
 
         function loadImg() {
-            percent = 1;
-            process(percent);
-            var imgArray = document.querySelectorAll('img');
-            var length = imgArray.length
-            loadImgtimer = setInterval(function() {
+            setTimeout(function() {
+                percent = 1;
+                process(percent);
+                var imgArray = document.querySelectorAll('img');
+                var length = imgArray.length;
                 Array.from(imgArray).forEach(function(item, index) {
-                    if (index === length - 1) {
-                        clearInterval(loadImgtimer)
+                    var src = item.getAttribute('_src')
+                    if (src) {
+                        item.setAttribute('src', src)
+                    }
+                    if (index >= length - 1) {
                         loadPage()
-                    } else {
-                        var src = item.getAttribute('_src')
-                        if (src) {
-                            item.setAttribute('src', src)
-                        }
                     }
                 })
-            }, 5)
+            }, 0)
         }
 
         function loadPage() {
-            // initTimer()
-            paceTimer()
-        }
-
-        function paceTimer() {
-            var tPercent = 1
-            loadTimer = setInterval(function() {
-                percent = Pace.bar.currentProgress;
-                // process(percent);
-                process(tPercent);
-                tPercent += 0.2;
-                // if (percent >= 99) {
-                //     process(100);
-                //     clearInterval(loadTimer)
-                //     goStraightToEnd()
-                //     Pace.stop()
-                // }
-                if (tPercent >= 85 && percent >= 99) {
-                    process(100);
-                    clearInterval(loadTimer)
-                    goStraightToEnd()
-                    Pace.stop()
-                } else if (tPercent >= 85) {
-                    process(percent);
-                }
-            }, 15)
-        }
-
-        function initTimer() {
             if (isFirstLoad) {
                 isFirstLoad = false;
-                firstTimer = setInterval(function() {
+                loadingTimer = requestAnimationFrame(function update() {
+                    percent += loadingAdd;
                     process(percent);
-                    percent++;
-                    if (percent >= 20) {
-                        clearInterval(firstTimer);
-                        secondTimer = setInterval(function() {
-                            process(percent);
-                            percent += 0.2;
-                            if (percent >= 60) {
-                                clearInterval(secondTimer);
-                                thirdTimer = setInterval(function() {
+                    if (is_mobile()) {
+                        if (parseInt(percent) >= 10 && parseInt(percent) < 96 && window.isPageLoad) {
+                            loadingAdd = 1.5;
+                            requestAnimationFrame(update);
+                        } else if (parseInt(percent) >= 96) {
+                            cancelAnimationFrame(loadImgtimer)
+                            finalTimer = setInterval(function() {
+                                if (window.isPageLoad) {
+                                    clearInterval(finalTimer);
+                                    percent = 100;
                                     process(percent);
-                                    percent += 0.3;
-                                    if (parseInt(percent) >= 90) {
-                                        process(percent);
-                                        clearInterval(thirdTimer);
-                                        fourthTimer = setInterval(function() {
-                                            process(percent);
-                                            percent += 0.02;
-                                            if (window.isPageLoad) {
-                                                clearInterval(fourthTimer);
-                                                percent = 100;
-                                                process(percent);
-                                                goStraightToEnd();
-                                                return;
-                                            }
-                                            if (parseInt(percent) >= 98) {
-                                                clearInterval(fourthTimer);
-                                                finalTimer = setInterval(function() {
-                                                    if (window.isPageLoad) {
-                                                        clearInterval(finalTimer);
-                                                        goStraightToEnd();
-                                                        return;
-                                                    }
-                                                }, 1);
-                                            }
-                                        }, 5);
-
+                                    if (is_ios()) {
+                                        goStraightToEnd();
+                                    } else {
+                                        setTimeout(function() {
+                                            goStraightToEnd();
+                                        }, 100)
                                     }
-                                }, 20);
-                            }
-                        }, 20);
+                                }
+                            }, 1);
+                        } else {
+                            requestAnimationFrame(update);
+                        }
+                    } else {
+                        if (parseInt(percent) < 96 && window.isPageLoad) {
+                            loadingAdd = 3;
+                            requestAnimationFrame(update);
+                        } else if (parseInt(percent) >= 96) {
+                            cancelAnimationFrame(loadImgtimer)
+                            finalTimer = setInterval(function() {
+                                if (window.isPageLoad) {
+                                    clearInterval(finalTimer);
+                                    percent = 100;
+                                    process(percent);
+                                    setTimeout(function() {
+                                        goStraightToEnd();
+                                    }, 100)
+                                }
+                            }, 1);
+                        } else {
+                            requestAnimationFrame(update);
+                        }
                     }
-                }, 200);
-            } else {
-                process(percent);
+                })
+
             }
         }
 
         function goStraightToEnd() {
-            window.isLoadingbarOver = true;
             window.onloadOver();
             window.removeEventListener(evt, resizeLoadingStyle);
         }
@@ -517,7 +451,18 @@
         }
     }
 
-    function getStyle(element, attr) {          return window.getComputedStyle ? window.getComputedStyle(element, null)[attr] : element.currentStyle[attr];       }
+    function setMarginBottom(dom1, dom2, marginBottom) {
+        if (dom1) {
+            dom1.style.marginBottom = marginBottom + 'px';
+            dom1.style.visibility = 'visible';
+        } else {
+            dom2.style.marginBottom = marginBottom + 'px';
+        }
+    }
+
+    function getStyle(element, attr) {         
+        return window.getComputedStyle ? window.getComputedStyle(element, null)[attr] : element.currentStyle[attr];      
+    }
 
 
 })(this);
