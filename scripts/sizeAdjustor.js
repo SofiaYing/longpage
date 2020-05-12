@@ -44,6 +44,10 @@ SizeAdjustor.prototype = {
         var pg_Width = this.originSize.width,
             pg_Height = this.originSize.height;
         var finalW, finalH;
+
+        var fontScale = clientW / pg_Width; //适配屏幕
+
+
         if (adjustType === "heightAdjust") {
             var objW = clientH * pg_Width / pg_Height;
             objW = Math.ceil(objW);
@@ -71,6 +75,29 @@ SizeAdjustor.prototype = {
                 objH = Math.ceil(objH);
                 finalW = clientW;
                 finalH = objH;
+            }
+
+            var maxFontScale = clientH / pg_Height;
+            var finalFontScale = fontScale < maxFontScale ? fontScale : maxFontScale;
+            var finalW = pg_Width * finalFontScale;
+            var finalH = pg_Height * finalFontScale;
+            var contents = document.querySelectorAll('.contentEl');
+            var htmlFontSize = 100 * finalFontScale;
+
+            document.querySelector('html').style.fontSize = htmlFontSize + 'px';
+            if (clientW > finalW) {
+                contents.forEach((content, index) => {
+                    // px 与 rem的差别会不会有影响？
+                    // content.style.height = '100%';
+                    content.style.top = 0;
+                    content.style.left = ((clientW - finalW) / 2) / htmlFontSize + 'rem'
+                })
+            } else {
+                contents.forEach((content, index) => {
+                    // content.style.width = '100%';
+                    content.style.left = 0;
+                    content.style.top = ((clientH - finalH) / 2) / htmlFontSize + 'rem'
+                })
             }
         } else if (adjustType === "longPageAdjust") {
             // if (pg_Height < pg_Width) {
@@ -137,13 +164,17 @@ SizeAdjustor.prototype = {
             this.finalLeft = clientW / 2 - this.finalSize.width / 2;
         }
 
+        // container.style.cssText +=
+        //     "display:block; transform-origin:left top; transform:scale(" + this.scaleX + "," + this.scaleY + "); left:" + this.finalLeft +
+        //     "px; top:" + this.finalTop + "px";
+
+        //计算font-size
         container.style.cssText +=
-            "display:block; transform-origin:left top; transform:scale(" + this.scaleX + "," + this.scaleY + "); left:" + this.finalLeft +
-            "px; top:" + this.finalTop + "px";
+            "display:block;";
 
         setTimeout(function() {
             document.getElementById("loadingBox").style.display = "none";
-        }, 10)
+        }, 0)
     },
     update: function() {
         this.finalSize = this.getFinalSize();

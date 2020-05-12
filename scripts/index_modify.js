@@ -17,10 +17,11 @@ function removeSwiping() {
 }
 
 window.onloadOver = function() {
+    window.sizeAdjustor.update();
     window.sizeAdjustor.adjustContainer();
     var scale = window.sizeAdjustor.scaleX;
     var bgmDiv = document.getElementById("divbgm");
-    bgmDiv.style.left = (sizeAdjustor.finalLeft + sizeAdjustor.finalSize.width - 50) + "px";
+    // bgmDiv.style.left = (sizeAdjustor.finalLeft + sizeAdjustor.finalSize.width - 50) + "px";
 
     var jsonData = sizeAdjustor.jsonData;
     var isLoop = jsonData.pageturning[0].pagecircle === "true";
@@ -64,21 +65,25 @@ window.onloadOver = function() {
         }
     }
 
-    window.fx = new FXH5(fx_options);
 
     if (jsonData.adjustType !== "longPageAdjust") {
-        fx.reset("0");
-        // 实力化一个swiper对象并初始化
+        // 实例化一个swiper对象并初始化
         window.mySwiper = new Swiper('.swiper-container', {
             effect: effects[effectName] ? effects[effectName] : "slide",
             direction: direction,
             speed: speed,
             loop: isLoop,
             touchRatio: 1 / scale,
+            noSwiping: true, //开启可配置禁止触摸切换
+            autoplay: { //开启可配置自动切换
+                disableOnInteraction: false,
+            },
         });
+        mySwiper.autoplay.stop();
         mySwiper.isLoop = isLoop;
         mySwiper.realLength = mySwiper.isLoop ? mySwiper.slides.length - 2 : mySwiper.slides.length;
         mySwiper.preRealIndex = 0;
+
         mySwiper.on("transitionEnd", function() {
             var self = this;
             //当循环模式下页面到达最后复制的循环页，跳转到真实第一页
@@ -108,7 +113,7 @@ window.onloadOver = function() {
             window.sizeAdjustor.adjustContainer();
             var scale = window.sizeAdjustor.scale;
             mySwiper.touchRatio = 1 / scale;
-            bgmDiv.style.left = (sizeAdjustor.finalLeft + sizeAdjustor.finalSize.width - 50) + "px";
+            // bgmDiv.style.left = (sizeAdjustor.finalLeft + sizeAdjustor.finalSize.width - 50) + "px";
             var videoItems = window.fx.getItemsByCtrlName("video");
             if (videoItems !== null) {
                 videoItems.forEach(function(curItem) {
@@ -133,7 +138,12 @@ window.onloadOver = function() {
             if (noSwiping) removeSwiping();
             removeAttrInSwiperDuplicate();
         })();
+
+        window.fx = new FXH5(fx_options);
+        fx.reset("0");
     } else { //如果是长页面
+        window.fx = new FXH5(fx_options);
+
         if (is_ios()) {
             var throttle = function(func, delay) {
                 var timer = null;
@@ -210,19 +220,18 @@ window.onloadOver = function() {
         //解除视窗监听
         function offLongpageObserver(index) {
             var indexStr = index.toString();
-            if (typeof(fx_options[indexStr]) !== 'undefined') {
-                fx_options[indexStr].forEach(function(item) {
-                    if (item.plugin !== 'animate' && item.plugin !== 'audio' && item.plugin !== 'jigsaw' && item.plugin !== 'imageDrag') {
-                        observeOptions.unobserve(document.getElementById(item.container));
-                    } else {
-                        if (item.plugin === 'audio' || item.plugin === 'animate') {
-                            var curItem = window.fx.getItemById(item.container);
-                            curItem.offObserver();
-                        }
+            fx_options[indexStr].forEach(function(item) {
+                if (item.plugin !== 'animate' && item.plugin !== 'audio' && item.plugin !== 'jigsaw' && item.plugin !== 'imageDrag') {
+                    observeOptions.unobserve(document.getElementById(item.container));
+                } else {
+                    if (item.plugin === 'audio' || item.plugin === 'animate') {
+                        var curItem = window.fx.getItemById(item.container);
+                        curItem.offObserver();
                     }
-                })
-            }
+                }
+            })
         }
+
     }
 };
 
@@ -231,54 +240,46 @@ window.onloadOver = function() {
         if (top === global) {
             var bgmAudio, audio, isReady = false;
             var playAudioFlag = false;
-            document.addEventListener("WeixinJSBridgeReady", function() {
+            var defaultPlay = function() {
                 bgmAudio = document.getElementById("aubgm");
                 audio = document.getElementById("au1");
                 bgmAudio.load();
                 audio.load();
-                var videoItems = document.querySelectorAll("video[data-autoplay='true']");
+                var audioItems = document.querySelectorAll("audio");
+                audioItems.forEach(function(curItem) {
+                    curItem.load()
+                })
+                var videoItems = document.querySelectorAll("video[preload='true']");
                 videoItems.forEach(function(curItem) {
                     curItem.load();
                 });
                 isReady = true;
-            }, false);
-            global.isReady = function() {
-                var timer = setInterval(function() {
-                    if (isReady) {
-                        clearInterval(timer);
-                        return true;
-                    }
-                }, 100);
             }
+            document.addEventListener("WeixinJSBridgeReady", defaultPlay, false);
+
             global.playAgentAudio = function(localAudio) {
                 playAudioFlag = true;
-                var count = 0;
-                var timer = setInterval(function() {
-                    if (isReady) {
-                        clearInterval(timer);
-                        audio.src = localAudio.src;
-                        audio.loop = localAudio.loop;
-                        if (count < 100) audio.play();
-                    }
-                    count++;
-                }, 100);
-                return true;
-            }
-            global.pauseAgentAudio = function(localAudio) {
-                audio.pause();
-                playAudioFlag = false;
-            }
-            global.isAgentAudioEnded = function(localAudio) {
-                if (playAudioFlag) {
+                if (!isReady) {
                     var timer = setInterval(function() {
                         if (isReady) {
                             clearInterval(timer);
-                            playAudioFlag = false;
-                            return localAudio ? audio.ended || audio.paused : true;
+                            localAudio.play();
                         }
                     }, 100);
                 } else {
-                    return localAudio ? audio.ended || audio.paused : true;
+                    localAudio.play();
+                }
+                return true;
+            }
+            global.pauseAgentAudio = function(localAudio) {
+                localAudio.pause();
+                playAudioFlag = false;
+            }
+            global.isAgentAudioEnded = function(localAudio) {
+                if (isReady) {
+                    return localAudio ? localAudio.ended || localAudio.paused : true;
+                } else {
+                    return false
                 }
             }
             global.playBgmAudio = function(bgmAudio) {

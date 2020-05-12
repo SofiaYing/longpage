@@ -1,5 +1,154 @@
-﻿@font-face {font-family:"FZHTTest-FX";src: url("../fonts/FZHTTest.ttf"); }.p1span3{position:absolute;}
-.p1para1{font-size:21.00px;line-height:108%;}
-.p1InAdiv4{height:106.57px;left:60.67px;position:absolute;top:26.68px;width:113.62px;}
-.p1textdiv0{height:434.96px;left:42.52px;position:absolute;top:42.52px;width:234.96px;}
-.p1pGrpDiv-FxLi2{-moz-transform:scale;-moz-transform-origin:0% 0%;-ms-transform:scale;-ms-transform-origin:0% 0%;-o-transform:scale;-o-transform-origin:0% 0%;-webkit-transform:scale;-webkit-transform-origin:0% 0%;height:434.96px;transform:scale;transform-origin:0% 0%;width:234.96px;}
+﻿@font-face {
+    font-family: "FZHTTest-FX";
+    src: url("../fonts/FZHTTest.ttf");
+}
+
+.p1span3 {
+    position: absolute;
+}
+
+.p1para1 {
+    font-size: 0.210rem;
+    line-height: 1.08em;
+}
+
+.p1textdiv0 {
+    height: 4.350rem;
+    left: 0.425rem;
+    position: absolute;
+    top: 0.425rem;
+    width: 2.350rem;
+}
+
+.p1imagediv8 {
+    height: 0.932rem;
+    left: 0.325rem;
+    overflow: hidden;
+    position: absolute;
+    text-align: left;
+    top: 0.737rem;
+    width: 1.567rem;
+}
+
+.p1imagediv6 {
+    height: 3.275rem;
+    left: 0.184rem;
+    overflow: hidden;
+    position: absolute;
+    text-align: left;
+    top: 0.314rem;
+    width: 1.849rem;
+}
+
+.p1imagediv4 {
+    height: 5.200rem;
+    left: -0.425rem;
+    overflow: hidden;
+    position: absolute;
+    text-align: left;
+    top: -0.425rem;
+    width: 3.200rem;
+}
+
+.p1pGrpDiv-FxLi2 {
+    -moz-transform: scale;
+    -moz-transform-origin: 0% 0%;
+    -ms-transform: scale;
+    -ms-transform-origin: 0% 0%;
+    -o-transform: scale;
+    -o-transform-origin: 0% 0%;
+    -webkit-transform: scale;
+    -webkit-transform-origin: 0% 0%;
+    height: 4.350rem;
+    transform: scale;
+    transform-origin: 0% 0%;
+    width: 2.350rem;
+}
+
+.p1image9 {
+    -moz-transform: rotate(0.000000deg)scale(0.244876, 0.218894) skewX(0.000000deg);
+    -moz-transform-origin: 0.00% 0.00%;
+    -ms-transform: rotate(0.000000deg)scale(0.244876, 0.218894) skewX(0.000000deg);
+    -ms-transform-origin: 0.00% 0.00%;
+    -o-transform: rotate(0.000000deg)scale(0.244876, 0.218894) skewX(0.000000deg);
+    -o-transform-origin: 0.00% 0.00%;
+    -webkit-transform: rotate(0.000000deg)scale(0.244876, 0.218894) skewX(0.000000deg);
+    -webkit-transform-origin: 0.00% 0.00%;
+    height: 4.260rem;
+    margin-left: -0.00%;
+    margin-top: -0.00%;
+    position: absolute;
+    transform: rotate(0.000000deg)scale(0.244876, 0.218894) skewX(0.000000deg);
+    transform-origin: 0.00% 0.00%;
+    width: 6.400rem;
+}
+
+.p1image5 {
+    -moz-transform: rotate(0.000000deg)scale(0.522023, 0.588902) skewX(0.000000deg);
+    -moz-transform-origin: 0.00% 0.00%;
+    -ms-transform: rotate(0.000000deg)scale(0.522023, 0.588902) skewX(0.000000deg);
+    -ms-transform-origin: 0.00% 0.00%;
+    -o-transform: rotate(0.000000deg)scale(0.522023, 0.588902) skewX(0.000000deg);
+    -o-transform-origin: 0.00% 0.00%;
+    -webkit-transform: rotate(0.000000deg)scale(0.522023, 0.588902) skewX(0.000000deg);
+    -webkit-transform-origin: 0.00% 0.00%;
+    height: 8.830rem;
+    margin-left: -0.00%;
+    margin-top: -0.00%;
+    position: absolute;
+    transform: rotate(0.000000deg)scale(0.522023, 0.588902) skewX(0.000000deg);
+    transform-origin: 0.00% 0.00%;
+    width: 6.130rem;
+}
+
+.p1image7 {
+    -moz-transform: rotate(0.000000deg)scale(0.647514, 0.737716) skewX(0.000000deg);
+    -moz-transform-origin: 0.00% 0.00%;
+    -ms-transform: rotate(0.000000deg)scale(0.647514, 0.737716) skewX(0.000000deg);
+    -ms-transform-origin: 0.00% 0.00%;
+    -o-transform: rotate(0.000000deg)scale(0.647514, 0.737716) skewX(0.000000deg);
+    -o-transform-origin: 0.00% 0.00%;
+    -webkit-transform: rotate(0.000000deg)scale(0.647514, 0.737716) skewX(0.000000deg);
+    -webkit-transform-origin: 0.00% 0.00%;
+    height: 4.440rem;
+    margin-left: 0.00%;
+    margin-top: -0.00%;
+    position: absolute;
+    transform: rotate(0.000000deg)scale(0.647514, 0.737716) skewX(0.000000deg);
+    transform-origin: 0.00% 0.00%;
+    width: 2.856rem;
+}
+
+.p3imagediv3 {
+    /* height: 5.200rem;
+    left: -0.000rem;
+    overflow: hidden;
+    position: absolute;
+    text-align: left;
+    top: -0.000rem;
+    width: 3.197rem; */
+    background-image: url('../Media/chapter-1image1.png');
+    background-size: cover;
+    background-position: 50% 50%;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* .p3image4 {
+    -moz-transform: rotate(-0.000000deg)scale(1.775956, 1.775956) skewX(0.000000deg);
+    -moz-transform-origin: 0.00% 0.00%;
+    -ms-transform: rotate(-0.000000deg)scale(1.775956, 1.775956) skewX(0.000000deg);
+    -ms-transform-origin: 0.00% 0.00%;
+    -o-transform: rotate(-0.000000deg)scale(1.775956, 1.775956) skewX(0.000000deg);
+    -o-transform-origin: 0.00% 0.00%;
+    -webkit-transform: rotate(-0.000000deg)scale(1.775956, 1.775956) skewX(0.000000deg);
+    -webkit-transform-origin: 0.00% 0.00%;
+    height: 2.928rem;
+    margin-left: 0.00%;
+    margin-top: 0.00%;
+    position: absolute;
+    transform: rotate(-0.000000deg)scale(1.775956, 1.775956) skewX(0.000000deg);
+    transform-origin: 0.00% 0.00%;
+    width: 1.800rem;
+} */

@@ -1,39 +1,47 @@
 (function(window, undefined) {
     window.sizeAdjustor = new SizeAdjustor();
+    window.loadingResize = function() {
+        if (!isFirstLoad) {
+            isFirstLoad = false
+            setTimeout(function() {
+                loading();
+            }, 0)
+        }
+    }
     window.isPageLoad = false;
     window.onload = function() {
         window.isPageLoad = true;
     }
+
     var isLongPage = window.sizeAdjustor.jsonData.adjustType === "longPageAdjust";
     //进度条效果
     var percent = 0;
-    var loadImgtimer = 0;
     var marginBottom = 0;
-    var newImg, imgW, imgH, outerWidth;
+    var newImg, imgW, imgH;
     var rotateTimer; //rotate 匀速无限旋转
     var rotateDeg = 0; //rotate 旋转角度
     var loadingAdd = 0.3;
 
-    var evt = "resize";
-    var isFirstLoad = true;
-    var isFirstResize = true
+    var process;
+    var canvas; //pie/imgbar加载
 
-    var resizeLoadingStyle = function() {
-        if (!isFirstResize) {
-            isFirstLoad = false
-            window.sizeAdjustor.update();
-            window.sizeAdjustor.getFinalSize();
-            loading();
-        }
-        isFirstResize = false
-    }
-    window.addEventListener(evt, resizeLoadingStyle);
+    var clientH = document.documentElement.clientHeight;
+    var clientW = document.documentElement.clientWidth;
+
+    //加载页整体适配相关参数
+    var isFirstLoad = true;
+    var screenState = 'portrait';
+    var longpageBgPic;
+    var longpageBgPicScale;
 
     if (isFirstLoad) {
         loading();
     }
 
     function loading() {
+        clientH = document.documentElement.clientHeight;
+        clientW = document.documentElement.clientWidth;
+        window.sizeAdjustor.update();
         var originSize = window.sizeAdjustor.originSize;
         var finalH = window.sizeAdjustor.finalSize.height;
         var finalW = window.sizeAdjustor.finalSize.width;
@@ -50,9 +58,6 @@
         }
         var loadingBox = document.getElementById("loadingBox");
 
-        var clientH = document.documentElement.clientHeight;
-        var clientW = document.documentElement.clientWidth;
-
         if (!is_mobile()) {
             if (!(!isLongPage && clientW < finalW)) {
                 clientW = finalW;
@@ -67,51 +72,101 @@
             loadingBox.style.height = finalH + "px";
             loadingBox.style.width = finalW + "px";
             loadingBox.style.marginTop = clientH / 2 - finalH / 2 + "px";
+            if (is_mobile()) {
+                loadingBox.style.marginLeft = clientW / 2 - finalW / 2 + "px";
+            }
             clientW = finalW;
             clientH = finalH;
+            loadingBox.style.display = 'flex';
+
+            initStyle();
         } else {
-            loadingBox.style.height = clientH + "px";
-            loadingBox.style.width = clientW + "px";
-        }
+            if (bgPic) {
+                longpageBgPic = new Image();
+                longpageBgPic.src = bgPic;
 
-        loadingBox.style.display = 'flex';
+                if (isFirstLoad) {
+                    longpageBgPic.onload = function() {
+                        var scale = this.width / this.height;
+                        longpageBgPicScale = scale;
+                        setLongpageStyle(longpageBgPicScale);
+                    }
+                } else {
+                    setLongpageStyle(longpageBgPicScale)
+                }
+            } else {
+                loadingBox.style.height = clientH + "px";
+                loadingBox.style.width = clientW + "px";
+                loadingBox.style.display = 'flex';
 
-        var loadingBarBox = document.getElementById("loadingBarBox");
-        var loadingBar = document.getElementById("loadingBar");
-        var logo = document.getElementById("logo");
-        var loadingProgress = document.getElementById("loadingProgress");
-
-        var canvas; //pie/imgbar加载
-        var progressUpdate;
-
-        if (clientW < clientH) {
-            marginBottom = clientH / 4 + 20;
-            imgW = 0.4 * clientW; //pie/imgbar加载图片宽度
-        } else {
-            imgW = 0.4 * clientH;
-        }
-
-        if (loadingProgress) {
-            var textSpan = loadingProgress.querySelectorAll('span')[0];
-            if (!textSpan.innerHTML) {
-                textSpan.style.marginRight = 0;
-            }
-            var loadingProgressSpan = loadingProgress.querySelectorAll('span')[1];
-            progressUpdate = function(percent) {
-                loadingProgressSpan.innerHTML = percent.toFixed(2);
+                initStyle();
             }
         }
 
-        var process = typePrcess(jsondata.loadingbar.bartype, progressUpdate); //加载动作
+        function setLongpageStyle(scale) {
 
-        //jsondata.type default:进度条 ring:环形 pie：饼形 bar:条状 rotate:旋转 percent:百分比
-        if (jsondata.loadingbar) {
+            if (screenState === 'portrait' || !is_mobile()) {
+                var actualH = clientW / scale;
+                var top = (clientH - actualH) / 2;
+                loadingBox.style.width = clientW + "px";
+                loadingBox.style.height = actualH + "px";
+                loadingBox.style.marginTop = top + 'px';
+                loadingBox.style.marginLeft = 'auto';
+            } else {
+                var actualW = clientH * scale;
+                var left = (clientW - actualW) / 2;
+                loadingBox.style.width = actualW + "px";
+                loadingBox.style.height = clientH + "px";
+                loadingBox.style.marginLeft = left + 'px';
+                loadingBox.style.marginTop = 0 + 'px';
+            }
+            loadingBox.style.display = 'flex';
 
-            switch (jsondata.loadingbar.bartype) {
-                case 'ring':
-                    var ringSvg = document.querySelector('svg')
-                    if (fgPic !== "") {
-                        document.querySelector('#logo').setAttribute('xlink:href', fgPic)
+            initStyle();
+        }
+
+
+        function initStyle() {
+            var loadingBarBox = document.getElementById("loadingBarBox");
+            var loadingBar = document.getElementById("loadingBar");
+            var logo = document.getElementById("logo");
+            var loadingProgress = document.getElementById("loadingProgress");
+
+
+            var progressUpdate;
+
+            if (clientW < clientH) {
+                marginBottom = clientH / 4 + 20;
+                imgW = 0.4 * clientW; //pie/imgbar加载图片宽度
+            } else {
+                imgW = 0.4 * clientH;
+            }
+
+            if (loadingProgress) {
+                var textSpan = loadingProgress.querySelectorAll('span')[0];
+                if (!textSpan.innerHTML) {
+                    textSpan.style.marginRight = 0;
+                }
+                var loadingProgressSpan = loadingProgress.querySelectorAll('span')[1];
+                progressUpdate = function(percent) {
+                    loadingProgressSpan.innerHTML = percent.toFixed(2);
+                }
+            }
+
+            //jsondata.type default:进度条 ring:环形 pie：饼形 bar:条状 rotate:旋转 percent:百分比
+            if (jsondata.loadingbar) {
+
+                var opacity = barFgColor.substring(5, barFgColor.length - 1).split(',')[3];
+                if (loadingProgress) { loadingProgress.style.opacity = opacity }
+                if (loadingBarBox) { loadingBarBox.style.opacity = opacity }
+                if (logo) { logo.style.opacity = opacity }
+
+                switch (jsondata.loadingbar.bartype) {
+                    case 'ring':
+                        var ringSvg = document.querySelector('svg');
+                        if (fgPic !== "") {
+                            document.querySelector('#logo').setAttribute('xlink:href', fgPic)
+                        }
 
                         var w = toPoint(ringSvg.getAttribute('width')) * clientW; //svg宽度
                         var r = toPoint(loadingBar.getAttribute('r')) * w;
@@ -130,61 +185,62 @@
                         loadingBar.style.cssText += 'stroke:' + barFgColor + ';stroke-width:8px;stroke-dasharray:' + c +
                             ';stroke-dashoffset:' + c + ';transform:rotate(-90deg);transform-origin:center';
 
-                    } else {
-                        ringSvg.style.display = 'none';
                         if (loadingProgress) { loadingProgress.style.visibility = 'visible'; }
-                    }
 
-                    if (isFirstLoad) { loadImg() };
+                        if (isFirstLoad) { loadImg() };
 
-                    break;
-                case 'imgbar':
-                    setMarginBottom(loadingProgress, loadingBarBox, marginBottom);
+                        break;
+                    case 'imgbar':
+                        setMarginBottom(loadingProgress, loadingBarBox, 0);
 
-                    if (loadPic) {
-                        var img = new Image();
-                        img.src = loadPic;
+                        if (loadPic) {
+                            var img = new Image();
+                            img.src = loadPic;
 
-                        img.onload = function() {
-                            imgH = (this.height / this.width) * imgW
+                            img.onload = function() {
+                                imgH = (this.height / this.width) * imgW
 
-                            loadingBarBox.style.cssText += "visibility:visible;width:" +
-                                parseInt(imgW) + "px;height: " + parseInt(imgH) + 'px';
+                                loadingBarBox.style.cssText += "visibility:visible;width:" +
+                                    parseInt(imgW) + "px;height: " + parseInt(imgH) + 'px';
 
-                            canvas = document.getElementById("canvasLoad");
-                            canvas.setAttribute('height', imgH);
-                            canvas.setAttribute('width', imgW);
+                                canvas = document.getElementById("canvasLoad");
+                                canvas.setAttribute('height', imgH);
+                                canvas.setAttribute('width', imgW);
 
+                                if (isFirstLoad) {
+                                    drawCanvas(canvas, 'bar', loadPic, 0);
+                                    loadImg()
+                                };
+                            }
+                        } else if (fgPic) {
+                            var fgImg = new Image();
+                            fgImg.src = fgPic;
+                            fgImg.onload = function() {
+                                imgH = (this.height / this.width) * imgW;
+                                loadingBarBox.style.cssText += "visibility:visible;width:" +
+                                    parseInt(imgW) + "px;height: " + parseInt(imgH) + 'px';
+
+                                if (isFirstLoad) {
+                                    loadImg()
+                                };
+                            }
+                        } else if (loadingProgress) {
                             if (isFirstLoad) {
-                                drawCanvas(canvas, 'bar', loadPic, 0);
                                 loadImg()
                             };
                         }
-                    } else if (fgPic) {
-                        var fgImg = new Image();
-                        fgImg.src = fgPic;
-                        fgImg.onload = function() {
-                            imgH = (this.height / this.width) * imgW;
-                            loadingBarBox.style.cssText += "visibility:visible;width:" +
-                                parseInt(imgW) + "px;height: " + parseInt(imgH) + 'px'
+
+                        break;
+                    case 'pie':
+                        if (loadingProgress) {
+                            setMarginBottom(loadingProgress, loadingBarBox, 0)
+                        } else {
+                            setMarginBottom(loadingProgress, loadingBarBox, marginBottom)
                         }
-                    }
 
-                    break;
-                case 'pie':
-                    setMarginBottom(loadingProgress, loadingBarBox, marginBottom)
-
-                    //修改后border-radius可去掉
-                    loadingBarBox.style.cssText += "visibility:visible;width:" +
-                        parseInt(imgW) + "px;height: " + parseInt(imgW) + "px;border-radius:50%";
-
-                    if (!isFirstLoad) {
-                        if (loadPic) {
-                            canvas = document.getElementById("canvasLoad");
-                            canvas.setAttribute('height', parseInt(imgW) + 1);
-                            canvas.setAttribute('width', parseInt(imgW));
-                        }
-                    } else {
+                        //修改后border-radius可去掉
+                        loadingBarBox.style.cssText += "visibility:visible;width:" +
+                            parseInt(imgW) + "px;height: " + parseInt(imgW) + "px;border-radius:50%";
                         if (loadPic) {
                             var img = new Image();
                             img.src = loadPic;
@@ -193,48 +249,60 @@
                                 canvas.setAttribute('height', parseInt(imgW) + 1);
                                 canvas.setAttribute('width', parseInt(imgW));
 
-                                drawCanvas(canvas, 'pie', loadPic, 0);
-                                loadImg()
+                                if (isFirstLoad) {
+                                    drawCanvas(canvas, 'pie', loadPic, 0);
+                                    loadImg()
+                                }
                             }
+                        } else if (fgPic) {
+                            var fgImg = new Image();
+                            fgImg.src = fgPic;
+                            fgImg.onload = function() {
+                                loadingBarBox.style.cssText += "visibility:visible;width:" +
+                                    parseInt(imgW) + "px;height: " + parseInt(imgW) + 'px';
+
+                                if (isFirstLoad) {
+                                    loadImg()
+                                };
+                            }
+                        } else if (loadingProgress) {
+                            if (isFirstLoad) {
+                                loadImg()
+                            };
                         }
-                    }
-                    break;
-                case 'rotate':
-                    if (loadingProgress) {
-                        var logoContainer = document.querySelector('.logoContainer');
-                        var finalH = Math.sqrt(Math.pow(parseInt(getStyle(logo, 'height')), 2) +
-                            Math.pow(parseInt(getStyle(logo, 'width')), 2))
 
-                        logoContainer.style.height = finalH + 'px';
+                        break;
+                    case 'rotate':
+                        if (loadingProgress) {
+                            logo.setAttribute('width', '100%');
+                            var logoContainer = document.querySelector('.logoContainer');
+                            var finalH = Math.sqrt(Math.pow(parseInt(getStyle(logo, 'height')), 2) +
+                                Math.pow(parseInt(getStyle(logo, 'width')), 2))
+                            logoContainer.style.height = finalH + 'px';
+                            loadingProgress.style.visibility = 'visible';
+                        }
+
+                        if (isFirstLoad) { loadImg() };
+                        break;
+
+                    case 'percentage':
                         loadingProgress.style.visibility = 'visible';
-                    }
 
-                    if (isFirstLoad) { loadImg() };
-                    break;
+                        if (isFirstLoad) { loadImg() };
+                        break;
+                    default:
+                        loadingBarBox.style.visibility = 'visible';
 
-                case 'percentage':
-                    var w = parseInt(getStyle(loadingBox, 'width')) * 0.4 + 'px';
-                    if (logo) { logo.style.width = w; }
-                    // loadingProgress.style.width = w;
-                    loadingProgress.style.visibility = 'visible';
+                        if (loadingProgress) {
+                            loadingProgress.style.visibility = 'visible';
+                        }
 
-                    if (isFirstLoad) { loadImg() };
-                    break;
-                default:
-                    var w = parseInt(getStyle(loadingBox, 'width')) * 0.4 + 'px';
-                    outerWidth = parseInt(getStyle(loadingBarBox, 'width')); //default进度条宽度
-                    loadingBarBox.style.visibility = 'visible';
-
-                    if (logo) { logo.style.width = w; }
-                    if (loadingProgress) {
-                        // loadingProgress.style.width = w;
-                        loadingProgress.style.visibility = 'visible';
-                    }
-
-                    if (isFirstLoad) { loadImg() };
+                        if (isFirstLoad) { loadImg() };
+                }
             }
-        }
 
+            process = typePrcess(jsondata.loadingbar.bartype, progressUpdate); //加载动作
+        }
 
         //根据加载选项确定渲染函数
         function typePrcess(type, render) {
@@ -279,12 +347,16 @@
 
                 case 'imgbar': //leftToRight/bottomToTop
                     return function(percent) {
-                        drawCanvas(canvas, 'bar', fgPic, percent);
+                        if (loadPic) {
+                            drawCanvas(canvas, 'bar', fgPic, percent);
+                        }
                         render && render(percent);
                     }
                 case 'pie': //clockwise/anticlockwise
                     return function(percent) {
-                        drawCanvas(canvas, 'pie', fgPic, percent);
+                        if (loadPic) {
+                            drawCanvas(canvas, 'pie', fgPic, percent);
+                        }
                         render && render(percent);
                     }
                 case 'percentage':
@@ -293,28 +365,32 @@
                     }
                 default:
                     return function(percent) {
-                        loadingBar.style.width = (outerWidth * percent / 100) + "px";
+                        loadingBar.style.width = percent + '%';
                         render && render(percent);
                     }
             }
         }
 
         function loadImg() {
-            setTimeout(function() {
-                percent = 1;
-                process(percent);
-                var imgArray = document.querySelectorAll('img');
-                var length = imgArray.length;
-                Array.from(imgArray).forEach(function(item, index) {
-                    var src = item.getAttribute('_src')
-                    if (src) {
-                        item.setAttribute('src', src)
-                    }
-                    if (index >= length - 1) {
-                        loadPage()
-                    }
-                })
-            }, 0)
+            var loadImgTimer = setInterval(() => {
+                var imgSign = document.querySelector('#loadImgSign');
+                if (imgSign) {
+                    clearInterval(loadImgTimer);
+                    percent = 1;
+                    process(percent);
+                    var imgArray = document.querySelectorAll('img');
+                    var length = imgArray.length;
+                    Array.from(imgArray).forEach(function(item, index) {
+                        var src = item.getAttribute('_src')
+                        if (src) {
+                            item.setAttribute('src', src)
+                        }
+                        if (index >= length - 1) {
+                            loadPage()
+                        }
+                    })
+                }
+            }, 10)
         }
 
         function loadPage() {
@@ -328,19 +404,17 @@
                             loadingAdd = 1.5;
                             requestAnimationFrame(update);
                         } else if (parseInt(percent) >= 96) {
-                            cancelAnimationFrame(loadImgtimer)
+                            cancelAnimationFrame(loadingTimer)
                             finalTimer = setInterval(function() {
                                 if (window.isPageLoad) {
                                     clearInterval(finalTimer);
                                     percent = 100;
+
                                     process(percent);
-                                    if (is_ios()) {
+
+                                    setTimeout(function() {
                                         goStraightToEnd();
-                                    } else {
-                                        setTimeout(function() {
-                                            goStraightToEnd();
-                                        }, 100)
-                                    }
+                                    }, 100)
                                 }
                             }, 1);
                         } else {
@@ -351,7 +425,7 @@
                             loadingAdd = 3;
                             requestAnimationFrame(update);
                         } else if (parseInt(percent) >= 96) {
-                            cancelAnimationFrame(loadImgtimer)
+                            cancelAnimationFrame(loadingTimer)
                             finalTimer = setInterval(function() {
                                 if (window.isPageLoad) {
                                     clearInterval(finalTimer);
@@ -373,7 +447,7 @@
 
         function goStraightToEnd() {
             window.onloadOver();
-            window.removeEventListener(evt, resizeLoadingStyle);
+            mql.removeListener(onMatchMeidaChange);
         }
 
         function toPoint(percent) {
@@ -437,7 +511,7 @@
 
         function clipBar(context, percent) {
             context.beginPath();
-            context.moveTo(r, r);
+            // context.moveTo(r, r);
 
             if (direction && direction === 'bottomToTop') {
                 context.rect(0, imgH, imgW, -imgH * (percent / 100));
@@ -463,6 +537,5 @@
     function getStyle(element, attr) {         
         return window.getComputedStyle ? window.getComputedStyle(element, null)[attr] : element.currentStyle[attr];      
     }
-
 
 })(this);
